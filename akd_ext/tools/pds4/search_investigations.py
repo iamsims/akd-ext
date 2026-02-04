@@ -13,9 +13,9 @@ class PDS4SearchInvestigationsInput(InputSchema):
     """Input schema for PDS4 search investigations tool."""
 
     keywords: str | None = Field(
-        default=None, description="Search terms for investigations (e.g., 'mars rover', 'jupiter cassini')"
+        default=None, description="(Optional) Search terms for investigations (e.g., 'mars rover', 'jupiter cassini')"
     )
-    limit: int = Field(default=10, description="Maximum number of results to return")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
 class PDS4SearchInvestigationsOutput(OutputSchema):

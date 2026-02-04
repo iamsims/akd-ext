@@ -43,7 +43,7 @@ async def test_mcp_server():
             other_tools = []
 
             for tool in tools_result.tools:
-                if 'PDS4' in tool.name:
+                if "PDS4" in tool.name:
                     pds4_tools.append(tool)
                 else:
                     other_tools.append(tool)
@@ -53,7 +53,7 @@ async def test_mcp_server():
                 for tool in pds4_tools:
                     print(f"  • {tool.name}")
                     if tool.description:
-                        desc = tool.description.split('\n')[0][:80]
+                        desc = tool.description.split("\n")[0][:80]
                         print(f"    {desc}")
 
             if other_tools:
@@ -67,11 +67,7 @@ async def test_mcp_server():
             print("=" * 80)
 
             tool_call_result = await session.call_tool(
-                "pds4search_investigations_tool",
-                arguments={
-                    "keywords": "mars",
-                    "limit": 3
-                }
+                "pds4search_investigations_tool", arguments={"keywords": "mars", "limit": 3}
             )
 
             print("\n✓ Tool executed successfully!")
@@ -79,11 +75,12 @@ async def test_mcp_server():
 
             # Parse the result
             import json
+
             for content in tool_call_result.content:
-                if hasattr(content, 'text') and content.text:
+                if hasattr(content, "text") and content.text:
                     # Text content
                     result = json.loads(content.text)
-                elif hasattr(content, 'data'):
+                elif hasattr(content, "data"):
                     # Embedded data
                     result = content.data
                 else:
@@ -92,7 +89,7 @@ async def test_mcp_server():
                 print(f"  Total hits: {result.get('total_hits', 'N/A')}")
                 print(f"  Query time: {result.get('query_time_ms', 'N/A')}ms")
 
-                investigations = result.get('investigations', [])
+                investigations = result.get("investigations", [])
                 if investigations:
                     print(f"\n  Investigations found: {len(investigations)}")
                     for i, inv in enumerate(investigations, 1):
@@ -105,28 +102,23 @@ async def test_mcp_server():
             print("=" * 80)
 
             tool_call_result = await session.call_tool(
-                "pds4search_targets_tool",
-                arguments={
-                    "keywords": "jupiter",
-                    "target_type": "Planet",
-                    "limit": 2
-                }
+                "pds4search_targets_tool", arguments={"keywords": "jupiter", "target_type": "Planet", "limit": 2}
             )
 
             print("\n✓ Tool executed successfully!")
             print("\nResults:")
 
             for content in tool_call_result.content:
-                if hasattr(content, 'text') and content.text:
+                if hasattr(content, "text") and content.text:
                     result = json.loads(content.text)
-                elif hasattr(content, 'data'):
+                elif hasattr(content, "data"):
                     result = content.data
                 else:
                     continue
 
                 print(f"  Total hits: {result.get('total_hits', 'N/A')}")
 
-                targets = result.get('targets', [])
+                targets = result.get("targets", [])
                 if targets:
                     print(f"\n  Targets found: {len(targets)}")
                     for i, target in enumerate(targets, 1):
@@ -153,6 +145,7 @@ async def main():
         print("\nMake sure the MCP server can be started with:")
         print("  uv run python -m akd_ext.mcp.server")
         import traceback
+
         traceback.print_exc()
 
 

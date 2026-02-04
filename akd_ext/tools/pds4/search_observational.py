@@ -12,13 +12,17 @@ from akd_ext.tools.pds4.models import PDS4SearchResponse
 class PDS4SearchObservationalInput(InputSchema):
     """Input schema for PDS4 search observational tool."""
 
-    title_query: str | None = Field(default=None, description="Search query for product titles (e.g., 'LRO', 'Mars')")
-    limit: int = Field(default=10, description="Number of actual products to return (set to 0 for facets only)")
+    title_query: str | None = Field(
+        default=None, description="(Optional) Search query for product titles (e.g., 'LRO', 'Mars')"
+    )
+    limit: int = Field(
+        default=10, description="(Optional, default: 10) Number of actual products to return (set to 0 for facets only)"
+    )
     facet_fields: str | None = Field(
         default=None,
-        description="Comma-separated list of fields to facet on (e.g., 'pds:Identification_Area.pds:title,lidvid')",
+        description="(Optional) Comma-separated list of fields to facet on (e.g., 'pds:Identification_Area.pds:title,lidvid')",
     )
-    facet_limit: int = Field(default=25, description="Maximum number of facet values to return")
+    facet_limit: int = Field(default=25, description="(Optional, default: 25) Maximum number of facet values to return")
 
 
 class PDS4SearchObservationalOutput(OutputSchema):

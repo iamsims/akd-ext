@@ -13,12 +13,13 @@ class PDS4SearchInstrumentHostsInput(InputSchema):
     """Input schema for PDS4 search instrument hosts tool."""
 
     keywords: str | None = Field(
-        default=None, description="Search terms for instrument hosts (e.g., 'mars rover', 'voyager spacecraft')"
+        default=None,
+        description="(Optional) Search terms for instrument hosts (e.g., 'mars rover', 'voyager spacecraft')",
     )
     instrument_host_type: str | None = Field(
-        default=None, description="Filter by type (e.g., 'Rover', 'Spacecraft', 'Lander')"
+        default=None, description="(Optional) Filter by type (e.g., 'Rover', 'Spacecraft', 'Lander')"
     )
-    limit: int = Field(default=10, description="Maximum number of results to return")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
 class PDS4SearchInstrumentHostsOutput(OutputSchema):

@@ -13,27 +13,29 @@ class PDS4SearchCollectionsInput(InputSchema):
     """Input schema for PDS4 search collections tool."""
 
     ref_lid_instrument: str | None = Field(
-        default=None, description="URN identifier for instrument (e.g., 'urn:nasa:pds:context:instrument:mars2020.mastcamz')"
+        default=None,
+        description="(Optional) URN identifier for instrument (e.g., 'urn:nasa:pds:context:instrument:mars2020.mastcamz')",
     )
     ref_lid_target: str | None = Field(
-        default=None, description="URN identifier for target (e.g., 'urn:nasa:pds:context:target:planet.mars')"
+        default=None,
+        description="(Optional) URN identifier for target (e.g., 'urn:nasa:pds:context:target:planet.mars')",
     )
     ref_lid_instrument_host: str | None = Field(
         default=None,
-        description="URN identifier for instrument host (e.g., 'urn:nasa:pds:context:instrument_host:spacecraft.mars2020')",
+        description="(Optional) URN identifier for instrument host (e.g., 'urn:nasa:pds:context:instrument_host:spacecraft.mars2020')",
     )
     ref_lid_investigation: str | None = Field(
         default=None,
-        description="URN identifier for investigation (e.g., 'urn:nasa:pds:context:investigation:mission.mars2020')",
+        description="(Optional) URN identifier for investigation (e.g., 'urn:nasa:pds:context:investigation:mission.mars2020')",
     )
     start_time: str | None = Field(
-        default=None, description="Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
+        default=None, description="(Optional) Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
     )
-    end_time: str | None = Field(default=None, description="End of time range (ISO 8601 format)")
+    end_time: str | None = Field(default=None, description="(Optional) End of time range (ISO 8601 format)")
     processing_level: str | None = Field(
-        default=None, description='Filter by processing level ("Raw", "Calibrated", "Derived")'
+        default=None, description='(Optional) Filter by processing level ("Raw", "Calibrated", "Derived")'
     )
-    limit: int = Field(default=10, description="Maximum number of results to return")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
 class PDS4SearchCollectionsOutput(OutputSchema):

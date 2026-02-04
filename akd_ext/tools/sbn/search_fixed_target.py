@@ -23,23 +23,23 @@ class SBNSearchFixedTargetInput(InputSchema):
     )
     sources: list[str] | None = Field(
         default=None,
-        description="List of data sources to search (None = all sources)",
+        description="(Optional) List of data sources to search (None = all sources)",
     )
     radius: float = Field(
         default=10.0,
-        description="Search radius in arcminutes (0-120)",
+        description="(Optional, default: 10.0) Search radius in arcminutes (0-120)",
     )
     start_date: str | None = Field(
         default=None,
-        description="Start date filter (format: 'YYYY-MM-DD HH:MM')",
+        description="(Optional) Start date filter (format: 'YYYY-MM-DD HH:MM')",
     )
     stop_date: str | None = Field(
         default=None,
-        description="Stop date filter (format: 'YYYY-MM-DD HH:MM')",
+        description="(Optional) Stop date filter (format: 'YYYY-MM-DD HH:MM')",
     )
     intersection_type: str | None = Field(
         default=None,
-        description="How search area intersects images (ImageIntersectsArea, ImageContainsArea, AreaContainsImage)",
+        description="(Optional) How search area intersects images (ImageIntersectsArea, ImageContainsArea, AreaContainsImage)",
     )
 
 

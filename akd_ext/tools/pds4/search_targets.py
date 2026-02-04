@@ -13,13 +13,13 @@ class PDS4SearchTargetsInput(InputSchema):
     """Input schema for PDS4 search targets tool."""
 
     keywords: str | None = Field(
-        default=None, description="Search terms for targets (e.g., 'jupiter moon', 'asteroid belt')"
+        default=None, description="(Optional) Search terms for targets (e.g., 'jupiter moon', 'asteroid belt')"
     )
     target_type: str | None = Field(
         default=None,
-        description="Filter by target type (e.g., 'Planet', 'Satellite', 'Asteroid', 'Comet')",
+        description="(Optional) Filter by target type (e.g., 'Planet', 'Satellite', 'Asteroid', 'Comet')",
     )
-    limit: int = Field(default=10, description="Maximum number of results to return")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
 class PDS4SearchTargetsOutput(OutputSchema):

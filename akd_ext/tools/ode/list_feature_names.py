@@ -13,7 +13,7 @@ class ODEListFeatureNamesInput(InputSchema):
 
     target: str = Field(..., description="Planetary body (mars, moon, mercury, phobos, deimos, venus)")
     feature_class: str = Field(..., description="Feature type (e.g., crater, chasma, mons, vallis, mare)")
-    limit: int = Field(default=50, description="Maximum number of feature names to return")
+    limit: int = Field(default=50, description="(Optional, default: 50) Maximum number of feature names to return")
 
 
 class ODEListFeatureNamesOutput(OutputSchema):

@@ -12,22 +12,31 @@ from akd_ext.tools.pds4.models import PDS4SearchResponse
 class PDS4SearchProductsAdvancedInput(InputSchema):
     """Input schema for PDS4 search products advanced tool."""
 
-    keywords: str | None = Field(default=None, description="Search terms for product titles")
+    keywords: str | None = Field(default=None, description="(Optional) Search terms for product titles")
     start_time: str | None = Field(
-        default=None, description="Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
+        default=None, description="(Optional) Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
     )
-    end_time: str | None = Field(default=None, description="End of time range (ISO 8601 format)")
+    end_time: str | None = Field(default=None, description="(Optional) End of time range (ISO 8601 format)")
     processing_level: str | None = Field(
-        default=None, description='Filter by processing level ("Raw", "Calibrated", "Derived")'
+        default=None, description='(Optional) Filter by processing level ("Raw", "Calibrated", "Derived")'
     )
-    bbox_north: float | None = Field(default=None, description="North bounding coordinate (latitude, -90 to 90)")
-    bbox_south: float | None = Field(default=None, description="South bounding coordinate (latitude, -90 to 90)")
-    bbox_east: float | None = Field(default=None, description="East bounding coordinate (longitude, -180 to 360)")
-    bbox_west: float | None = Field(default=None, description="West bounding coordinate (longitude, -180 to 360)")
+    bbox_north: float | None = Field(
+        default=None, description="(Optional) North bounding coordinate (latitude, -90 to 90)"
+    )
+    bbox_south: float | None = Field(
+        default=None, description="(Optional) South bounding coordinate (latitude, -90 to 90)"
+    )
+    bbox_east: float | None = Field(
+        default=None, description="(Optional) East bounding coordinate (longitude, -180 to 360)"
+    )
+    bbox_west: float | None = Field(
+        default=None, description="(Optional) West bounding coordinate (longitude, -180 to 360)"
+    )
     ref_lid_target: str | None = Field(
-        default=None, description="URN identifier for target (e.g., 'urn:nasa:pds:context:target:planet.mars')"
+        default=None,
+        description="(Optional) URN identifier for target (e.g., 'urn:nasa:pds:context:target:planet.mars')",
     )
-    limit: int = Field(default=100, description="Maximum number of results to return")
+    limit: int = Field(default=100, description="(Optional, default: 100) Maximum number of results to return")
 
 
 class PDS4SearchProductsAdvancedOutput(OutputSchema):

@@ -12,8 +12,8 @@ from .catalog_index import CatalogIndex
 class PDSCatalogListTargetsInput(InputSchema):
     """Input schema for PDS Catalog list targets tool."""
 
-    node: str | None = Field(default=None, description="Filter by PDS node (optional)")
-    limit: int = Field(default=50, description="Maximum targets to return (default 50)")
+    node: str | None = Field(default=None, description="(Optional) Filter by PDS node")
+    limit: int = Field(default=50, description="(Optional, default: 50) Maximum targets to return")
 
 
 class PDSCatalogListTargetsOutput(OutputSchema):
