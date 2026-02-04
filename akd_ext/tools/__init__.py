@@ -1,18 +1,38 @@
 """Tools module for akd_ext."""
 
+from .code_search.repository_search import (
+    RepositorySearchTool,
+    RepositorySearchToolConfig,
+    RepositorySearchToolInputSchema,
+    RepositorySearchToolOutputSchema,
+)
 from .dummy import DummyInputSchema, DummyOutputSchema, DummyTool
+from .pds4 import (
+    PDS4SearchBundlesInput,
+    PDS4SearchBundlesOutput,
+    PDS4SearchBundlesTool,
+    PDS4SearchCollectionsInput,
+    PDS4SearchCollectionsOutput,
+    PDS4SearchCollectionsTool,
+    PDS4SearchInstrumentHostsInput,
+    PDS4SearchInstrumentHostsOutput,
+    PDS4SearchInstrumentHostsTool,
+    PDS4SearchInstrumentsInput,
+    PDS4SearchInstrumentsOutput,
+    PDS4SearchInstrumentsTool,
+    PDS4SearchInvestigationsInput,
+    PDS4SearchInvestigationsOutput,
+    PDS4SearchInvestigationsTool,
+    PDS4SearchTargetsInput,
+    PDS4SearchTargetsOutput,
+    PDS4SearchTargetsTool,
+)
 from .sde_search import (
     SDEDocument,
     SDESearchTool,
     SDESearchToolConfig,
     SDESearchToolInputSchema,
     SDESearchToolOutputSchema,
-)
-from .code_search.repository_search import (
-    RepositorySearchTool,
-    RepositorySearchToolInputSchema,
-    RepositorySearchToolOutputSchema,
-    RepositorySearchToolConfig,
 )
 
 __all__ = [
@@ -28,4 +48,23 @@ __all__ = [
     "RepositorySearchToolInputSchema",
     "RepositorySearchToolOutputSchema",
     "RepositorySearchToolConfig",
+    # PDS4 Tools
+    "PDS4SearchInvestigationsTool",
+    "PDS4SearchInvestigationsInput",
+    "PDS4SearchInvestigationsOutput",
+    "PDS4SearchTargetsTool",
+    "PDS4SearchTargetsInput",
+    "PDS4SearchTargetsOutput",
+    "PDS4SearchInstrumentsTool",
+    "PDS4SearchInstrumentsInput",
+    "PDS4SearchInstrumentsOutput",
+    "PDS4SearchInstrumentHostsTool",
+    "PDS4SearchInstrumentHostsInput",
+    "PDS4SearchInstrumentHostsOutput",
+    "PDS4SearchCollectionsTool",
+    "PDS4SearchCollectionsInput",
+    "PDS4SearchCollectionsOutput",
+    "PDS4SearchBundlesTool",
+    "PDS4SearchBundlesInput",
+    "PDS4SearchBundlesOutput",
 ]
