@@ -122,11 +122,7 @@ async def test_opus_count_observations():
 async def test_opus_count_observations_with_filters():
     """Test OPUS count with multiple filters."""
     tool = OPUSCountObservationsTool()
-    input_data = OPUSCountObservationsInput(
-        mission="Cassini",
-        planet="saturn",
-        target="Titan"
-    )
+    input_data = OPUSCountObservationsInput(mission="Cassini", planet="saturn", target="Titan")
 
     result = await tool.arun(input_data)
 
@@ -191,9 +187,14 @@ async def test_opus_get_files():
         assert result.opusid == opusid
 
         # Check if this observation has files
-        if (result.raw_files or result.calibrated_files or
-            result.browse_thumb or result.browse_small or
-            result.browse_medium or result.browse_full):
+        if (
+            result.raw_files
+            or result.calibrated_files
+            or result.browse_thumb
+            or result.browse_small
+            or result.browse_medium
+            or result.browse_full
+        ):
             # Found files - test passes
             break
 
@@ -226,12 +227,7 @@ async def test_opus_get_fields():
 async def test_opus_search_observations_time_range():
     """Test OPUS search with time range filter."""
     tool = OPUSSearchObservationsTool()
-    input_data = OPUSSearchObservationsInput(
-        mission="Cassini",
-        time_min="2004-01-01",
-        time_max="2004-12-31",
-        limit=10
-    )
+    input_data = OPUSSearchObservationsInput(mission="Cassini", time_min="2004-01-01", time_max="2004-12-31", limit=10)
 
     result = await tool.arun(input_data)
 
@@ -244,12 +240,7 @@ async def test_opus_search_observations_time_range():
 async def test_opus_search_observations_multiple_filters():
     """Test OPUS search with multiple filters combined."""
     tool = OPUSSearchObservationsTool()
-    input_data = OPUSSearchObservationsInput(
-        target="Titan",
-        mission="Cassini",
-        planet="saturn",
-        limit=10
-    )
+    input_data = OPUSSearchObservationsInput(target="Titan", mission="Cassini", planet="saturn", limit=10)
 
     result = await tool.arun(input_data)
 
@@ -267,19 +258,12 @@ async def test_opus_count_vs_search_consistency():
     """Test that count and search return consistent numbers."""
     # Count observations
     count_tool = OPUSCountObservationsTool()
-    count_input = OPUSCountObservationsInput(
-        target="Saturn",
-        mission="Cassini"
-    )
+    count_input = OPUSCountObservationsInput(target="Saturn", mission="Cassini")
     count_result = await count_tool.arun(count_input)
 
     # Search observations with high limit
     search_tool = OPUSSearchObservationsTool()
-    search_input = OPUSSearchObservationsInput(
-        target="Saturn",
-        mission="Cassini",
-        limit=100
-    )
+    search_input = OPUSSearchObservationsInput(target="Saturn", mission="Cassini", limit=100)
     search_result = await search_tool.arun(search_input)
 
     assert count_result.status == "success"
@@ -294,11 +278,7 @@ async def test_opus_count_vs_search_consistency():
 async def test_opus_search_observations_order():
     """Test OPUS search with custom order."""
     tool = OPUSSearchObservationsTool()
-    input_data = OPUSSearchObservationsInput(
-        target="Saturn",
-        limit=5,
-        order="time1,opusid"
-    )
+    input_data = OPUSSearchObservationsInput(target="Saturn", limit=5, order="time1,opusid")
 
     result = await tool.arun(input_data)
 

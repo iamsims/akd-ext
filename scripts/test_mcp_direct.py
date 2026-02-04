@@ -23,7 +23,7 @@ def test_tools_registered():
 
     for tool_class in tool_classes:
         tool_name = tool_class.__name__
-        if 'PDS4' in tool_name:
+        if "PDS4" in tool_name:
             pds4_tools.append(tool_name)
         else:
             other_tools.append(tool_name)
@@ -47,9 +47,9 @@ def test_tools_registered():
     # Try to get tools from FastMCP (API may vary)
     try:
         # FastMCP stores tools internally
-        if hasattr(mcp, '_tools'):
+        if hasattr(mcp, "_tools"):
             print(f"FastMCP tools count: {len(mcp._tools)}")
-        elif hasattr(mcp, 'tools'):
+        elif hasattr(mcp, "tools"):
             print(f"FastMCP tools count: {len(mcp.tools)}")
     except Exception as e:
         print(f"Could not access FastMCP tools: {e}")

@@ -16,7 +16,7 @@ class PDS4GetCollectionProductsInput(InputSchema):
         ...,
         description="URN of the collection from search results (e.g., extracted from search_collections response lidvid field)",
     )
-    limit: int = Field(default=100, description="Number of products to return")
+    limit: int = Field(default=100, description="(Optional, default: 100) Number of products to return")
 
 
 class PDS4GetCollectionProductsOutput(OutputSchema):

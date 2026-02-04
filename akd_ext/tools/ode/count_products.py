@@ -15,15 +15,15 @@ class ODECountProductsInput(InputSchema):
     ihid: str = Field(..., description='Instrument Host ID (e.g., "MRO", "LRO", "MESS")')
     iid: str = Field(..., description='Instrument ID (e.g., "HIRISE", "CTX", "LROC")')
     pt: str = Field(..., description='Product Type (e.g., "RDRV11", "EDR")')
-    minlat: float | None = Field(default=None, description="Minimum latitude (-90 to 90)")
-    maxlat: float | None = Field(default=None, description="Maximum latitude (-90 to 90)")
-    westlon: float | None = Field(default=None, description="Western longitude")
-    eastlon: float | None = Field(default=None, description="Eastern longitude")
+    minlat: float | None = Field(default=None, description="(Optional) Minimum latitude (-90 to 90)")
+    maxlat: float | None = Field(default=None, description="(Optional) Maximum latitude (-90 to 90)")
+    westlon: float | None = Field(default=None, description="(Optional) Western longitude")
+    eastlon: float | None = Field(default=None, description="(Optional) Eastern longitude")
     minobtime: str | None = Field(
-        default=None, description='Minimum observation time in UTC format (e.g., "2020-01-01")'
+        default=None, description='(Optional) Minimum observation time in UTC format (e.g., "2020-01-01")'
     )
     maxobtime: str | None = Field(
-        default=None, description='Maximum observation time in UTC format (e.g., "2020-01-31")'
+        default=None, description='(Optional) Maximum observation time in UTC format (e.g., "2020-01-31")'
     )
 
 

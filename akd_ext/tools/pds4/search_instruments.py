@@ -13,13 +13,14 @@ class PDS4SearchInstrumentsInput(InputSchema):
     """Input schema for PDS4 search instruments tool."""
 
     keywords: str | None = Field(
-        default=None, description="Search terms for instruments (e.g., 'camera mars', 'spectrometer cassini')"
+        default=None,
+        description="(Optional) Search terms for instruments (e.g., 'camera mars', 'spectrometer cassini')",
     )
     instrument_type: str | None = Field(
         default=None,
-        description="Filter by instrument type (e.g., 'Spectrometer', 'Imager', 'Particle Detector')",
+        description="(Optional) Filter by instrument type (e.g., 'Spectrometer', 'Imager', 'Particle Detector')",
     )
-    limit: int = Field(default=10, description="Maximum number of results to return")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
 class PDS4SearchInstrumentsOutput(OutputSchema):

@@ -12,22 +12,22 @@ class ODESearchProductsInput(InputSchema):
     """Input schema for ODE search products tool."""
 
     target: str = Field(..., description="Planetary body (mars, moon, mercury, phobos, deimos, venus)")
-    ihid: str | None = Field(default=None, description='Instrument Host ID (e.g., "MRO", "LRO", "MESS")')
-    iid: str | None = Field(default=None, description='Instrument ID (e.g., "HIRISE", "CTX", "LROC")')
-    pt: str | None = Field(default=None, description='Product Type (e.g., "RDRV11", "EDR")')
-    pdsid: str | None = Field(default=None, description="PDS Product ID for direct lookup")
-    minlat: float | None = Field(default=None, description="Minimum latitude (-90 to 90)")
-    maxlat: float | None = Field(default=None, description="Maximum latitude (-90 to 90)")
-    westlon: float | None = Field(default=None, description="Western longitude")
-    eastlon: float | None = Field(default=None, description="Eastern longitude")
+    ihid: str | None = Field(default=None, description='(Optional) Instrument Host ID (e.g., "MRO", "LRO", "MESS")')
+    iid: str | None = Field(default=None, description='(Optional) Instrument ID (e.g., "HIRISE", "CTX", "LROC")')
+    pt: str | None = Field(default=None, description='(Optional) Product Type (e.g., "RDRV11", "EDR")')
+    pdsid: str | None = Field(default=None, description="(Optional) PDS Product ID for direct lookup")
+    minlat: float | None = Field(default=None, description="(Optional) Minimum latitude (-90 to 90)")
+    maxlat: float | None = Field(default=None, description="(Optional) Maximum latitude (-90 to 90)")
+    westlon: float | None = Field(default=None, description="(Optional) Western longitude")
+    eastlon: float | None = Field(default=None, description="(Optional) Eastern longitude")
     minobtime: str | None = Field(
-        default=None, description='Minimum observation time in UTC format (e.g., "2018-05-01")'
+        default=None, description='(Optional) Minimum observation time in UTC format (e.g., "2018-05-01")'
     )
     maxobtime: str | None = Field(
-        default=None, description='Maximum observation time in UTC format (e.g., "2018-08-31")'
+        default=None, description='(Optional) Maximum observation time in UTC format (e.g., "2018-08-31")'
     )
-    limit: int = Field(default=10, description="Maximum products to return (max 100)")
-    offset: int = Field(default=0, description="Pagination offset")
+    limit: int = Field(default=10, description="(Optional, default: 10) Maximum products to return (max 100)")
+    offset: int = Field(default=0, description="(Optional, default: 0) Pagination offset")
 
 
 class ODESearchProductsOutput(OutputSchema):

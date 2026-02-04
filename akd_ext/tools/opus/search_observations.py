@@ -11,21 +11,26 @@ from akd_ext.tools.opus.client import OPUSClient
 class OPUSSearchObservationsInput(InputSchema):
     """Input schema for OPUS search observations tool."""
 
-    target: str | None = Field(default=None, description="Target body (e.g., 'Saturn', 'Titan', 'Saturn Rings')")
+    target: str | None = Field(
+        default=None, description="(Optional) Target body (e.g., 'Saturn', 'Titan', 'Saturn Rings')"
+    )
     mission: str | None = Field(
-        default=None, description="Mission name (e.g., 'Cassini', 'Voyager', 'Galileo', 'New Horizons', 'Juno', 'HST')"
+        default=None,
+        description="(Optional) Mission name (e.g., 'Cassini', 'Voyager', 'Galileo', 'New Horizons', 'Juno', 'HST')",
     )
     instrument: str | None = Field(
-        default=None, description="Instrument name (e.g., 'Cassini ISS', 'Voyager ISS', 'LORRI')"
+        default=None, description="(Optional) Instrument name (e.g., 'Cassini ISS', 'Voyager ISS', 'LORRI')"
     )
     planet: str | None = Field(
-        default=None, description="Planet filter (jupiter, saturn, uranus, neptune, pluto, other)"
+        default=None, description="(Optional) Planet filter (jupiter, saturn, uranus, neptune, pluto, other)"
     )
-    time_min: str | None = Field(default=None, description="Start of time range (ISO 8601 format)")
-    time_max: str | None = Field(default=None, description="End of time range (ISO 8601 format)")
-    limit: int = Field(default=100, description="Maximum observations to return")
-    startobs: int = Field(default=1, description="Starting observation index for pagination")
-    order: str = Field(default="time1,opusid", description="Sort order (e.g., 'time1,opusid')")
+    time_min: str | None = Field(default=None, description="(Optional) Start of time range (ISO 8601 format)")
+    time_max: str | None = Field(default=None, description="(Optional) End of time range (ISO 8601 format)")
+    limit: int = Field(default=100, description="(Optional, default: 100) Maximum observations to return")
+    startobs: int = Field(default=1, description="(Optional, default: 1) Starting observation index for pagination")
+    order: str = Field(
+        default="time1,opusid", description="(Optional, default: 'time1,opusid') Sort order (e.g., 'time1,opusid')"
+    )
 
 
 class OPUSSearchObservationsOutput(OutputSchema):

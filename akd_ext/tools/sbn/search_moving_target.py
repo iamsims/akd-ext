@@ -19,35 +19,35 @@ class SBNSearchMovingTargetInput(InputSchema):
     )
     sources: list[str] | None = Field(
         default=None,
-        description="List of data sources to search (None = all sources)",
+        description="(Optional) List of data sources to search (None = all sources)",
     )
     start_date: str | None = Field(
         default=None,
-        description="Start date filter (format: 'YYYY-MM-DD HH:MM')",
+        description="(Optional) Start date filter (format: 'YYYY-MM-DD HH:MM')",
     )
     stop_date: str | None = Field(
         default=None,
-        description="Stop date filter (format: 'YYYY-MM-DD HH:MM')",
+        description="(Optional) Stop date filter (format: 'YYYY-MM-DD HH:MM')",
     )
     uncertainty_ellipse: bool = Field(
         default=False,
-        description="Include ephemeris uncertainty in search",
+        description="(Optional, default: False) Include ephemeris uncertainty in search",
     )
     padding: float = Field(
         default=0.0,
-        description="Search margin in arcminutes (0-120)",
+        description="(Optional, default: 0.0) Search margin in arcminutes (0-120)",
     )
     cached: bool = Field(
         default=True,
-        description="Use cached results if available",
+        description="(Optional, default: True) Use cached results if available",
     )
     timeout: float = Field(
         default=120.0,
-        description="Maximum time to wait for job completion in seconds",
+        description="(Optional, default: 120.0) Maximum time to wait for job completion in seconds",
     )
     poll_interval: float = Field(
         default=2.0,
-        description="Time between status checks in seconds",
+        description="(Optional, default: 2.0) Time between status checks in seconds",
     )
 
 

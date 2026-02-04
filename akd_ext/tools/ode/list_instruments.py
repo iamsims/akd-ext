@@ -12,7 +12,9 @@ class ODEListInstrumentsInput(InputSchema):
     """Input schema for ODE list instruments tool."""
 
     target: str = Field(..., description="Planetary body (mars, moon, mercury, phobos, deimos, venus)")
-    limit: int = Field(default=25, description="Maximum number of instrument combinations to return")
+    limit: int = Field(
+        default=25, description="(Optional, default: 25) Maximum number of instrument combinations to return"
+    )
 
 
 class ODEListInstrumentsOutput(OutputSchema):

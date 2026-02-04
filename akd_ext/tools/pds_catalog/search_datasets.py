@@ -23,37 +23,38 @@ class PDSCatalogSearchInput(InputSchema):
 
     query: str | None = Field(
         default=None,
-        description="Text search across title, description, missions, targets, instruments. "
+        description="(Optional) Text search across title, description, missions, targets, instruments. "
         "Examples: 'mars images', 'cassini saturn', 'comet spectra'",
     )
     node: str | None = Field(
         default=None,
-        description="Filter by PDS node. Valid values: atm (Atmospheres), geo (Geosciences), "
+        description="(Optional) Filter by PDS node. Valid values: atm (Atmospheres), geo (Geosciences), "
         "img (Imaging), naif (SPICE/Navigation), ppi (Plasma), rms (Ring-Moon), sbn (Small Bodies)",
     )
     mission: str | None = Field(
-        default=None, description="Filter by mission name. Examples: 'Cassini', 'Mars 2020', 'Voyager'"
+        default=None, description="(Optional) Filter by mission name. Examples: 'Cassini', 'Mars 2020', 'Voyager'"
     )
     target: str | None = Field(
-        default=None, description="Filter by target body. Examples: 'Mars', 'Saturn', 'Comet'"
+        default=None, description="(Optional) Filter by target body. Examples: 'Mars', 'Saturn', 'Comet'"
     )
-    pds_version: str | None = Field(default=None, description="Filter by archive version: 'PDS3' or 'PDS4'")
+    pds_version: str | None = Field(default=None, description="(Optional) Filter by archive version: 'PDS3' or 'PDS4'")
     dataset_type: str | None = Field(
-        default=None, description="Filter by type: 'volume' (PDS3), 'bundle' (PDS4), or 'collection' (PDS4)"
+        default=None, description="(Optional) Filter by type: 'volume' (PDS3), 'bundle' (PDS4), or 'collection' (PDS4)"
     )
     start_date: str | None = Field(
-        default=None, description="Filter datasets that have data on or after this date (YYYY-MM-DD)"
+        default=None, description="(Optional) Filter datasets that have data on or after this date (YYYY-MM-DD)"
     )
     stop_date: str | None = Field(
-        default=None, description="Filter datasets that have data on or before this date (YYYY-MM-DD)"
+        default=None, description="(Optional) Filter datasets that have data on or before this date (YYYY-MM-DD)"
     )
     limit: int = Field(
-        default=DEFAULT_RESULTS_LIMIT, description=f"Maximum results to return (default {DEFAULT_RESULTS_LIMIT}, max {MAX_RESULTS_LIMIT})"
+        default=DEFAULT_RESULTS_LIMIT,
+        description=f"(Optional, default: {DEFAULT_RESULTS_LIMIT}) Maximum results to return (max {MAX_RESULTS_LIMIT})",
     )
-    offset: int = Field(default=0, description="Skip first N results for pagination (default 0)")
+    offset: int = Field(default=0, description="(Optional, default: 0) Skip first N results for pagination")
     fields: str = Field(
         default="summary",
-        description="Response detail level - 'essential', 'summary' (default), or 'full'",
+        description="(Optional, default: 'summary') Response detail level - 'essential', 'summary', or 'full'",
     )
 
 
