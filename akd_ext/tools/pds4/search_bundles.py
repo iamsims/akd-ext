@@ -13,6 +13,13 @@ class PDS4SearchBundlesInput(InputSchema):
     """Input schema for PDS4 search bundles tool."""
 
     title_query: str | None = Field(default=None, description="Search query for bundle titles (e.g., 'Lunar', 'Mars')")
+    start_time: str | None = Field(
+        default=None, description="Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
+    )
+    end_time: str | None = Field(default=None, description="End of time range (ISO 8601 format)")
+    processing_level: str | None = Field(
+        default=None, description='Filter by processing level ("Raw", "Calibrated", "Derived")'
+    )
     limit: int = Field(default=0, description="Number of actual products to return (set to 0 for facets only)")
     facet_fields: str | None = Field(
         default=None, description="Comma-separated list of fields to facet on (e.g., 'pds:Identification_Area.pds:title,lidvid')"
@@ -53,6 +60,9 @@ class PDS4SearchBundlesTool(BaseTool[PDS4SearchBundlesInput, PDS4SearchBundlesOu
 
             response: PDS4SearchResponse = await client.search_bundles(
                 title_query=params.title_query,
+                start_time=params.start_time,
+                end_time=params.end_time,
+                processing_level=params.processing_level,
                 limit=params.limit,
                 facet_fields=facet_field_list,
                 facet_limit=params.facet_limit,

@@ -26,6 +26,13 @@ class PDS4SearchCollectionsInput(InputSchema):
         default=None,
         description="URN identifier for investigation (e.g., 'urn:nasa:pds:context:investigation:mission.mars2020')",
     )
+    start_time: str | None = Field(
+        default=None, description="Start of time range (ISO 8601 format, e.g., '2020-01-01T00:00:00Z')"
+    )
+    end_time: str | None = Field(default=None, description="End of time range (ISO 8601 format)")
+    processing_level: str | None = Field(
+        default=None, description='Filter by processing level ("Raw", "Calibrated", "Derived")'
+    )
     limit: int = Field(default=10, description="Maximum number of results to return")
 
 
@@ -59,6 +66,9 @@ class PDS4SearchCollectionsTool(BaseTool[PDS4SearchCollectionsInput, PDS4SearchC
                 ref_lid_target=params.ref_lid_target,
                 ref_lid_instrument_host=params.ref_lid_instrument_host,
                 ref_lid_investigation=params.ref_lid_investigation,
+                start_time=params.start_time,
+                end_time=params.end_time,
+                processing_level=params.processing_level,
                 limit=params.limit,
             )
 
@@ -75,6 +85,12 @@ class PDS4SearchCollectionsTool(BaseTool[PDS4SearchCollectionsInput, PDS4SearchC
                     "ref_lid_investigation": collection.ref_lid_investigation,
                 }
 
+                if collection.time_coordinates:
+                    collection_data["time_coordinates"] = collection.time_coordinates.model_dump(exclude_none=True)
+                if collection.primary_result_summary:
+                    collection_data["primary_result_summary"] = collection.primary_result_summary.model_dump(
+                        exclude_none=True
+                    )
                 if collection.label_file_info:
                     collection_data["label_file_info"] = collection.label_file_info.model_dump(exclude_none=True)
 
