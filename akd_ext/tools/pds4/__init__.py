@@ -1,5 +1,10 @@
 """PDS4 tools for searching NASA's Planetary Data System."""
 
+from .get_collection_products import (
+    PDS4GetCollectionProductsInput,
+    PDS4GetCollectionProductsOutput,
+    PDS4GetCollectionProductsTool,
+)
 from .search_bundles import PDS4SearchBundlesInput, PDS4SearchBundlesOutput, PDS4SearchBundlesTool
 from .search_collections import PDS4SearchCollectionsInput, PDS4SearchCollectionsOutput, PDS4SearchCollectionsTool
 from .search_instrument_hosts import (
@@ -12,6 +17,16 @@ from .search_investigations import (
     PDS4SearchInvestigationsInput,
     PDS4SearchInvestigationsOutput,
     PDS4SearchInvestigationsTool,
+)
+from .search_observational import (
+    PDS4SearchObservationalInput,
+    PDS4SearchObservationalOutput,
+    PDS4SearchObservationalTool,
+)
+from .search_products_advanced import (
+    PDS4SearchProductsAdvancedInput,
+    PDS4SearchProductsAdvancedOutput,
+    PDS4SearchProductsAdvancedTool,
 )
 from .search_targets import PDS4SearchTargetsInput, PDS4SearchTargetsOutput, PDS4SearchTargetsTool
 
@@ -40,4 +55,16 @@ __all__ = [
     "PDS4SearchBundlesTool",
     "PDS4SearchBundlesInput",
     "PDS4SearchBundlesOutput",
+    # Search Observational
+    "PDS4SearchObservationalTool",
+    "PDS4SearchObservationalInput",
+    "PDS4SearchObservationalOutput",
+    # Get Collection Products
+    "PDS4GetCollectionProductsTool",
+    "PDS4GetCollectionProductsInput",
+    "PDS4GetCollectionProductsOutput",
+    # Search Products Advanced
+    "PDS4SearchProductsAdvancedTool",
+    "PDS4SearchProductsAdvancedInput",
+    "PDS4SearchProductsAdvancedOutput",
 ]
