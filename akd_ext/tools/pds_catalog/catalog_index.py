@@ -19,6 +19,33 @@ DEFAULT_CATALOG_DIR = Path(__file__).parent / "scraped_data"
 MAX_RESULTS_LIMIT = 50
 DEFAULT_RESULTS_LIMIT = 20
 
+# Minimal mission abbreviations (only non-obvious ones)
+# Many PDS3 datasets use abbreviated mission names in their IDs/titles
+MISSION_ABBREVIATIONS: dict[str, list[str]] = {
+    "juno": ["jno"],
+    "cassini": ["co-"],
+    "cassini huygens": ["co-"],
+    "galileo": ["go-"],
+    "voyager": ["vg1", "vg2"],
+    "voyager 1": ["vg1"],
+    "voyager 2": ["vg2"],
+    "pioneer 10": ["p10"],
+    "pioneer 11": ["p11"],
+    "magellan": ["mgn"],
+    "phoenix": ["phx"],
+    "mars express": ["mex"],
+}
+
+# Minimal instrument abbreviations (only non-obvious ones)
+INSTRUMENT_ABBREVIATIONS: dict[str, list[str]] = {
+    "jade": ["jad"],
+    "jedi": ["jed"],
+    "magnetometer": ["mag", "fgm"],
+    "fluxgate magnetometer": ["fgm"],
+    "plasma wave": ["pws", "rpws", "wav"],
+    "plasma spectrometer": ["caps", "pls"],
+}
+
 # Field profiles for response filtering
 ESSENTIAL_FIELDS = {"id", "title", "node", "browse_url"}
 SUMMARY_FIELDS = ESSENTIAL_FIELDS | {"missions", "targets", "instruments", "pds_version", "type"}
@@ -38,6 +65,52 @@ FIELD_PROFILES: dict[str, set[str]] = {
     "summary": SUMMARY_FIELDS,
     "full": FULL_FIELDS,
 }
+
+
+def _matches_term(
+    dataset: PDSDataset,
+    term: str,
+    metadata_list: list[str],
+    abbreviations: dict[str, list[str]],
+) -> bool:
+    """Check if term matches in metadata, title, or ID.
+
+    Order of precedence:
+    1. Metadata list (most accurate)
+    2. Title substring (works for human-readable PDS4 titles)
+    3. ID substring (works for abbreviated PDS3 IDs)
+    4. Abbreviation lookup (fallback for non-obvious mappings)
+
+    Args:
+        dataset: The dataset to check
+        term: The search term (e.g., mission or instrument name)
+        metadata_list: The metadata field to check (e.g., dataset.missions or dataset.instruments)
+        abbreviations: Mapping of terms to their abbreviations
+
+    Returns:
+        True if the term matches the dataset
+    """
+    term_lower = term.lower()
+
+    # 1. Check metadata list
+    if any(term_lower in m.lower() for m in metadata_list):
+        return True
+
+    # 2. Check title (only for full term, not abbreviations in title to avoid false positives)
+    if term_lower in dataset.title.lower():
+        return True
+
+    # 3. Check ID (prioritize this for PDS3 datasets with abbreviated IDs)
+    id_lower = dataset.id.lower()
+    if term_lower in id_lower:
+        return True
+
+    # 4. Check abbreviations in ID only (more reliable than title for avoiding false matches)
+    for abbrev in abbreviations.get(term_lower, []):
+        if abbrev in id_lower:
+            return True
+
+    return False
 
 
 class CatalogIndex:
@@ -119,6 +192,7 @@ class CatalogIndex:
         query: str | None = None,
         node: str | None = None,
         mission: str | None = None,
+        instrument: str | None = None,
         target: str | None = None,
         pds_version: str | None = None,
         dataset_type: str | None = None,
@@ -133,6 +207,7 @@ class CatalogIndex:
             query: Text search query
             node: Filter by PDS node
             mission: Filter by mission name
+            instrument: Filter by instrument name
             target: Filter by target body
             pds_version: Filter by PDS version (PDS3 or PDS4)
             dataset_type: Filter by type (volume, bundle, collection)
@@ -147,22 +222,27 @@ class CatalogIndex:
         # Start with all datasets or filtered subset
         if node:
             results = self._by_node.get(node.lower(), [])
-        elif mission:
-            results = self._by_mission.get(mission.lower(), [])
         elif target:
+            # Target can use direct index lookup since target metadata is reliable
             results = self._by_target.get(target.lower(), [])
         else:
+            # For mission filter or no filter, start with all datasets
+            # Mission filter needs full scan due to ID/title fallback matching
             results = self.datasets
 
-        # Apply additional filters
-        if node and mission:
+        # Apply mission filter with fallback to ID/title matching
+        if mission:
+            results = [d for d in results if _matches_term(d, mission, d.missions, MISSION_ABBREVIATIONS)]
+
+        # Apply instrument filter with fallback to ID/title matching
+        if instrument:
+            results = [d for d in results if _matches_term(d, instrument, d.instruments, INSTRUMENT_ABBREVIATIONS)]
+
+        # Apply node filter if combined with mission or target
+        if node and (mission or target):
             results = [d for d in results if d.node.value == node.lower()]
-        if node and target:
-            results = [d for d in results if d.node.value == node.lower()]
-        if mission and not node:
-            mission_lower = mission.lower()
-            results = [d for d in results if any(mission_lower in m.lower() for m in d.missions)]
-        if target and not node and not mission:
+
+        if target and not node:
             target_lower = target.lower()
             results = [d for d in results if any(target_lower in t.lower() for t in d.targets)]
 
@@ -185,6 +265,8 @@ class CatalogIndex:
         if query:
             query_lower = query.lower()
             scored_results = []
+            # Use lower threshold for short queries (acronyms like "JADE", "JEDI")
+            threshold = 60 if len(query_lower) <= 5 else 70
             for d in results:
                 search_text = d.to_search_text()
                 # Use partial ratio for substring-like matching
@@ -193,7 +275,22 @@ class CatalogIndex:
                     fuzz.partial_ratio(query_lower, search_text),
                     fuzz.token_set_ratio(query_lower, search_text),
                 )
-                if score >= 70:  # Threshold for relevance
+
+                # Boost score for exact substring matches on short queries
+                # This helps "JADE" match datasets with "JAD" in the title
+                # (PDS datasets often use abbreviated forms like "JAD" for "JADE")
+                if len(query_lower) <= 5:
+                    if query_lower in search_text:
+                        # Exact substring match gets high score
+                        score = max(score, 95)
+                    elif len(query_lower) > 2 and query_lower[:-1] in search_text:
+                        # "JADE" matches "JAD" (remove last char)
+                        score = max(score, 90)
+                    elif len(query_lower) > 3 and query_lower[:-2] in search_text:
+                        # "JEDI" matches "JED" (remove last 2 chars)
+                        score = max(score, 85)
+
+                if score >= threshold:
                     scored_results.append((score, d))
             # Sort by score descending
             scored_results.sort(key=lambda x: x[0], reverse=True)
