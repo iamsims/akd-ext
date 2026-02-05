@@ -7,6 +7,20 @@ from .code_search.repository_search import (
     RepositorySearchToolOutputSchema,
 )
 from .dummy import DummyInputSchema, DummyOutputSchema, DummyTool
+from .img import (
+    IMGCountProductsInput,
+    IMGCountProductsOutput,
+    IMGCountProductsTool,
+    IMGGetFacetsInput,
+    IMGGetFacetsOutput,
+    IMGGetFacetsTool,
+    IMGGetProductInput,
+    IMGGetProductOutput,
+    IMGGetProductTool,
+    IMGSearchProductsInput,
+    IMGSearchProductsOutput,
+    IMGSearchProductsTool,
+)
 from .ode import (
     ODECountProductsInput,
     ODECountProductsOutput,
@@ -145,6 +159,19 @@ __all__ = [
     "ODECountProductsTool",
     "ODECountProductsInput",
     "ODECountProductsOutput",
+    # IMG Tools
+    "IMGSearchProductsTool",
+    "IMGSearchProductsInput",
+    "IMGSearchProductsOutput",
+    "IMGCountProductsTool",
+    "IMGCountProductsInput",
+    "IMGCountProductsOutput",
+    "IMGGetProductTool",
+    "IMGGetProductInput",
+    "IMGGetProductOutput",
+    "IMGGetFacetsTool",
+    "IMGGetFacetsInput",
+    "IMGGetFacetsOutput",
     # PDS4 Tools
     "PDS4SearchInvestigationsTool",
     "PDS4SearchInvestigationsInput",
