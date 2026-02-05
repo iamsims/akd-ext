@@ -34,6 +34,9 @@ class PDSCatalogSearchInput(InputSchema):
     mission: str | None = Field(
         default=None, description="(Optional) Filter by mission name. Examples: 'Cassini', 'Mars 2020', 'Voyager'"
     )
+    instrument: str | None = Field(
+        default=None, description="(Optional) Filter by instrument name. Examples: 'JEDI', 'CAPS', 'magnetometer'"
+    )
     target: str | None = Field(
         default=None, description="(Optional) Filter by target body. Examples: 'Mars', 'Saturn', 'Comet'"
     )
@@ -98,6 +101,7 @@ class PDSCatalogSearchTool(BaseTool[PDSCatalogSearchInput, PDSCatalogSearchOutpu
             query=params.query,
             node=params.node,
             mission=params.mission,
+            instrument=params.instrument,
             target=params.target,
             pds_version=params.pds_version,
             dataset_type=params.dataset_type,

@@ -147,7 +147,7 @@ class PDS4Client:
         """Get HTTP headers for requests."""
         headers = {
             "Accept": "application/json",
-            "User-Agent": "akd-ext-PDS4-Client/0.1.0",
+            "User-Agent": "PDS4-MCP-Server/0.1.0",
         }
         return headers
 
@@ -267,7 +267,7 @@ class PDS4Client:
             filters.append(f'(pds:Primary_Result_Summary.pds:processing_level eq "{processing_level}")')
 
         if filters:
-            params["q"] = f"({' and '.join(filters)})"
+            params["q"] = f'({" and ".join(filters)})'
 
         if facet_fields:
             params["facet-fields"] = ",".join(facet_fields)
@@ -325,7 +325,7 @@ class PDS4Client:
             filters.append(f'(pds:Primary_Result_Summary.pds:processing_level eq "{processing_level}")')
 
         if filters:
-            params["q"] = f"({' and '.join(filters)})"
+            params["q"] = f'({" and ".join(filters)})'
 
         if facet_fields:
             params["facet-fields"] = ",".join(facet_fields)
@@ -442,7 +442,7 @@ class PDS4Client:
         if keywords:
             keywords_str = " ".join(keywords.split())
             keyword_query = f'((title like "{keywords_str}") or (description like "{keywords_str}"))'
-            params["q"] = f"({params['q']} and {keyword_query})"
+            params["q"] = f'({params["q"]} and {keyword_query})'
 
         response = await self._request("GET", "products", params=params)
 
@@ -514,8 +514,10 @@ class PDS4Client:
         }
 
         if keywords:
-            keyword_query = f'((title like "{keywords}") or (pds:Instrument_Host.pds:description like "{keywords}"))'
-            params["q"] = f"({params['q']} and {keyword_query})"
+            keyword_query = (
+                f'((title like "{keywords}") ' f'or (pds:Instrument_Host.pds:description like "{keywords}"))'
+            )
+            params["q"] = f'({params["q"]} and {keyword_query})'
 
         if instrument_host_type:
             params["q"] = f'({params["q"]} and (pds:Instrument_Host.pds:type like "{instrument_host_type}"))'
@@ -552,8 +554,13 @@ class PDS4Client:
         }
 
         if keywords:
-            keyword_query = f'((title like "{keywords}") or (pds:Instrument.pds:description like "{keywords}"))'
-            params["q"] = f"({params['q']} and {keyword_query})"
+            # Search title, description, and LID (where abbreviations like "jade", "jedi" appear)
+            keyword_query = (
+                f'((title like "{keywords}") or '
+                f'(pds:Instrument.pds:description like "{keywords}") or '
+                f'(lid like "*{keywords.lower()}*"))'
+            )
+            params["q"] = f'({params["q"]} and {keyword_query})'
 
         if instrument_type:
             params["q"] = f'({params["q"]} and (pds:Instrument.pds:type like "{instrument_type}"))'
@@ -637,7 +644,7 @@ class PDS4Client:
 
         # Combine all filters
         if filters:
-            params["q"] = f"({params['q']} and {' and '.join(filters)})"
+            params["q"] = f'({params["q"]} and {" and ".join(filters)})'
 
         response = await self._request("GET", "products", params=params)
 
