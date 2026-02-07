@@ -1,0 +1,20 @@
+{
+  "extraction_agent": {
+    "output_text": "{\"datasets\":[]}",
+    "output_parsed": {
+      "datasets": []
+    }
+  },
+  "query_generation_agent_results": [],
+  "consolidated_output": {
+    "output_text": "{\"paper_title\":\"\",\"queries\":[]}",
+    "output_parsed": {
+      "paper_title": "",
+      "queries": []
+    }
+  },
+  "final_output": {
+    "paper_title": "",
+    "queries": []
+  }
+}
