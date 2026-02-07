@@ -19,6 +19,8 @@ mcp = HostedMCPTool(tool_config={
   ],
   "require_approval": "never"
 })
+
+
 class ExtractionAgentSchema__DatasetsItem(BaseModel):
   pds_dataset_product_name: str
   mission_project: str
@@ -50,7 +52,8 @@ class QueryGenerationAgentSchema__PdsMetadataFields(BaseModel):
 class QueryGenerationAgentSchema__ToolValidation(BaseModel):
   tools_used: list[str]
   constraints_summary: str
-  match_count: float
+  initial_match_count: float
+  final_match_count: float
 
 
 class QueryGenerationAgentSchema__QueriesItem(BaseModel):
@@ -73,7 +76,8 @@ class ConsolidatedOutputAgentSchema__PdsMetadataFields(BaseModel):
 class ConsolidatedOutputAgentSchema__ToolValidation(BaseModel):
   tools_used: list[str]
   constraints_summary: str
-  match_count: float
+  initial_match_count: float
+  final_match_count: float
 
 
 class ConsolidatedOutputAgentSchema__QueriesItem(BaseModel):
@@ -87,6 +91,7 @@ class ConsolidatedOutputAgentSchema__QueriesItem(BaseModel):
 class ConsolidatedOutputAgentSchema(BaseModel):
   paper_title: str
   queries: list[ConsolidatedOutputAgentSchema__QueriesItem]
+
 
 
 extraction_agent = Agent(
