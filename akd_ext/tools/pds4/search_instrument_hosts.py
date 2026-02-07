@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4InstrumentHost, PDS4SearchResponse
 
 
 class PDS4SearchInstrumentHostsInput(InputSchema):
@@ -22,6 +22,16 @@ class PDS4SearchInstrumentHostsInput(InputSchema):
     limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
+class PDS4InstrumentHostResult(OutputSchema):
+    """Result model for a single instrument host in search results."""
+
+    id: str = Field(..., description="The instrument host identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Instrument host title")
+    instrument_host: PDS4InstrumentHost | None = Field(default=None, description="Instrument host details")
+
+
 class PDS4SearchInstrumentHostsOutput(OutputSchema):
     """Output schema for PDS4 search instrument hosts tool."""
 
@@ -29,7 +39,7 @@ class PDS4SearchInstrumentHostsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    instrument_hosts: list[dict] = Field(..., description="List of instrument host results")
+    instrument_hosts: list[PDS4InstrumentHostResult] = Field(..., description="List of instrument host results")
 
 
 @mcp_tool
@@ -54,19 +64,16 @@ class PDS4SearchInstrumentHostsTool(BaseTool[PDS4SearchInstrumentHostsInput, PDS
                 limit=params.limit,
             )
 
-            instrument_hosts = []
-            for host in response.data:
-                host_data = {
-                    "id": host.id,
-                    "lid": host.lid,
-                    "lidvid": host.lidvid,
-                    "title": host.title,
-                }
-
-                if host.instrument_host:
-                    host_data["instrument_host"] = host.instrument_host.model_dump(exclude_none=True)
-
-                instrument_hosts.append(host_data)
+            instrument_hosts = [
+                PDS4InstrumentHostResult(
+                    id=host.id,
+                    lid=host.lid,
+                    lidvid=host.lidvid,
+                    title=host.title,
+                    instrument_host=host.instrument_host,
+                )
+                for host in response.data
+            ]
 
             return PDS4SearchInstrumentHostsOutput(
                 total_hits=response.summary.hits,

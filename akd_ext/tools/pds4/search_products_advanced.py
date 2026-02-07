@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4PrimaryResultSummary, PDS4SearchResponse, PDS4TimeCoordinates
 
 
 class PDS4SearchProductsAdvancedInput(InputSchema):
@@ -39,6 +39,28 @@ class PDS4SearchProductsAdvancedInput(InputSchema):
     limit: int = Field(default=100, description="(Optional, default: 100) Maximum number of results to return")
 
 
+class PDS4BoundingCoordinates(OutputSchema):
+    """Bounding coordinates for a product."""
+
+    north: float | None = Field(default=None, description="North bounding coordinate")
+    south: float | None = Field(default=None, description="South bounding coordinate")
+    east: float | None = Field(default=None, description="East bounding coordinate")
+    west: float | None = Field(default=None, description="West bounding coordinate")
+
+
+class PDS4AdvancedProductResult(OutputSchema):
+    """Result model for a single advanced product in search results."""
+
+    id: str = Field(..., description="The product identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Product title")
+    ref_lid_target: str | None = Field(default=None, description="Reference LID for target")
+    time_coordinates: PDS4TimeCoordinates | None = Field(default=None, description="Time coordinates details")
+    primary_result_summary: PDS4PrimaryResultSummary | None = Field(default=None, description="Primary result summary details")
+    bounding_coordinates: PDS4BoundingCoordinates | None = Field(default=None, description="Bounding coordinates")
+
+
 class PDS4SearchProductsAdvancedOutput(OutputSchema):
     """Output schema for PDS4 search products advanced tool."""
 
@@ -46,7 +68,7 @@ class PDS4SearchProductsAdvancedOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    products: list[dict] = Field(..., description="List of observational product results")
+    products: list[PDS4AdvancedProductResult] = Field(..., description="List of observational product results")
 
 
 @mcp_tool
@@ -85,30 +107,28 @@ class PDS4SearchProductsAdvancedTool(BaseTool[PDS4SearchProductsAdvancedInput, P
 
             products = []
             for product in response.data:
-                product_data = {
-                    "id": product.id,
-                    "lid": product.lid,
-                    "lidvid": product.lidvid,
-                    "title": product.title,
-                    "ref_lid_target": product.ref_lid_target,
-                }
-
-                if product.time_coordinates:
-                    product_data["time_coordinates"] = product.time_coordinates.model_dump(exclude_none=True)
-                if product.primary_result_summary:
-                    product_data["primary_result_summary"] = product.primary_result_summary.model_dump(
-                        exclude_none=True
-                    )
-                # Add bounding coordinates if available from properties
+                # Extract bounding coordinates if available from properties
+                bounding_coordinates = None
                 if "cart:Bounding_Coordinates.cart:north_bounding_coordinate" in product.properties:
-                    product_data["bounding_coordinates"] = {
-                        "north": product.properties.get("cart:Bounding_Coordinates.cart:north_bounding_coordinate"),
-                        "south": product.properties.get("cart:Bounding_Coordinates.cart:south_bounding_coordinate"),
-                        "east": product.properties.get("cart:Bounding_Coordinates.cart:east_bounding_coordinate"),
-                        "west": product.properties.get("cart:Bounding_Coordinates.cart:west_bounding_coordinate"),
-                    }
+                    bounding_coordinates = PDS4BoundingCoordinates(
+                        north=product.properties.get("cart:Bounding_Coordinates.cart:north_bounding_coordinate"),
+                        south=product.properties.get("cart:Bounding_Coordinates.cart:south_bounding_coordinate"),
+                        east=product.properties.get("cart:Bounding_Coordinates.cart:east_bounding_coordinate"),
+                        west=product.properties.get("cart:Bounding_Coordinates.cart:west_bounding_coordinate"),
+                    )
 
-                products.append(product_data)
+                products.append(
+                    PDS4AdvancedProductResult(
+                        id=product.id,
+                        lid=product.lid,
+                        lidvid=product.lidvid,
+                        title=product.title,
+                        ref_lid_target=product.ref_lid_target,
+                        time_coordinates=product.time_coordinates,
+                        primary_result_summary=product.primary_result_summary,
+                        bounding_coordinates=bounding_coordinates,
+                    )
+                )
 
             return PDS4SearchProductsAdvancedOutput(
                 total_hits=response.summary.hits,

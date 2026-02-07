@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4Investigation, PDS4LabelFileInfo, PDS4SearchResponse
 
 
 class PDS4SearchInvestigationsInput(InputSchema):
@@ -18,6 +18,17 @@ class PDS4SearchInvestigationsInput(InputSchema):
     limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
+class PDS4InvestigationResult(OutputSchema):
+    """Result model for a single investigation in search results."""
+
+    id: str = Field(..., description="The investigation identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Investigation title")
+    investigation: PDS4Investigation | None = Field(default=None, description="Investigation details")
+    label_file_info: PDS4LabelFileInfo | None = Field(default=None, description="Label file information")
+
+
 class PDS4SearchInvestigationsOutput(OutputSchema):
     """Output schema for PDS4 search investigations tool."""
 
@@ -25,7 +36,7 @@ class PDS4SearchInvestigationsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    investigations: list[dict] = Field(..., description="List of investigation results")
+    investigations: list[PDS4InvestigationResult] = Field(..., description="List of investigation results")
 
 
 @mcp_tool
@@ -49,21 +60,17 @@ class PDS4SearchInvestigationsTool(BaseTool[PDS4SearchInvestigationsInput, PDS4S
                 limit=params.limit,
             )
 
-            investigations = []
-            for investigation in response.data:
-                investigation_data = {
-                    "id": investigation.id,
-                    "lid": investigation.lid,
-                    "lidvid": investigation.lidvid,
-                    "title": investigation.title,
-                }
-
-                if investigation.investigation:
-                    investigation_data["investigation"] = investigation.investigation.model_dump(exclude_none=True)
-                if investigation.label_file_info:
-                    investigation_data["label_file_info"] = investigation.label_file_info.model_dump(exclude_none=True)
-
-                investigations.append(investigation_data)
+            investigations = [
+                PDS4InvestigationResult(
+                    id=investigation.id,
+                    lid=investigation.lid,
+                    lidvid=investigation.lidvid,
+                    title=investigation.title,
+                    investigation=investigation.investigation,
+                    label_file_info=investigation.label_file_info,
+                )
+                for investigation in response.data
+            ]
 
             return PDS4SearchInvestigationsOutput(
                 total_hits=response.summary.hits,

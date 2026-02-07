@@ -6,6 +6,7 @@ from datetime import date, datetime
 from enum import Enum
 from pathlib import Path
 
+from akd._base import OutputSchema
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -94,6 +95,52 @@ class PDSDataset(BaseModel):
             " ".join(self.keywords),
         ]
         return " ".join(parts).lower()
+
+
+class PDSCatalogDatasetResult(OutputSchema):
+    """Result model for dataset queries (search/get).
+
+    Represents a dataset returned from catalog queries with all possible
+    fields from filter_dataset. Fields depend on which field_set is used
+    (SUMMARY_FIELDS, ESSENTIAL_FIELDS, FULL_FIELDS).
+    """
+
+    id: str = Field(description="LIDVID for PDS4, VOLUME_ID for PDS3")
+    title: str = Field(description="Human-readable title")
+    node: str = Field(description="PDS node (atm, geo, img, naif, ppi, rms, sbn)")
+
+    # Optional fields that may be present depending on field set
+    description: str | None = Field(default=None, description="Abstract/description")
+    pds_version: str | None = Field(default=None, description="PDS3 or PDS4")
+    type: str | None = Field(default=None, description="bundle, collection, or volume")
+    missions: list[str] | None = Field(default=None, description="Mission names")
+    targets: list[str] | None = Field(default=None, description="Target bodies")
+    instruments: list[str] | None = Field(default=None, description="Instrument names")
+    instrument_hosts: list[str] | None = Field(default=None, description="Spacecraft/rover names")
+    data_types: list[str] | None = Field(default=None, description="Data types (images, spectra, etc.)")
+    start_date: str | None = Field(default=None, description="Observation start date (ISO format)")
+    stop_date: str | None = Field(default=None, description="Observation end date (ISO format)")
+    browse_url: str | None = Field(default=None, description="Link to browse data")
+    label_url: str | None = Field(default=None, description="URL to PDS4 label XML")
+    source_url: str | None = Field(default=None, description="Where we found this dataset")
+    keywords: list[str] | None = Field(default=None, description="Additional keywords for search")
+    processing_level: str | None = Field(default=None, description="Data processing level")
+
+
+class PDSCatalogMissionItem(OutputSchema):
+    """Result model for mission list queries."""
+
+    name: str = Field(description="Mission name")
+    count: int = Field(description="Number of datasets for this mission")
+    nodes: list[str] = Field(description="PDS nodes that have data for this mission")
+
+
+class PDSCatalogTargetItem(OutputSchema):
+    """Result model for target list queries."""
+
+    name: str = Field(description="Target body name")
+    count: int = Field(description="Number of datasets for this target")
+    nodes: list[str] = Field(description="PDS nodes that have data for this target")
 
 
 def load_from_jsonl(input_path: Path) -> list[PDSDataset]:

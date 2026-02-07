@@ -7,6 +7,7 @@ from pydantic import Field
 from akd_ext.mcp import mcp_tool
 
 from .catalog_index import CatalogIndex
+from .models import PDSCatalogTargetItem
 
 
 class PDSCatalogListTargetsInput(InputSchema):
@@ -21,7 +22,7 @@ class PDSCatalogListTargetsOutput(OutputSchema):
 
     status: str = Field(..., description="Status of the operation")
     count: int = Field(..., description="Number of targets returned")
-    targets: list[dict] = Field(..., description="List of targets with dataset counts")
+    targets: list[PDSCatalogTargetItem] = Field(..., description="List of targets with dataset counts")
 
 
 @mcp_tool
@@ -40,12 +41,13 @@ class PDSCatalogListTargetsTool(BaseTool[PDSCatalogListTargetsInput, PDSCatalogL
         """Execute PDS Catalog list targets."""
         index = CatalogIndex.get_instance()
 
-        targets = index.list_targets()
+        targets_data = index.list_targets()
 
         if params.node:
-            targets = [t for t in targets if params.node.lower() in t["nodes"]]
+            targets_data = [t for t in targets_data if params.node.lower() in t["nodes"]]
 
-        targets = targets[: params.limit]
+        targets_data = targets_data[: params.limit]
+        targets = [PDSCatalogTargetItem(**t) for t in targets_data]
 
         return PDSCatalogListTargetsOutput(
             status="success",

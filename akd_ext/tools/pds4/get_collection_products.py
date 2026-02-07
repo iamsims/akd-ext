@@ -6,7 +6,14 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import (
+    PDS4DataFileInfo,
+    PDS4IdentificationArea,
+    PDS4PrimaryResultSummary,
+    PDS4Provenance,
+    PDS4SearchResponse,
+    PDS4TimeCoordinates,
+)
 
 
 class PDS4GetCollectionProductsInput(InputSchema):
@@ -19,6 +26,20 @@ class PDS4GetCollectionProductsInput(InputSchema):
     limit: int = Field(default=100, description="(Optional, default: 100) Number of products to return")
 
 
+class PDS4CollectionProductResult(OutputSchema):
+    """Result model for a product in a collection."""
+
+    id: str = Field(..., description="The product identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Product title")
+    identification_area: PDS4IdentificationArea | None = Field(default=None, description="Identification area details")
+    time_coordinates: PDS4TimeCoordinates | None = Field(default=None, description="Time coordinates details")
+    data_file_info: PDS4DataFileInfo | None = Field(default=None, description="Data file information")
+    primary_result_summary: PDS4PrimaryResultSummary | None = Field(default=None, description="Primary result summary details")
+    provenance: PDS4Provenance | None = Field(default=None, description="Provenance information")
+
+
 class PDS4GetCollectionProductsOutput(OutputSchema):
     """Output schema for PDS4 get collection products tool."""
 
@@ -26,7 +47,7 @@ class PDS4GetCollectionProductsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     collection_urn: str = Field(..., description="The collection URN that was queried")
     limit: int = Field(..., description="Maximum results requested")
-    products: list[dict] = Field(..., description="List of products in the collection")
+    products: list[PDS4CollectionProductResult] = Field(..., description="List of products in the collection")
 
 
 @mcp_tool
@@ -55,29 +76,20 @@ class PDS4GetCollectionProductsTool(BaseTool[PDS4GetCollectionProductsInput, PDS
                 limit=params.limit,
             )
 
-            products = []
-            for product in response.data:
-                product_data = {
-                    "id": product.id,
-                    "lid": product.lid,
-                    "lidvid": product.lidvid,
-                    "title": product.title,
-                }
-
-                if product.identification_area:
-                    product_data["identification_area"] = product.identification_area.model_dump(exclude_none=True)
-                if product.time_coordinates:
-                    product_data["time_coordinates"] = product.time_coordinates.model_dump(exclude_none=True)
-                if product.data_file_info:
-                    product_data["data_file_info"] = product.data_file_info.model_dump(exclude_none=True)
-                if product.primary_result_summary:
-                    product_data["primary_result_summary"] = product.primary_result_summary.model_dump(
-                        exclude_none=True
-                    )
-                if product.provenance:
-                    product_data["provenance"] = product.provenance.model_dump(exclude_none=True)
-
-                products.append(product_data)
+            products = [
+                PDS4CollectionProductResult(
+                    id=product.id,
+                    lid=product.lid,
+                    lidvid=product.lidvid,
+                    title=product.title,
+                    identification_area=product.identification_area,
+                    time_coordinates=product.time_coordinates,
+                    data_file_info=product.data_file_info,
+                    primary_result_summary=product.primary_result_summary,
+                    provenance=product.provenance,
+                )
+                for product in response.data
+            ]
 
             return PDS4GetCollectionProductsOutput(
                 total_hits=response.summary.hits,

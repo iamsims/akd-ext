@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4Instrument, PDS4SearchResponse
 
 
 class PDS4SearchInstrumentsInput(InputSchema):
@@ -23,6 +23,16 @@ class PDS4SearchInstrumentsInput(InputSchema):
     limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
+class PDS4InstrumentResult(OutputSchema):
+    """Result model for a single instrument in search results."""
+
+    id: str = Field(..., description="The instrument identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Instrument title")
+    instrument: PDS4Instrument | None = Field(default=None, description="Instrument details")
+
+
 class PDS4SearchInstrumentsOutput(OutputSchema):
     """Output schema for PDS4 search instruments tool."""
 
@@ -30,7 +40,7 @@ class PDS4SearchInstrumentsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    instruments: list[dict] = Field(..., description="List of instrument results")
+    instruments: list[PDS4InstrumentResult] = Field(..., description="List of instrument results")
 
 
 @mcp_tool
@@ -55,19 +65,16 @@ class PDS4SearchInstrumentsTool(BaseTool[PDS4SearchInstrumentsInput, PDS4SearchI
                 limit=params.limit,
             )
 
-            instruments = []
-            for instrument in response.data:
-                instrument_data = {
-                    "id": instrument.id,
-                    "lid": instrument.lid,
-                    "lidvid": instrument.lidvid,
-                    "title": instrument.title,
-                }
-
-                if instrument.instrument:
-                    instrument_data["instrument"] = instrument.instrument.model_dump(exclude_none=True)
-
-                instruments.append(instrument_data)
+            instruments = [
+                PDS4InstrumentResult(
+                    id=instrument.id,
+                    lid=instrument.lid,
+                    lidvid=instrument.lidvid,
+                    title=instrument.title,
+                    instrument=instrument.instrument,
+                )
+                for instrument in response.data
+            ]
 
             return PDS4SearchInstrumentsOutput(
                 total_hits=response.summary.hits,

@@ -7,6 +7,7 @@ from pydantic import Field
 from akd_ext.mcp import mcp_tool
 
 from .catalog_index import CatalogIndex
+from .models import PDSCatalogMissionItem
 
 
 class PDSCatalogListMissionsInput(InputSchema):
@@ -21,7 +22,7 @@ class PDSCatalogListMissionsOutput(OutputSchema):
 
     status: str = Field(..., description="Status of the operation")
     count: int = Field(..., description="Number of missions returned")
-    missions: list[dict] = Field(..., description="List of missions with dataset counts")
+    missions: list[PDSCatalogMissionItem] = Field(..., description="List of missions with dataset counts")
 
 
 @mcp_tool
@@ -39,12 +40,13 @@ class PDSCatalogListMissionsTool(BaseTool[PDSCatalogListMissionsInput, PDSCatalo
         """Execute PDS Catalog list missions."""
         index = CatalogIndex.get_instance()
 
-        missions = index.list_missions()
+        missions_data = index.list_missions()
 
         if params.node:
-            missions = [m for m in missions if params.node.lower() in m["nodes"]]
+            missions_data = [m for m in missions_data if params.node.lower() in m["nodes"]]
 
-        missions = missions[: params.limit]
+        missions_data = missions_data[: params.limit]
+        missions = [PDSCatalogMissionItem(**m) for m in missions_data]
 
         return PDSCatalogListMissionsOutput(
             status="success",

@@ -8,7 +8,15 @@ from .get_dataset import PDSCatalogGetDatasetInput, PDSCatalogGetDatasetOutput, 
 from .get_stats import PDSCatalogGetStatsInput, PDSCatalogGetStatsOutput, PDSCatalogGetStatsTool
 from .list_missions import PDSCatalogListMissionsInput, PDSCatalogListMissionsOutput, PDSCatalogListMissionsTool
 from .list_targets import PDSCatalogListTargetsInput, PDSCatalogListTargetsOutput, PDSCatalogListTargetsTool
-from .models import DatasetType, PDSDataset, PDSNode, PDSVersion
+from .models import (
+    DatasetType,
+    PDSCatalogDatasetResult,
+    PDSCatalogMissionItem,
+    PDSCatalogTargetItem,
+    PDSDataset,
+    PDSNode,
+    PDSVersion,
+)
 from .search_datasets import PDSCatalogSearchInput, PDSCatalogSearchOutput, PDSCatalogSearchTool
 
 __all__ = [
@@ -17,6 +25,9 @@ __all__ = [
     "PDSNode",
     "PDSVersion",
     "DatasetType",
+    "PDSCatalogDatasetResult",
+    "PDSCatalogMissionItem",
+    "PDSCatalogTargetItem",
     # Search Datasets
     "PDSCatalogSearchTool",
     "PDSCatalogSearchInput",

@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4LabelFileInfo, PDS4PrimaryResultSummary, PDS4SearchResponse, PDS4TimeCoordinates
 
 
 class PDS4SearchCollectionsInput(InputSchema):
@@ -38,6 +38,22 @@ class PDS4SearchCollectionsInput(InputSchema):
     limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
+class PDS4CollectionResult(OutputSchema):
+    """Result model for a single collection in search results."""
+
+    id: str = Field(..., description="The collection identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Collection title")
+    ref_lid_instrument: str | None = Field(default=None, description="Reference LID for instrument")
+    ref_lid_target: str | None = Field(default=None, description="Reference LID for target")
+    ref_lid_instrument_host: str | None = Field(default=None, description="Reference LID for instrument host")
+    ref_lid_investigation: str | None = Field(default=None, description="Reference LID for investigation")
+    time_coordinates: PDS4TimeCoordinates | None = Field(default=None, description="Time coordinates details")
+    primary_result_summary: PDS4PrimaryResultSummary | None = Field(default=None, description="Primary result summary details")
+    label_file_info: PDS4LabelFileInfo | None = Field(default=None, description="Label file information")
+
+
 class PDS4SearchCollectionsOutput(OutputSchema):
     """Output schema for PDS4 search collections tool."""
 
@@ -45,7 +61,7 @@ class PDS4SearchCollectionsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    collections: list[dict] = Field(..., description="List of collection results")
+    collections: list[PDS4CollectionResult] = Field(..., description="List of collection results")
 
 
 @mcp_tool
@@ -74,29 +90,22 @@ class PDS4SearchCollectionsTool(BaseTool[PDS4SearchCollectionsInput, PDS4SearchC
                 limit=params.limit,
             )
 
-            collections = []
-            for collection in response.data:
-                collection_data = {
-                    "id": collection.id,
-                    "lid": collection.lid,
-                    "lidvid": collection.lidvid,
-                    "title": collection.title,
-                    "ref_lid_instrument": collection.ref_lid_instrument,
-                    "ref_lid_target": collection.ref_lid_target,
-                    "ref_lid_instrument_host": collection.ref_lid_instrument_host,
-                    "ref_lid_investigation": collection.ref_lid_investigation,
-                }
-
-                if collection.time_coordinates:
-                    collection_data["time_coordinates"] = collection.time_coordinates.model_dump(exclude_none=True)
-                if collection.primary_result_summary:
-                    collection_data["primary_result_summary"] = collection.primary_result_summary.model_dump(
-                        exclude_none=True
-                    )
-                if collection.label_file_info:
-                    collection_data["label_file_info"] = collection.label_file_info.model_dump(exclude_none=True)
-
-                collections.append(collection_data)
+            collections = [
+                PDS4CollectionResult(
+                    id=collection.id,
+                    lid=collection.lid,
+                    lidvid=collection.lidvid,
+                    title=collection.title,
+                    ref_lid_instrument=collection.ref_lid_instrument,
+                    ref_lid_target=collection.ref_lid_target,
+                    ref_lid_instrument_host=collection.ref_lid_instrument_host,
+                    ref_lid_investigation=collection.ref_lid_investigation,
+                    time_coordinates=collection.time_coordinates,
+                    primary_result_summary=collection.primary_result_summary,
+                    label_file_info=collection.label_file_info,
+                )
+                for collection in response.data
+            ]
 
             return PDS4SearchCollectionsOutput(
                 total_hits=response.summary.hits,
