@@ -8,6 +8,20 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.opus.client import OPUSClient
 
 
+class OPUSObservationResult(OutputSchema):
+    """OPUS observation result from search."""
+
+    opusid: str = Field(..., description="OPUS observation identifier")
+    instrument: str = Field(..., description="Instrument name")
+    planet: str = Field(..., description="Target planet")
+    target: str = Field(..., description="Observation target")
+    mission: str = Field(..., description="Space mission name")
+    time1: str = Field(..., description="Observation start time")
+    time2: str = Field(..., description="Observation end time")
+    observation_duration: float = Field(..., description="Observation duration in seconds")
+    ring_obs_id: str = Field(..., description="Ring observation identifier")
+
+
 class OPUSSearchObservationsInput(InputSchema):
     """Input schema for OPUS search observations tool."""
 
@@ -42,7 +56,7 @@ class OPUSSearchObservationsOutput(OutputSchema):
     count: int = Field(..., description="Number of observations returned")
     available: int = Field(..., description="Total available observations matching criteria")
     order: str = Field(..., description="Sort order used")
-    observations: list[dict] = Field(..., description="List of observation results")
+    observations: list[OPUSObservationResult] = Field(..., description="List of observation results")
     error: str | None = Field(default=None, description="Error message if status is error")
 
 
@@ -76,18 +90,19 @@ class OPUSSearchObservationsTool(BaseTool[OPUSSearchObservationsInput, OPUSSearc
 
             observations = []
             for obs in response.observations:
-                obs_data = {
-                    "opusid": obs.opusid,
-                    "instrument": obs.instrument,
-                    "planet": obs.planet,
-                    "target": obs.target,
-                    "mission": obs.mission,
-                    "time1": obs.time1,
-                    "time2": obs.time2,
-                    "observation_duration": obs.observation_duration,
-                    "ring_obs_id": obs.ring_obs_id,
-                }
-                observations.append(obs_data)
+                observations.append(
+                    OPUSObservationResult(
+                        opusid=obs.opusid,
+                        instrument=obs.instrument or "",
+                        planet=obs.planet or "",
+                        target=obs.target or "",
+                        mission=obs.mission or "",
+                        time1=obs.time1 or "",
+                        time2=obs.time2 or "",
+                        observation_duration=obs.observation_duration or 0.0,
+                        ring_obs_id=obs.ring_obs_id or "",
+                    )
+                )
 
             return OPUSSearchObservationsOutput(
                 status=response.status,

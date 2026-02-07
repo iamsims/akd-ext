@@ -8,6 +8,56 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.ode.client import ODEClient
 
 
+class ODEProductFileItem(OutputSchema):
+    """Model for a product file item."""
+
+    file_name: str = Field(..., description="Name of the file")
+    url: str = Field(..., description="URL to access the file")
+    description: str = Field(..., description="Description of the file")
+    file_type: str = Field(..., description="Type of file (e.g., IMG, LBL, etc.)")
+
+
+class ODEProductResult(OutputSchema):
+    """Model for a product result from ODE search."""
+
+    # Required fields
+    pdsid: str = Field(..., description="PDS Product ID")
+    ode_id: str = Field(..., description="ODE Product ID")
+    data_set_id: str = Field(..., description="Dataset ID")
+    ihid: str = Field(..., description="Instrument Host ID")
+    iid: str = Field(..., description="Instrument ID")
+    pt: str = Field(..., description="Product Type")
+
+    # Optional geographic information
+    center_latitude: float | None = Field(default=None, description="Center latitude of the observation")
+    center_longitude: float | None = Field(default=None, description="Center longitude of the observation")
+    minimum_latitude: float | None = Field(default=None, description="Minimum latitude of the observation")
+    maximum_latitude: float | None = Field(default=None, description="Maximum latitude of the observation")
+    westernmost_longitude: float | None = Field(default=None, description="Westernmost longitude of the observation")
+    easternmost_longitude: float | None = Field(default=None, description="Easternmost longitude of the observation")
+
+    # Optional temporal information
+    observation_time: str | None = Field(default=None, description="Observation time in UTC")
+    utc_start_time: str | None = Field(default=None, description="UTC start time of observation")
+    utc_stop_time: str | None = Field(default=None, description="UTC stop time of observation")
+
+    # Optional viewing geometry
+    emission_angle: float | None = Field(default=None, description="Emission angle in degrees")
+    incidence_angle: float | None = Field(default=None, description="Incidence angle in degrees")
+    phase_angle: float | None = Field(default=None, description="Phase angle in degrees")
+
+    # Optional resolution
+    map_scale: float | None = Field(default=None, description="Map scale in meters per pixel")
+
+    # Optional URLs
+    product_url: str | None = Field(default=None, description="URL to the product metadata")
+    label_url: str | None = Field(default=None, description="URL to the product label file")
+
+    # Optional files
+    files: list[ODEProductFileItem] | None = Field(default=None, description="List of product files")
+    files_note: str | None = Field(default=None, description="Note about the files (e.g., truncation message)")
+
+
 class ODESearchProductsInput(InputSchema):
     """Input schema for ODE search products tool."""
 
@@ -35,7 +85,7 @@ class ODESearchProductsOutput(OutputSchema):
 
     status: str = Field(..., description="Response status (SUCCESS or ERROR)")
     count: int = Field(..., description="Total number of products matching the query")
-    products: list[dict] = Field(..., description="List of product results")
+    products: list[ODEProductResult] = Field(..., description="List of product results")
     error: str | None = Field(default=None, description="Error message if status is ERROR")
 
 
@@ -75,65 +125,46 @@ class ODESearchProductsTool(BaseTool[ODESearchProductsInput, ODESearchProductsOu
 
             products = []
             for product in response.products:
-                product_data = {
-                    "pdsid": product.pdsid,
-                    "ode_id": product.ode_id,
-                    "data_set_id": product.data_set_id,
-                    "ihid": product.ihid,
-                    "iid": product.iid,
-                    "pt": product.pt,
-                }
-
-                # Geographic information
-                if product.center_latitude is not None:
-                    product_data["center_latitude"] = product.center_latitude
-                if product.center_longitude is not None:
-                    product_data["center_longitude"] = product.center_longitude
-                if product.minimum_latitude is not None:
-                    product_data["minimum_latitude"] = product.minimum_latitude
-                if product.maximum_latitude is not None:
-                    product_data["maximum_latitude"] = product.maximum_latitude
-                if product.westernmost_longitude is not None:
-                    product_data["westernmost_longitude"] = product.westernmost_longitude
-                if product.easternmost_longitude is not None:
-                    product_data["easternmost_longitude"] = product.easternmost_longitude
-
-                # Temporal information
-                if product.observation_time:
-                    product_data["observation_time"] = product.observation_time
-                if product.utc_start_time:
-                    product_data["utc_start_time"] = product.utc_start_time
-                if product.utc_stop_time:
-                    product_data["utc_stop_time"] = product.utc_stop_time
-
-                # Viewing geometry
-                if product.emission_angle is not None:
-                    product_data["emission_angle"] = product.emission_angle
-                if product.incidence_angle is not None:
-                    product_data["incidence_angle"] = product.incidence_angle
-                if product.phase_angle is not None:
-                    product_data["phase_angle"] = product.phase_angle
-
-                # Resolution
-                if product.map_scale is not None:
-                    product_data["map_scale"] = product.map_scale
-
-                # URLs
-                if product.product_url:
-                    product_data["product_url"] = product.product_url
-                if product.label_url:
-                    product_data["label_url"] = product.label_url
-
-                # Files (limit to first 3 to avoid context bloat)
+                # Build files list if available
+                files = None
+                files_note = None
                 if product.product_files:
-                    product_data["files"] = [
-                        {"file_name": f.file_name, "url": f.url, "description": f.description, "file_type": f.file_type}
+                    files = [
+                        ODEProductFileItem(
+                            file_name=f.file_name, url=f.url, description=f.description, file_type=f.file_type
+                        )
                         for f in product.product_files[:3]
                     ]
                     if len(product.product_files) > 3:
-                        product_data["files_note"] = f"Showing 3 of {len(product.product_files)} files"
+                        files_note = f"Showing 3 of {len(product.product_files)} files"
 
-                products.append(product_data)
+                # Build product result
+                product_result = ODEProductResult(
+                    pdsid=product.pdsid,
+                    ode_id=product.ode_id,
+                    data_set_id=product.data_set_id,
+                    ihid=product.ihid,
+                    iid=product.iid,
+                    pt=product.pt,
+                    center_latitude=product.center_latitude,
+                    center_longitude=product.center_longitude,
+                    minimum_latitude=product.minimum_latitude,
+                    maximum_latitude=product.maximum_latitude,
+                    westernmost_longitude=product.westernmost_longitude,
+                    easternmost_longitude=product.easternmost_longitude,
+                    observation_time=product.observation_time,
+                    utc_start_time=product.utc_start_time,
+                    utc_stop_time=product.utc_stop_time,
+                    emission_angle=product.emission_angle,
+                    incidence_angle=product.incidence_angle,
+                    phase_angle=product.phase_angle,
+                    map_scale=product.map_scale,
+                    product_url=product.product_url,
+                    label_url=product.label_url,
+                    files=files,
+                    files_note=files_note,
+                )
+                products.append(product_result)
 
             return ODESearchProductsOutput(
                 status=response.status,

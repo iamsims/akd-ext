@@ -28,7 +28,7 @@ class OPUSGetFieldsOutput(OutputSchema):
     """Output schema for OPUS get fields tool."""
 
     status: str = Field(..., description="Response status (success or error)")
-    fields: list[dict] = Field(default_factory=list, description="List of available search fields")
+    fields: list[OPUSFieldDefinition] = Field(default_factory=list, description="List of available search fields")
     categories: list[str] = Field(default_factory=list, description="List of field categories")
     error: str | None = Field(default=None, description="Error message if status is error")
 
@@ -58,14 +58,15 @@ class OPUSGetFieldsTool(BaseTool[OPUSGetFieldsInput, OPUSGetFieldsOutput]):
 
             fields = []
             for field in response.fields:
-                field_data = {
-                    "field_id": field.field_id,
-                    "label": field.label,
-                    "category": field.category,
-                    "search_label": field.search_label,
-                    "full_label": field.full_label,
-                }
-                fields.append(field_data)
+                fields.append(
+                    OPUSFieldDefinition(
+                        field_id=field.field_id,
+                        label=field.label,
+                        category=field.category,
+                        search_label=field.search_label,
+                        full_label=field.full_label,
+                    )
+                )
 
             return OPUSGetFieldsOutput(
                 status=response.status,

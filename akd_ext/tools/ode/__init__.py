@@ -11,6 +11,7 @@ from .count_products import (
     ODECountProductsTool,
 )
 from .get_feature_bounds import (
+    ODEFeatureBoundResult,
     ODEGetFeatureBoundsInput,
     ODEGetFeatureBoundsOutput,
     ODEGetFeatureBoundsTool,
@@ -26,6 +27,7 @@ from .list_feature_names import (
     ODEListFeatureNamesTool,
 )
 from .list_instruments import (
+    ODEInstrumentItem,
     ODEListInstrumentsInput,
     ODEListInstrumentsOutput,
     ODEListInstrumentsTool,
@@ -43,6 +45,8 @@ from .models import (
     ODEProductSearchResponse,
 )
 from .search_products import (
+    ODEProductFileItem,
+    ODEProductResult,
     ODESearchProductsInput,
     ODESearchProductsOutput,
     ODESearchProductsTool,
@@ -64,6 +68,11 @@ __all__ = [
     "ODEFeatureDataResponse",
     "ODEFeatureClassesResponse",
     "ODEFeatureNamesResponse",
+    # Output schema models
+    "ODEProductResult",
+    "ODEProductFileItem",
+    "ODEInstrumentItem",
+    "ODEFeatureBoundResult",
     # Tools
     "ODESearchProductsTool",
     "ODESearchProductsInput",

@@ -6,7 +6,14 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import (
+    PDS4HarvestInfo,
+    PDS4IdentificationArea,
+    PDS4InvestigationArea,
+    PDS4SearchResponse,
+    PDS4TargetIdentification,
+    PDS4TimeCoordinates,
+)
 
 
 class PDS4SearchBundlesInput(InputSchema):
@@ -32,6 +39,20 @@ class PDS4SearchBundlesInput(InputSchema):
     facet_limit: int = Field(default=25, description="(Optional, default: 25) Maximum number of facet values to return")
 
 
+class PDS4BundleResult(OutputSchema):
+    """Result model for a single bundle in search results."""
+
+    id: str = Field(..., description="The bundle identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Bundle title")
+    investigation_area: PDS4InvestigationArea | None = Field(default=None, description="Investigation area details")
+    identification_area: PDS4IdentificationArea | None = Field(default=None, description="Identification area details")
+    target_identification: PDS4TargetIdentification | None = Field(default=None, description="Target identification details")
+    time_coordinates: PDS4TimeCoordinates | None = Field(default=None, description="Time coordinates details")
+    harvest_info: PDS4HarvestInfo | None = Field(default=None, description="Harvest information details")
+
+
 class PDS4SearchBundlesOutput(OutputSchema):
     """Output schema for PDS4 search bundles tool."""
 
@@ -39,8 +60,8 @@ class PDS4SearchBundlesOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    bundles: list[dict] = Field(..., description="List of bundle results")
-    facets: dict = Field(..., description="Faceted search results")
+    bundles: list[PDS4BundleResult] = Field(..., description="List of bundle results")
+    facets: dict[str, dict[str, int]] = Field(..., description="Faceted search results")
 
 
 @mcp_tool
@@ -73,31 +94,22 @@ class PDS4SearchBundlesTool(BaseTool[PDS4SearchBundlesInput, PDS4SearchBundlesOu
                 facet_limit=params.facet_limit,
             )
 
-            bundles = []
-            for bundle in response.data:
-                bundle_data = {
-                    "id": bundle.id,
-                    "lid": bundle.lid,
-                    "lidvid": bundle.lidvid,
-                    "title": bundle.title,
-                }
+            bundles = [
+                PDS4BundleResult(
+                    id=bundle.id,
+                    lid=bundle.lid,
+                    lidvid=bundle.lidvid,
+                    title=bundle.title,
+                    investigation_area=bundle.investigation_area,
+                    identification_area=bundle.identification_area,
+                    target_identification=bundle.target_identification,
+                    time_coordinates=bundle.time_coordinates,
+                    harvest_info=bundle.harvest_info,
+                )
+                for bundle in response.data
+            ]
 
-                if bundle.investigation_area:
-                    bundle_data["investigation_area"] = bundle.investigation_area.model_dump(exclude_none=True)
-                if bundle.identification_area:
-                    bundle_data["identification_area"] = bundle.identification_area.model_dump(exclude_none=True)
-                if bundle.target_identification:
-                    bundle_data["target_identification"] = bundle.target_identification.model_dump(exclude_none=True)
-                if bundle.time_coordinates:
-                    bundle_data["time_coordinates"] = bundle.time_coordinates.model_dump(exclude_none=True)
-                if bundle.harvest_info:
-                    bundle_data["harvest_info"] = bundle.harvest_info.model_dump(exclude_none=True)
-
-                bundles.append(bundle_data)
-
-            facets = {}
-            for facet in response.facets:
-                facets[facet.property] = facet.counts
+            facets = {facet.property: facet.counts for facet in response.facets}
 
             return PDS4SearchBundlesOutput(
                 total_hits=response.summary.hits,

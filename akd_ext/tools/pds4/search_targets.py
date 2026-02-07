@@ -6,7 +6,7 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import PDS4Alias, PDS4SearchResponse, PDS4Target
 
 
 class PDS4SearchTargetsInput(InputSchema):
@@ -22,6 +22,17 @@ class PDS4SearchTargetsInput(InputSchema):
     limit: int = Field(default=10, description="(Optional, default: 10) Maximum number of results to return")
 
 
+class PDS4TargetResult(OutputSchema):
+    """Result model for a single target in search results."""
+
+    id: str = Field(..., description="The target identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Target title")
+    target: PDS4Target | None = Field(default=None, description="Target details")
+    alias: PDS4Alias | None = Field(default=None, description="Alias information")
+
+
 class PDS4SearchTargetsOutput(OutputSchema):
     """Output schema for PDS4 search targets tool."""
 
@@ -29,7 +40,7 @@ class PDS4SearchTargetsOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    targets: list[dict] = Field(..., description="List of target results")
+    targets: list[PDS4TargetResult] = Field(..., description="List of target results")
 
 
 @mcp_tool
@@ -54,21 +65,17 @@ class PDS4SearchTargetsTool(BaseTool[PDS4SearchTargetsInput, PDS4SearchTargetsOu
                 limit=params.limit,
             )
 
-            targets = []
-            for target in response.data:
-                target_data = {
-                    "id": target.id,
-                    "lid": target.lid,
-                    "lidvid": target.lidvid,
-                    "title": target.title,
-                }
-
-                if target.target:
-                    target_data["target"] = target.target.model_dump(exclude_none=True)
-                if target.alias:
-                    target_data["alias"] = target.alias.model_dump(exclude_none=True)
-
-                targets.append(target_data)
+            targets = [
+                PDS4TargetResult(
+                    id=target.id,
+                    lid=target.lid,
+                    lidvid=target.lidvid,
+                    title=target.title,
+                    target=target.target,
+                    alias=target.alias,
+                )
+                for target in response.data
+            ]
 
             return PDS4SearchTargetsOutput(
                 total_hits=response.summary.hits,

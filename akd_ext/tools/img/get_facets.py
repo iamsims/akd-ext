@@ -8,6 +8,13 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.img.client import IMGAtlasClient
 
 
+class IMGFacetValueItem(OutputSchema):
+    """A single facet value with its count."""
+
+    value: str = Field(..., description="The facet value")
+    count: int = Field(..., description="Number of products with this value")
+
+
 class IMGGetFacetsInput(InputSchema):
     """Input schema for IMG Atlas get facets tool."""
 
@@ -35,7 +42,7 @@ class IMGGetFacetsOutput(OutputSchema):
     facet_field: str = Field(..., description="The field that was queried")
     query_time_ms: int = Field(..., description="Query execution time in milliseconds")
     count: int = Field(..., description="Number of values returned")
-    values: list[dict] = Field(..., description="List of values with their counts, sorted by count descending")
+    values: list[IMGFacetValueItem] = Field(..., description="List of values with their counts, sorted by count descending")
     error: str | None = Field(default=None, description="Error message if status is 'error'")
 
 
@@ -79,5 +86,5 @@ class IMGGetFacetsTool(BaseTool[IMGGetFacetsInput, IMGGetFacetsOutput]):
                 facet_field=response.facet_field,
                 query_time_ms=response.query_time_ms,
                 count=len(response.values),
-                values=[{"value": v.value, "count": v.count} for v in response.values],
+                values=[IMGFacetValueItem(value=v.value, count=v.count) for v in response.values],
             )

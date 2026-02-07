@@ -6,7 +6,14 @@ from pydantic import Field
 
 from akd_ext.mcp import mcp_tool
 from akd_ext.tools.pds4.client import PDS4Client
-from akd_ext.tools.pds4.models import PDS4SearchResponse
+from akd_ext.tools.pds4.models import (
+    PDS4DataFileInfo,
+    PDS4IdentificationArea,
+    PDS4PrimaryResultSummary,
+    PDS4ScienceFacets,
+    PDS4SearchResponse,
+    PDS4TimeCoordinates,
+)
 
 
 class PDS4SearchObservationalInput(InputSchema):
@@ -25,6 +32,20 @@ class PDS4SearchObservationalInput(InputSchema):
     facet_limit: int = Field(default=25, description="(Optional, default: 25) Maximum number of facet values to return")
 
 
+class PDS4ObservationalResult(OutputSchema):
+    """Result model for a single observational product in search results."""
+
+    id: str = Field(..., description="The product identifier")
+    lid: str | None = Field(default=None, description="Logical identifier")
+    lidvid: str | None = Field(default=None, description="Logical identifier with version")
+    title: str | None = Field(default=None, description="Product title")
+    identification_area: PDS4IdentificationArea | None = Field(default=None, description="Identification area details")
+    science_facets: PDS4ScienceFacets | None = Field(default=None, description="Science facets details")
+    time_coordinates: PDS4TimeCoordinates | None = Field(default=None, description="Time coordinates details")
+    primary_result_summary: PDS4PrimaryResultSummary | None = Field(default=None, description="Primary result summary details")
+    data_file_info: PDS4DataFileInfo | None = Field(default=None, description="Data file information")
+
+
 class PDS4SearchObservationalOutput(OutputSchema):
     """Output schema for PDS4 search observational tool."""
 
@@ -32,8 +53,8 @@ class PDS4SearchObservationalOutput(OutputSchema):
     query_time_ms: int | None = Field(..., description="Query execution time in milliseconds")
     query: str | None = Field(..., description="The query that was executed")
     limit: int = Field(..., description="Maximum results requested")
-    products: list[dict] = Field(..., description="List of observational product results")
-    facets: dict = Field(..., description="Faceted search results")
+    products: list[PDS4ObservationalResult] = Field(..., description="List of observational product results")
+    facets: dict[str, dict[str, int]] = Field(..., description="Faceted search results")
 
 
 @mcp_tool
@@ -63,33 +84,22 @@ class PDS4SearchObservationalTool(BaseTool[PDS4SearchObservationalInput, PDS4Sea
                 facet_limit=params.facet_limit,
             )
 
-            products = []
-            for product in response.data:
-                product_data = {
-                    "id": product.id,
-                    "lid": product.lid,
-                    "lidvid": product.lidvid,
-                    "title": product.title,
-                }
+            products = [
+                PDS4ObservationalResult(
+                    id=product.id,
+                    lid=product.lid,
+                    lidvid=product.lidvid,
+                    title=product.title,
+                    identification_area=product.identification_area,
+                    science_facets=product.science_facets,
+                    time_coordinates=product.time_coordinates,
+                    primary_result_summary=product.primary_result_summary,
+                    data_file_info=product.data_file_info,
+                )
+                for product in response.data
+            ]
 
-                if product.identification_area:
-                    product_data["identification_area"] = product.identification_area.model_dump(exclude_none=True)
-                if product.science_facets:
-                    product_data["science_facets"] = product.science_facets.model_dump(exclude_none=True)
-                if product.time_coordinates:
-                    product_data["time_coordinates"] = product.time_coordinates.model_dump(exclude_none=True)
-                if product.primary_result_summary:
-                    product_data["primary_result_summary"] = product.primary_result_summary.model_dump(
-                        exclude_none=True
-                    )
-                if product.data_file_info:
-                    product_data["data_file_info"] = product.data_file_info.model_dump(exclude_none=True)
-
-                products.append(product_data)
-
-            facets = {}
-            for facet in response.facets:
-                facets[facet.property] = facet.counts
+            facets = {facet.property: facet.counts for facet in response.facets}
 
             return PDS4SearchObservationalOutput(
                 total_hits=response.summary.hits,

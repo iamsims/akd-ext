@@ -1,5 +1,7 @@
 """OPUS get metadata tool for retrieving detailed observation metadata."""
 
+from typing import Any
+
 from akd._base import InputSchema, OutputSchema
 from akd.tools import BaseTool
 from pydantic import Field
@@ -19,13 +21,13 @@ class OPUSGetMetadataOutput(OutputSchema):
 
     status: str = Field(..., description="Response status (success or error)")
     opusid: str | None = Field(default=None, description="OPUS observation ID")
-    general_constraints: dict = Field(default_factory=dict, description="General observation constraints")
-    pds_constraints: dict = Field(default_factory=dict, description="PDS-specific constraints")
-    image_constraints: dict = Field(default_factory=dict, description="Image-specific constraints")
-    wavelength_constraints: dict = Field(default_factory=dict, description="Wavelength constraints")
-    ring_geometry_constraints: dict = Field(default_factory=dict, description="Ring geometry constraints")
-    surface_geometry_constraints: dict = Field(default_factory=dict, description="Surface geometry constraints")
-    instrument_constraints: dict = Field(default_factory=dict, description="Instrument-specific constraints")
+    general_constraints: dict[str, Any] = Field(default_factory=dict, description="General observation constraints")
+    pds_constraints: dict[str, Any] = Field(default_factory=dict, description="PDS-specific constraints")
+    image_constraints: dict[str, Any] = Field(default_factory=dict, description="Image-specific constraints")
+    wavelength_constraints: dict[str, Any] = Field(default_factory=dict, description="Wavelength constraints")
+    ring_geometry_constraints: dict[str, Any] = Field(default_factory=dict, description="Ring geometry constraints")
+    surface_geometry_constraints: dict[str, Any] = Field(default_factory=dict, description="Surface geometry constraints")
+    instrument_constraints: dict[str, Any] = Field(default_factory=dict, description="Instrument-specific constraints")
     error: str | None = Field(default=None, description="Error message if status is error")
 
 

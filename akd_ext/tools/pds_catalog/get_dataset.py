@@ -7,6 +7,7 @@ from pydantic import Field
 from akd_ext.mcp import mcp_tool
 
 from .catalog_index import FULL_FIELDS, CatalogIndex, filter_dataset
+from .models import PDSCatalogDatasetResult
 
 
 class PDSCatalogGetDatasetInput(InputSchema):
@@ -19,7 +20,7 @@ class PDSCatalogGetDatasetOutput(OutputSchema):
     """Output schema for PDS Catalog get dataset tool."""
 
     status: str = Field(..., description="Status of the operation ('success' or 'not_found')")
-    dataset: dict | None = Field(default=None, description="Full dataset information if found")
+    dataset: PDSCatalogDatasetResult | None = Field(default=None, description="Full dataset information if found")
     error: str | None = Field(default=None, description="Error message if dataset not found")
 
 
@@ -43,7 +44,7 @@ class PDSCatalogGetDatasetTool(BaseTool[PDSCatalogGetDatasetInput, PDSCatalogGet
         if dataset:
             return PDSCatalogGetDatasetOutput(
                 status="success",
-                dataset=filter_dataset(dataset, FULL_FIELDS),
+                dataset=PDSCatalogDatasetResult(**filter_dataset(dataset, FULL_FIELDS)),
             )
 
         return PDSCatalogGetDatasetOutput(

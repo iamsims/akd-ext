@@ -8,6 +8,18 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.ode.client import ODEClient
 
 
+class ODEInstrumentItem(OutputSchema):
+    """Model for an instrument/product type combination."""
+
+    ihid: str = Field(..., description="Instrument Host ID")
+    instrument_host_name: str = Field(..., description="Name of the instrument host")
+    iid: str = Field(..., description="Instrument ID")
+    instrument_name: str = Field(..., description="Name of the instrument")
+    pt: str = Field(..., description="Product Type")
+    pt_name: str = Field(..., description="Product Type name")
+    number_products: int = Field(..., description="Number of products available for this combination")
+
+
 class ODEListInstrumentsInput(InputSchema):
     """Input schema for ODE list instruments tool."""
 
@@ -21,7 +33,7 @@ class ODEListInstrumentsOutput(OutputSchema):
     """Output schema for ODE list instruments tool."""
 
     status: str = Field(..., description="Response status (SUCCESS or ERROR)")
-    instruments: list[dict] = Field(..., description="List of instrument/product type combinations")
+    instruments: list[ODEInstrumentItem] = Field(..., description="List of instrument/product type combinations")
     error: str | None = Field(default=None, description="Error message if status is ERROR")
 
 
@@ -49,15 +61,15 @@ class ODEListInstrumentsTool(BaseTool[ODEListInstrumentsInput, ODEListInstrument
                     break
 
                 instruments.append(
-                    {
-                        "ihid": inst.ihid,
-                        "instrument_host_name": inst.instrument_host_name,
-                        "iid": inst.iid,
-                        "instrument_name": inst.instrument_name,
-                        "pt": inst.pt,
-                        "pt_name": inst.pt_name,
-                        "number_products": inst.number_products,
-                    }
+                    ODEInstrumentItem(
+                        ihid=inst.ihid,
+                        instrument_host_name=inst.instrument_host_name,
+                        iid=inst.iid,
+                        instrument_name=inst.instrument_name,
+                        pt=inst.pt,
+                        pt_name=inst.pt_name,
+                        number_products=inst.number_products,
+                    )
                 )
 
             return ODEListInstrumentsOutput(

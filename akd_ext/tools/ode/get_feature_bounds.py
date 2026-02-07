@@ -8,6 +8,17 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.ode.client import ODEClient
 
 
+class ODEFeatureBoundResult(OutputSchema):
+    """Model for a feature with geographic bounds."""
+
+    feature_class: str = Field(..., description="Type of feature (e.g., crater, chasma, mons)")
+    feature_name: str = Field(..., description="Name of the feature")
+    min_lat: float = Field(..., description="Minimum latitude of the feature in degrees")
+    max_lat: float = Field(..., description="Maximum latitude of the feature in degrees")
+    west_lon: float = Field(..., description="Westernmost longitude of the feature in degrees")
+    east_lon: float = Field(..., description="Easternmost longitude of the feature in degrees")
+
+
 class ODEGetFeatureBoundsInput(InputSchema):
     """Input schema for ODE get feature bounds tool."""
 
@@ -21,7 +32,7 @@ class ODEGetFeatureBoundsOutput(OutputSchema):
 
     status: str = Field(..., description="Response status (SUCCESS or ERROR)")
     count: int = Field(..., description="Number of features found")
-    features: list[dict] = Field(..., description="List of features with geographic bounds")
+    features: list[ODEFeatureBoundResult] = Field(..., description="List of features with geographic bounds")
     error: str | None = Field(default=None, description="Error message if status is ERROR")
 
 
@@ -51,14 +62,14 @@ class ODEGetFeatureBoundsTool(BaseTool[ODEGetFeatureBoundsInput, ODEGetFeatureBo
             features = []
             for feature in response.features:
                 features.append(
-                    {
-                        "feature_class": feature.feature_class,
-                        "feature_name": feature.feature_name,
-                        "min_lat": feature.min_lat,
-                        "max_lat": feature.max_lat,
-                        "west_lon": feature.west_lon,
-                        "east_lon": feature.east_lon,
-                    }
+                    ODEFeatureBoundResult(
+                        feature_class=feature.feature_class,
+                        feature_name=feature.feature_name,
+                        min_lat=feature.min_lat,
+                        max_lat=feature.max_lat,
+                        west_lon=feature.west_lon,
+                        east_lon=feature.east_lon,
+                    )
                 )
 
             return ODEGetFeatureBoundsOutput(

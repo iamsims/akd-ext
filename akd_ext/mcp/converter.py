@@ -8,6 +8,42 @@ from fastmcp import FastMCP
 from akd.tools._base import BaseTool
 
 
+def _build_output_description(output_schema) -> str:
+    """
+    Build a human-readable description of a tool's output schema.
+
+    Extracts field names, types, and descriptions from the output Pydantic model
+    so the LLM knows what data the tool returns.
+
+    Args:
+        output_schema: A Pydantic model class (the tool's output_schema).
+
+    Returns:
+        A formatted string describing the output fields, or empty string if none.
+    """
+    if output_schema is None:
+        return ""
+
+    fields = getattr(output_schema, "model_fields", None)
+    if not fields:
+        return ""
+
+    lines = []
+    for field_name, field in fields.items():
+        field_type = field.annotation
+        type_name = getattr(field_type, "__name__", str(field_type))
+        desc = field.description or ""
+        if desc:
+            lines.append(f"  - {field_name} ({type_name}): {desc}")
+        else:
+            lines.append(f"  - {field_name} ({type_name})")
+
+    if not lines:
+        return ""
+
+    return "\n\nReturns:\n" + "\n".join(lines)
+
+
 def tool_converter(tool: BaseTool) -> Callable[..., Awaitable[Any]]:
     """
     Convert akd BaseTool to FastMCP-compatible async function.
@@ -26,6 +62,12 @@ def tool_converter(tool: BaseTool) -> Callable[..., Awaitable[Any]]:
     tool_name = getattr(tool, "name", None) or tool.__class__.__name__
     tool_description = getattr(tool, "description", None) or ""
     InputModel = tool.input_schema
+    OutputModel = getattr(tool, "output_schema", None)
+
+    # Append output schema description so the LLM knows what the tool returns
+    output_description = _build_output_description(OutputModel)
+    if output_description:
+        tool_description = tool_description + output_description
 
     # Build signature from InputModel fields
     field_info = InputModel.model_fields
@@ -42,7 +84,9 @@ def tool_converter(tool: BaseTool) -> Callable[..., Awaitable[Any]]:
             param = Parameter(field_name, Parameter.POSITIONAL_OR_KEYWORD, annotation=field_type)
         parameters.append(param)
 
-    wrapper_sig = Signature(parameters)
+    # Include return annotation if output schema is available
+    return_annotation = OutputModel if OutputModel is not None else Signature.empty
+    wrapper_sig = Signature(parameters, return_annotation=return_annotation)
 
     # Create async closure that captures InputModel and tool
     def _create_wrapper():
@@ -61,6 +105,7 @@ def tool_converter(tool: BaseTool) -> Callable[..., Awaitable[Any]]:
     mcp_tool_wrapper.__name__ = tool_name
     mcp_tool_wrapper.__doc__ = tool_description
     mcp_tool_wrapper.__signature__ = wrapper_sig
+    annotations["return"] = return_annotation
     mcp_tool_wrapper.__annotations__ = annotations
 
     return mcp_tool_wrapper

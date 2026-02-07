@@ -6,7 +6,12 @@ from akd_ext.tools.opus.count_observations import (
     OPUSCountObservationsOutput,
     OPUSCountObservationsTool,
 )
-from akd_ext.tools.opus.get_fields import OPUSGetFieldsInput, OPUSGetFieldsOutput, OPUSGetFieldsTool
+from akd_ext.tools.opus.get_fields import (
+    OPUSFieldDefinition,
+    OPUSGetFieldsInput,
+    OPUSGetFieldsOutput,
+    OPUSGetFieldsTool,
+)
 from akd_ext.tools.opus.get_files import OPUSGetFilesInput, OPUSGetFilesOutput, OPUSGetFilesTool
 from akd_ext.tools.opus.get_metadata import OPUSGetMetadataInput, OPUSGetMetadataOutput, OPUSGetMetadataTool
 from akd_ext.tools.opus.models import (
@@ -22,6 +27,7 @@ from akd_ext.tools.opus.models import (
     OPUSSearchResponse,
 )
 from akd_ext.tools.opus.search_observations import (
+    OPUSObservationResult,
     OPUSSearchObservationsInput,
     OPUSSearchObservationsOutput,
     OPUSSearchObservationsTool,
@@ -47,6 +53,7 @@ __all__ = [
     "OPUSSearchObservationsTool",
     "OPUSSearchObservationsInput",
     "OPUSSearchObservationsOutput",
+    "OPUSObservationResult",
     # Count observations tool
     "OPUSCountObservationsTool",
     "OPUSCountObservationsInput",
@@ -63,4 +70,5 @@ __all__ = [
     "OPUSGetFieldsTool",
     "OPUSGetFieldsInput",
     "OPUSGetFieldsOutput",
+    "OPUSFieldDefinition",
 ]

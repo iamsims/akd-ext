@@ -8,6 +8,32 @@ from akd_ext.mcp import mcp_tool
 from akd_ext.tools.img.client import IMGAtlasClient
 
 
+class IMGImageSize(OutputSchema):
+    """Image dimensions for a product."""
+
+    lines: int = Field(..., description="Number of lines (height) in the image")
+    samples: int = Field(..., description="Number of samples (width) per line")
+
+
+class IMGProductResult(OutputSchema):
+    """Single product result from a search."""
+
+    uuid: str = Field(..., description="Unique identifier for the product")
+    target: str = Field(..., description="Target body (e.g., 'Mars', 'Saturn')")
+    mission: str = Field(..., description="Mission name")
+    spacecraft: str = Field(..., description="Spacecraft name")
+    instrument: str = Field(..., description="Instrument name")
+    product_type: str = Field(..., description="Product type (EDR for raw, RDR for processed)")
+    start_time: str | None = Field(default=None, description="Start time of observation (ISO 8601)")
+    stop_time: str | None = Field(default=None, description="Stop time of observation (ISO 8601)")
+    sol: int | None = Field(default=None, description="Mars day number (sol) if applicable")
+    image_size: IMGImageSize | None = Field(default=None, description="Image dimensions")
+    data_url: str | None = Field(default=None, description="URL to product data file")
+    label_url: str | None = Field(default=None, description="URL to PDS label file")
+    browse_url: str | None = Field(default=None, description="URL to browse (full resolution) image")
+    thumbnail_url: str | None = Field(default=None, description="URL to thumbnail image")
+
+
 class IMGSearchProductsInput(InputSchema):
     """Input schema for IMG Atlas search products tool."""
 
@@ -67,7 +93,7 @@ class IMGSearchProductsOutput(OutputSchema):
     num_found: int = Field(..., description="Total number of products matching the criteria")
     start: int = Field(..., description="Pagination offset used")
     query_time_ms: int = Field(..., description="Query execution time in milliseconds")
-    products: list[dict] = Field(..., description="List of matching products with metadata and URLs")
+    products: list[IMGProductResult] = Field(..., description="List of matching products with metadata and URLs")
     error: str | None = Field(default=None, description="Error message if status is 'error'")
 
 
@@ -125,43 +151,32 @@ class IMGSearchProductsTool(BaseTool[IMGSearchProductsInput, IMGSearchProductsOu
 
             products = []
             for product in response.products:
-                product_data: dict = {
-                    "uuid": product.uuid,
-                    "target": product.target,
-                    "mission": product.mission_name,
-                    "spacecraft": product.spacecraft_name,
-                    "instrument": product.instrument_name,
-                    "product_type": product.product_type,
-                }
-
-                # Add time info
-                if product.start_time:
-                    product_data["start_time"] = product.start_time
-                if product.stop_time:
-                    product_data["stop_time"] = product.stop_time
-
-                # Add Mars-specific sol number
-                if product.planet_day_number is not None:
-                    product_data["sol"] = product.planet_day_number
-
-                # Add image properties if available
+                # Build image size if available
+                image_size = None
                 if product.lines is not None and product.line_samples is not None:
-                    product_data["image_size"] = {
-                        "lines": product.lines,
-                        "samples": product.line_samples,
-                    }
+                    image_size = IMGImageSize(
+                        lines=product.lines,
+                        samples=product.line_samples,
+                    )
 
-                # Add URLs
-                if product.data_url:
-                    product_data["data_url"] = product.data_url
-                if product.label_url:
-                    product_data["label_url"] = product.label_url
-                if product.browse_url:
-                    product_data["browse_url"] = product.browse_url
-                if product.thumbnail_url:
-                    product_data["thumbnail_url"] = product.thumbnail_url
-
-                products.append(product_data)
+                # Build product result
+                product_result = IMGProductResult(
+                    uuid=product.uuid,
+                    target=product.target,
+                    mission=product.mission_name,
+                    spacecraft=product.spacecraft_name,
+                    instrument=product.instrument_name,
+                    product_type=product.product_type,
+                    start_time=product.start_time,
+                    stop_time=product.stop_time,
+                    sol=product.planet_day_number,
+                    image_size=image_size,
+                    data_url=product.data_url,
+                    label_url=product.label_url,
+                    browse_url=product.browse_url,
+                    thumbnail_url=product.thumbnail_url,
+                )
+                products.append(product_result)
 
             return IMGSearchProductsOutput(
                 status="success",
