@@ -1,0 +1,1104 @@
+{
+  "extraction_agent": {
+    "output_text": "{\"datasets\":[{\"pds_dataset_product_name\":\"LRO MOON LROC 2 EDR V1.0 (LROC NAC images)\",\"mission_project\":\"Lunar Reconnaissance Orbiter (LRO)\",\"instrument_sensor\":\"Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)\",\"instrument_host_spacecraft\":\"Lunar Reconnaissance Orbiter (LRO)\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"NAC images used to evaluate pit morphology, degradation state, and geologic context\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"image\",\"acquisition_date_time_range\":\"\",\"location_coverage\":\"Lunar mare and highland pit sites; study evaluates 21 known pits outside impact melt ponds (Table 1)\",\"spatial_resolution\":\"<2 m/pixel (also stated typical 0.5\u20132 m/pixel)\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"EDR\",\"pds_identifiers\":\"Data set: LRO MOON LROC 2 EDR V1.0; DOI: https://doi.org/10.17189/1520250; PDS directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/\",\"how_used\":\"Used NAC images to identify and analyze lunar pit morphologies and geologic context across the set of mare/highland pits studied (including degradation comparisons and qualitative morphology descriptions).\"},{\"pds_dataset_product_name\":\"LRO MOON LROC 2 EDR V1.0 (LROC NAC off-nadir/oblique images for stereo)\",\"mission_project\":\"Lunar Reconnaissance Orbiter (LRO)\",\"instrument_sensor\":\"Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)\",\"instrument_host_spacecraft\":\"Lunar Reconnaissance Orbiter (LRO)\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"Oblique NAC imagery used for monoscopic geometry and stereo-derived 3D wall/floor morphology (overhangs, slopes, depths)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"image (off-nadir/oblique stereo pairs; roll slews used for quantitative measurements)\",\"acquisition_date_time_range\":\"\",\"location_coverage\":\"Six reconstructed pits: Mare Tranquillitatis (MTP), Marius Hills (MHP), Mare Ingenii (MIP), Schl\u00fcter Crater pit (SCP), Southwest Mare Fecunditatis pit (SWFP), Lacus Mortis pit (LMP)\",\"spatial_resolution\":\"Pixel scales ranging from 0.26 to 2.2 m (also stated <2 m/pixel for reconstruction)\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"EDR\",\"pds_identifiers\":\"Data set: LRO MOON LROC 2 EDR V1.0; DOI: https://doi.org/10.17189/1520250; PDS directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/\",\"how_used\":\"Used off-nadir NAC images (primarily roll slews) to (1) perform monoscopic wall/overhang constraints from lighting geometry, and (2) build stereo control networks and bundle-adjusted 3D point clouds of pit interiors for quantitative morphology measurements.\"},{\"pds_dataset_product_name\":\"LRO MOON LROC 5 RDR V1.0 (LROC NAC DTMs)\",\"mission_project\":\"Lunar Reconnaissance Orbiter (LRO)\",\"instrument_sensor\":\"Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)\",\"instrument_host_spacecraft\":\"Lunar Reconnaissance Orbiter (LRO)\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"Topography/elevation (DTMs) used as reference surfaces for alignment and validation of derived pit-wall point clouds\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"digital terrain model (DTM)\",\"acquisition_date_time_range\":\"\",\"location_coverage\":\"Reference DTMs used to align/test models at sites with NAC DTMs available (explicitly: LMP, MHP, MIP, MTP; SCP and SWFP noted as lacking NAC DTMs)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"RDR\",\"pds_identifiers\":\"Data set: LRO MOON LROC 5 RDR V1.0; DOI: https://doi.org/10.17189/1520341; DTM directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/\",\"how_used\":\"Used updated SOCET SET-derived NAC DTMs as \u201ctruth\u201d surfaces to align pit wall/floor point clouds, provide surrounding-surface context, and verify/compare reconstructed geometry.\"},{\"pds_dataset_product_name\":\"SHAPEFILE_LUNAR_PIT_LOCATIONS\",\"mission_project\":\"\",\"instrument_sensor\":\"\",\"instrument_host_spacecraft\":\"\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"Pit location/attribute catalog (GIS shapefile)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"GIS shapefile (catalog/product)\",\"acquisition_date_time_range\":\"\",\"location_coverage\":\"Global lunar pit catalog (used to provide full details of known pits referenced in this work)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"Product name cited: SHAPEFILE_LUNAR_PIT_LOCATIONS; interactive catalog cited: http://lroc.sese.asu.edu/pits\",\"how_used\":\"Used as the published LROC PDS archive product containing full details of known lunar pits referenced/summarized in this study (supporting the pit list summarized in Table 1 and the set of pits investigated).\"},{\"pds_dataset_product_name\":\"Apollo Panoramic Imager / Apollo Panoramic Camera scans (Apollo 15 set)\",\"mission_project\":\"Apollo 15\",\"instrument_sensor\":\"Apollo Panoramic Imager (Panoramic Camera)\",\"instrument_host_spacecraft\":\"\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"Orbital photographs used for change detection comparison with later LROC NAC images\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"image (photograph scan)\",\"acquisition_date_time_range\":\"1971 (Apollo 15 mission, as stated)\",\"location_coverage\":\"Mare Tranquillitatis pit (MTP)\",\"spatial_resolution\":\"Features ~5 m across identifiable (as stated)\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"Photographs: AS15-P-9846, AS15-P-9851; browse portal cited: https://wms.lroc.asu.edu/apollo/browse\",\"how_used\":\"Compared Apollo 15 Panoramic Imager photographs of MTP with LROC NAC images taken 40+ years later to assess whether pit rim shape or albedo streaking changed over decadal timescales.\"},{\"pds_dataset_product_name\":\"Apollo Panoramic Imager / Apollo Panoramic Camera scans (Apollo 16 set)\",\"mission_project\":\"Apollo 16\",\"instrument_sensor\":\"Apollo Panoramic Imager (Panoramic Camera)\",\"instrument_host_spacecraft\":\"\",\"target_name\":\"Moon\",\"target_type\":\"satellite\",\"small_body_designations\":\"\",\"measurement_observable\":\"Orbital photographs used for change detection comparison with later LROC NAC images\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"image (photograph scan)\",\"acquisition_date_time_range\":\"1972 (Apollo 16 mission, as stated)\",\"location_coverage\":\"Southwest Mare Fecunditatis pit (SWFP)\",\"spatial_resolution\":\"Features ~5 m across identifiable (as stated)\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"Photographs: AS16-P-4478, AS16-P-4483; browse portal cited: https://wms.lroc.asu.edu/apollo/browse\",\"how_used\":\"Compared Apollo 16 Panoramic Imager photographs of SWFP with LROC NAC images taken 40+ years later to assess whether pit rim shape or albedo streaking changed over decadal timescales.\"}]}",
+    "output_parsed": {
+      "datasets": [
+        {
+          "pds_dataset_product_name": "LRO MOON LROC 2 EDR V1.0 (LROC NAC images)",
+          "mission_project": "Lunar Reconnaissance Orbiter (LRO)",
+          "instrument_sensor": "Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)",
+          "instrument_host_spacecraft": "Lunar Reconnaissance Orbiter (LRO)",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "NAC images used to evaluate pit morphology, degradation state, and geologic context",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "image",
+          "acquisition_date_time_range": "",
+          "location_coverage": "Lunar mare and highland pit sites; study evaluates 21 known pits outside impact melt ponds (Table 1)",
+          "spatial_resolution": "<2 m/pixel (also stated typical 0.5\u20132 m/pixel)",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "EDR",
+          "pds_identifiers": "Data set: LRO MOON LROC 2 EDR V1.0; DOI: https://doi.org/10.17189/1520250; PDS directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/",
+          "how_used": "Used NAC images to identify and analyze lunar pit morphologies and geologic context across the set of mare/highland pits studied (including degradation comparisons and qualitative morphology descriptions)."
+        },
+        {
+          "pds_dataset_product_name": "LRO MOON LROC 2 EDR V1.0 (LROC NAC off-nadir/oblique images for stereo)",
+          "mission_project": "Lunar Reconnaissance Orbiter (LRO)",
+          "instrument_sensor": "Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)",
+          "instrument_host_spacecraft": "Lunar Reconnaissance Orbiter (LRO)",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "Oblique NAC imagery used for monoscopic geometry and stereo-derived 3D wall/floor morphology (overhangs, slopes, depths)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "image (off-nadir/oblique stereo pairs; roll slews used for quantitative measurements)",
+          "acquisition_date_time_range": "",
+          "location_coverage": "Six reconstructed pits: Mare Tranquillitatis (MTP), Marius Hills (MHP), Mare Ingenii (MIP), Schl\u00fcter Crater pit (SCP), Southwest Mare Fecunditatis pit (SWFP), Lacus Mortis pit (LMP)",
+          "spatial_resolution": "Pixel scales ranging from 0.26 to 2.2 m (also stated <2 m/pixel for reconstruction)",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "EDR",
+          "pds_identifiers": "Data set: LRO MOON LROC 2 EDR V1.0; DOI: https://doi.org/10.17189/1520250; PDS directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-2-EDR-V1.0/",
+          "how_used": "Used off-nadir NAC images (primarily roll slews) to (1) perform monoscopic wall/overhang constraints from lighting geometry, and (2) build stereo control networks and bundle-adjusted 3D point clouds of pit interiors for quantitative morphology measurements."
+        },
+        {
+          "pds_dataset_product_name": "LRO MOON LROC 5 RDR V1.0 (LROC NAC DTMs)",
+          "mission_project": "Lunar Reconnaissance Orbiter (LRO)",
+          "instrument_sensor": "Lunar Reconnaissance Orbiter Camera (LROC) Narrow Angle Camera (NAC)",
+          "instrument_host_spacecraft": "Lunar Reconnaissance Orbiter (LRO)",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "Topography/elevation (DTMs) used as reference surfaces for alignment and validation of derived pit-wall point clouds",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "digital terrain model (DTM)",
+          "acquisition_date_time_range": "",
+          "location_coverage": "Reference DTMs used to align/test models at sites with NAC DTMs available (explicitly: LMP, MHP, MIP, MTP; SCP and SWFP noted as lacking NAC DTMs)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "RDR",
+          "pds_identifiers": "Data set: LRO MOON LROC 5 RDR V1.0; DOI: https://doi.org/10.17189/1520341; DTM directory cited: http://pds.lroc.asu.edu/data/LRO-L-LROC-5-RDR-V1.0/LROLRC_2001/DATA/SDP/NAC_DTM/",
+          "how_used": "Used updated SOCET SET-derived NAC DTMs as \u201ctruth\u201d surfaces to align pit wall/floor point clouds, provide surrounding-surface context, and verify/compare reconstructed geometry."
+        },
+        {
+          "pds_dataset_product_name": "SHAPEFILE_LUNAR_PIT_LOCATIONS",
+          "mission_project": "",
+          "instrument_sensor": "",
+          "instrument_host_spacecraft": "",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "Pit location/attribute catalog (GIS shapefile)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "GIS shapefile (catalog/product)",
+          "acquisition_date_time_range": "",
+          "location_coverage": "Global lunar pit catalog (used to provide full details of known pits referenced in this work)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "Product name cited: SHAPEFILE_LUNAR_PIT_LOCATIONS; interactive catalog cited: http://lroc.sese.asu.edu/pits",
+          "how_used": "Used as the published LROC PDS archive product containing full details of known lunar pits referenced/summarized in this study (supporting the pit list summarized in Table 1 and the set of pits investigated)."
+        },
+        {
+          "pds_dataset_product_name": "Apollo Panoramic Imager / Apollo Panoramic Camera scans (Apollo 15 set)",
+          "mission_project": "Apollo 15",
+          "instrument_sensor": "Apollo Panoramic Imager (Panoramic Camera)",
+          "instrument_host_spacecraft": "",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "Orbital photographs used for change detection comparison with later LROC NAC images",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "image (photograph scan)",
+          "acquisition_date_time_range": "1971 (Apollo 15 mission, as stated)",
+          "location_coverage": "Mare Tranquillitatis pit (MTP)",
+          "spatial_resolution": "Features ~5 m across identifiable (as stated)",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "Photographs: AS15-P-9846, AS15-P-9851; browse portal cited: https://wms.lroc.asu.edu/apollo/browse",
+          "how_used": "Compared Apollo 15 Panoramic Imager photographs of MTP with LROC NAC images taken 40+ years later to assess whether pit rim shape or albedo streaking changed over decadal timescales."
+        },
+        {
+          "pds_dataset_product_name": "Apollo Panoramic Imager / Apollo Panoramic Camera scans (Apollo 16 set)",
+          "mission_project": "Apollo 16",
+          "instrument_sensor": "Apollo Panoramic Imager (Panoramic Camera)",
+          "instrument_host_spacecraft": "",
+          "target_name": "Moon",
+          "target_type": "satellite",
+          "small_body_designations": "",
+          "measurement_observable": "Orbital photographs used for change detection comparison with later LROC NAC images",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "image (photograph scan)",
+          "acquisition_date_time_range": "1972 (Apollo 16 mission, as stated)",
+          "location_coverage": "Southwest Mare Fecunditatis pit (SWFP)",
+          "spatial_resolution": "Features ~5 m across identifiable (as stated)",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "Photographs: AS16-P-4478, AS16-P-4483; browse portal cited: https://wms.lroc.asu.edu/apollo/browse",
+          "how_used": "Compared Apollo 16 Panoramic Imager photographs of SWFP with LROC NAC images taken 40+ years later to assess whether pit rim shape or albedo streaking changed over decadal timescales."
+        }
+      ]
+    },
+    "tool_calls": []
+  },
+  "query_generation_agent_results": [
+    {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter Camera narrow-angle images of the Moon with better than ~2 m/pixel sampling that can be used to examine the morphology and degradation state of collapse pits in lunar maria and adjacent highlands.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "spatial_resolution",
+              "location_coverage",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='n/a' (to approximate monochrome/NAC-like imaging). Atlas search metadata lacks spatial (region/feature) constraints for pits and time/exposure fields appear unavailable for LRO LROC in this service, so results cannot be narrowed to a single unique dataset identifier.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 1407517.0
+          }
+        },
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter Camera wide-angle context images of the Moon in a visible band near 604 nm that could be used to map the broader geologic setting around mare pit regions.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage",
+              "measurement_observable",
+              "wavelength_bandpass"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='604' (visible-band WAC-style filter). The service does not provide dataset-level identifiers for these products, and available filters are insufficient to uniquely resolve to exactly one dataset identifier.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 393176.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter LROC Narrow Angle Camera images of the Moon acquired in off-nadir viewing suitable for stereo or monoscopic geometry measurements of lunar pit interiors, at sub\u20112 m/pixel scales.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "processing_level_calibration_level",
+              "data_type_product_type",
+              "spatial_resolution",
+              "location_coverage",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc', PRODUCT_TYPE='edr' (1986846 products). Attempted narrowing to NAC-like products via FILTER_NAME='n/a' still returns 1407517 products. IMG Atlas query fields do not expose off-nadir/roll-slew/stereo geometry or named-feature regional filters needed to isolate pit-interior oblique NAC subsets to a single dataset identifier; dataset-level identifier lookup via catalog tools was unavailable in this environment.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 1407517.0
+          }
+        },
+        {
+          "query": "Identify Lunar Reconnaissance Orbiter LROC experiment data record (raw) lunar images that include Narrow Angle Camera observations used for high-resolution (better than ~2 m/pixel) geomorphic analysis of mare/highland pit walls and floors.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "processing_level_calibration_level",
+              "data_type_product_type",
+              "spatial_resolution",
+              "location_coverage",
+              "how_used"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc' (4171196 products across all product types). Narrowed to PRODUCT_TYPE='edr' (1986846 products). Further narrowed using FILTER_NAME='n/a' as a proxy for NAC/non-filtered imaging (1407517 products). Remaining search fields available in IMG Atlas do not support restricting to off-nadir stereo/oblique subsets or specific pit regions without explicit coordinates, so the query cannot be validated down to a single unique dataset identifier here.",
+            "initial_match_count": 4171196.0,
+            "final_match_count": 1407517.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find processed Lunar Reconnaissance Orbiter LROC Narrow Angle Camera stereo digital terrain models of the Moon that provide meter-scale topography for analyzing small collapse pits and their surrounding terrain.",
+          "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+          "data_identifier_type": "pds3_dataset_id",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_search_products_tool",
+              "img_search_products_tool"
+            ],
+            "constraints_summary": "Broad count for Moon + Lunar Reconnaissance Orbiter + LROC (all product types), then restricted to processed products (RDR). Sampled RDR products returned by the IMG Atlas search show the same underlying PDS3 volume string in their file paths, supporting resolution to a single PDS3 archive volume for LRO/LROC RDR products: LRO-L-LROC-5-RDR-V1.0.",
+            "initial_match_count": 4171196.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate Lunar Reconnaissance Orbiter LROC Narrow Angle Camera derived digital terrain models of lunar mare regions (for example Marius Hills, Mare Tranquillitatis, Mare Ingenii, and Lacus Mortis) suitable for aligning and validating 3D reconstructions of pit interiors.",
+          "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+          "data_identifier_type": "pds3_dataset_id",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_search_products_tool",
+              "img_search_products_tool"
+            ],
+            "constraints_summary": "Started from all Moon RDR products in the IMG Atlas, then narrowed to Lunar Reconnaissance Orbiter + LROC + RDR. Sampling results at different offsets shows a consistent PDS3 archive volume string in returned file paths, indicating the relevant processed LRO/LROC products are archived under a single PDS3 volume: LRO-L-LROC-5-RDR-V1.0.",
+            "initial_match_count": 188630.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find a global GIS-ready catalog of lunar pit (collapse) features on the Moon that includes pit locations and basic attributes (e.g., size and morphology) for mapping and spatial analysis.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "pds_dataset_product_name",
+              "target_name",
+              "target_type",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "how_used"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_observational_tool",
+              "pds4search_observational_tool"
+            ],
+            "constraints_summary": "Broad PDS4 observational search using title keywords related to pit locations; then attempted to narrow to GIS/shapefile-style products using shapefile shorthand keywords. No indexed PDS4 product matched the GIS/shapefile constraint, so a unique dataset identifier could not be validated.",
+            "initial_match_count": 1071.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Locate a Moon-wide geospatial dataset that catalogs known lunar pit openings (including mare and highland settings) in a format suitable for importing into GIS and correlating with orbital imaging.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "pds_dataset_product_name",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_observational_tool",
+              "pds_catalog_search_tool"
+            ],
+            "constraints_summary": "Started with a broad PDS4 observational keyword search for lunar pit-related products; then attempted to resolve an indexed PDS catalog dataset for the Moon using a focused text query for lunar pit locations. The PDS catalog search returned zero matches, indicating this GIS pit-location product is not discoverable via the available PDS Catalog/PDS4 indexing tools.",
+            "initial_match_count": 5228.0,
+            "final_match_count": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find Apollo 15 command-and-service-module orbital photography geometry/ephemeris support tables for the Moon (covering the mission period in late July to early August 1971) that can be used to georeference panoramic/metric camera photographs for comparison with modern LRO narrow-angle camera imaging of the Mare Tranquillitatis region.",
+          "data_identifier": "urn:nasa:pds:a15photosupportdata:geom_orbital_photo_ephem::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: collections filtered to Moon target + Apollo 15 investigation. Final: restricted to Apollo 15 command/service module as instrument host, Derived processing level, and mission time window (1971-07-30 to 1971-08-05).",
+            "initial_match_count": 30.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate the complete Apollo 15 lunar orbital photography support dataset for panoramic camera work, including spacecraft trajectory and camera pointing/geometry information plus associated documentation, for the 1971 Apollo 15 mission time frame.",
+          "data_identifier": "urn:nasa:pds:a15photosupportdata::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "Initial: all PDS4 bundles with 'Apollo' in the title. Final: bundle title constrained to photographic ephemeris/geometry support content plus Apollo 15 mission time window (1971-07-01 to 1971-09-01), yielding a single bundle.",
+            "initial_match_count": 35.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "",
+      "queries": [
+        {
+          "query": "Find derived spacecraft trajectory and camera-geometry information (state vectors/ephemeris) that supports Apollo 16 panoramic lunar orbital photography acquired during the April 1972 mission window.",
+          "data_identifier": "urn:nasa:pds:a16photosupportdata::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search constrained to items matching the concept of photographic ephemeris and narrowed to the Apollo 16 mission time window (1972-04-19 to 1972-04-26).",
+            "initial_match_count": 8.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate Apollo 16-derived tables used to compute footprints/geometry for lunar orbital film photography from the command module panoramic camera (and accompanying mapping camera) during April 20\u201324, 1972.",
+          "data_identifier": "urn:nasa:pds:a16photosupportdata:geom_orbital_photo_ephem::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search narrowed from all Apollo 16 Moon collections to the Apollo 16 command-module instrument host, derived processing level, and the April 1972 mission time window; filtered using the panoramic camera context instrument as the requested camera geometry source.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "consolidated_output": {
+    "output_text": "{\"paper_title\":\"Lunar Pit Morphology: Implications for Exploration\",\"queries\":[{\"query\":\"Find raw Lunar Reconnaissance Orbiter Camera narrow-angle images of the Moon with better than ~2 m/pixel sampling that can be used to examine the morphology and degradation state of collapse pits in lunar maria and adjacent highlands.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"data_type_product_type\",\"processing_level_calibration_level\",\"spatial_resolution\",\"location_coverage\",\"measurement_observable\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\"],\"constraints_summary\":\"Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='n/a' (to approximate monochrome/NAC-like imaging). Atlas search metadata lacks spatial (region/feature) constraints for pits and time/exposure fields appear unavailable for LRO LROC in this service, so results cannot be narrowed to a single unique dataset identifier.\",\"initial_match_count\":1986846.0,\"final_match_count\":1407517.0}},{\"query\":\"Find raw Lunar Reconnaissance Orbiter Camera wide-angle context images of the Moon in a visible band near 604 nm that could be used to map the broader geologic setting around mare pit regions.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"data_type_product_type\",\"processing_level_calibration_level\",\"location_coverage\",\"measurement_observable\",\"wavelength_bandpass\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\"],\"constraints_summary\":\"Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='604' (visible-band WAC-style filter). The service does not provide dataset-level identifiers for these products, and available filters are insufficient to uniquely resolve to exactly one dataset identifier.\",\"initial_match_count\":1986846.0,\"final_match_count\":393176.0}},{\"query\":\"Find raw Lunar Reconnaissance Orbiter LROC Narrow Angle Camera images of the Moon acquired in off-nadir viewing suitable for stereo or monoscopic geometry measurements of lunar pit interiors, at sub\u20112 m/pixel scales.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"processing_level_calibration_level\",\"data_type_product_type\",\"spatial_resolution\",\"location_coverage\",\"measurement_observable\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\"],\"constraints_summary\":\"Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc', PRODUCT_TYPE='edr' (1986846 products). Attempted narrowing to NAC-like products via FILTER_NAME='n/a' still returns 1407517 products. IMG Atlas query fields do not expose off-nadir/roll-slew/stereo geometry or named-feature regional filters needed to isolate pit-interior oblique NAC subsets to a single dataset identifier; dataset-level identifier lookup via catalog tools was unavailable in this environment.\",\"initial_match_count\":1986846.0,\"final_match_count\":1407517.0}},{\"query\":\"Identify Lunar Reconnaissance Orbiter LROC experiment data record (raw) lunar images that include Narrow Angle Camera observations used for high-resolution (better than ~2 m/pixel) geomorphic analysis of mare/highland pit walls and floors.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"processing_level_calibration_level\",\"data_type_product_type\",\"spatial_resolution\",\"location_coverage\",\"how_used\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\",\"img_count_products_tool\"],\"constraints_summary\":\"Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc' (4171196 products across all product types). Narrowed to PRODUCT_TYPE='edr' (1986846 products). Further narrowed using FILTER_NAME='n/a' as a proxy for NAC/non-filtered imaging (1407517 products). Remaining search fields available in IMG Atlas do not support restricting to off-nadir stereo/oblique subsets or specific pit regions without explicit coordinates, so the query cannot be validated down to a single unique dataset identifier here.\",\"initial_match_count\":4171196.0,\"final_match_count\":1407517.0}},{\"query\":\"Find processed Lunar Reconnaissance Orbiter LROC Narrow Angle Camera stereo digital terrain models of the Moon that provide meter-scale topography for analyzing small collapse pits and their surrounding terrain.\",\"data_identifier\":\"LRO-L-LROC-5-RDR-V1.0\",\"data_identifier_type\":\"pds3_dataset_id\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\",\"img_search_products_tool\",\"img_search_products_tool\"],\"constraints_summary\":\"Broad count for Moon + Lunar Reconnaissance Orbiter + LROC (all product types), then restricted to processed products (RDR). Sampled RDR products returned by the IMG Atlas search show the same underlying PDS3 volume string in their file paths, supporting resolution to a single PDS3 archive volume for LRO/LROC RDR products: LRO-L-LROC-5-RDR-V1.0.\",\"initial_match_count\":4171196.0,\"final_match_count\":1.0}},{\"query\":\"Locate Lunar Reconnaissance Orbiter LROC Narrow Angle Camera derived digital terrain models of lunar mare regions (for example Marius Hills, Mare Tranquillitatis, Mare Ingenii, and Lacus Mortis) suitable for aligning and validating 3D reconstructions of pit interiors.\",\"data_identifier\":\"LRO-L-LROC-5-RDR-V1.0\",\"data_identifier_type\":\"pds3_dataset_id\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"location_coverage\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"img_count_products_tool\",\"img_count_products_tool\",\"img_search_products_tool\",\"img_search_products_tool\"],\"constraints_summary\":\"Started from all Moon RDR products in the IMG Atlas, then narrowed to Lunar Reconnaissance Orbiter + LROC + RDR. Sampling results at different offsets shows a consistent PDS3 archive volume string in returned file paths, indicating the relevant processed LRO/LROC products are archived under a single PDS3 volume: LRO-L-LROC-5-RDR-V1.0.\",\"initial_match_count\":188630.0,\"final_match_count\":1.0}},{\"query\":\"Find a global GIS-ready catalog of lunar pit (collapse) features on the Moon that includes pit locations and basic attributes (e.g., size and morphology) for mapping and spatial analysis.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"pds_dataset_product_name\",\"target_name\",\"target_type\",\"measurement_observable\",\"data_type_product_type\",\"location_coverage\",\"how_used\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_observational_tool\",\"pds4search_observational_tool\"],\"constraints_summary\":\"Broad PDS4 observational search using title keywords related to pit locations; then attempted to narrow to GIS/shapefile-style products using shapefile shorthand keywords. No indexed PDS4 product matched the GIS/shapefile constraint, so a unique dataset identifier could not be validated.\",\"initial_match_count\":1071.0,\"final_match_count\":0.0}},{\"query\":\"Locate a Moon-wide geospatial dataset that catalogs known lunar pit openings (including mare and highland settings) in a format suitable for importing into GIS and correlating with orbital imaging.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"pds_dataset_product_name\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_observational_tool\",\"pds_catalog_search_tool\"],\"constraints_summary\":\"Started with a broad PDS4 observational keyword search for lunar pit-related products; then attempted to resolve an indexed PDS catalog dataset for the Moon using a focused text query for lunar pit locations. The PDS catalog search returned zero matches, indicating this GIS pit-location product is not discoverable via the available PDS Catalog/PDS4 indexing tools.\",\"initial_match_count\":5228.0,\"final_match_count\":0.0}},{\"query\":\"Find Apollo 15 command-and-service-module orbital photography geometry/ephemeris support tables for the Moon (covering the mission period in late July to early August 1971) that can be used to georeference panoramic/metric camera photographs for comparison with modern LRO narrow-angle camera imaging of the Mare Tranquillitatis region.\",\"data_identifier\":\"urn:nasa:pds:a15photosupportdata:geom_orbital_photo_ephem::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\",\"location_coverage\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Initial: collections filtered to Moon target + Apollo 15 investigation. Final: restricted to Apollo 15 command/service module as instrument host, Derived processing level, and mission time window (1971-07-30 to 1971-08-05).\",\"initial_match_count\":30.0,\"final_match_count\":1.0}},{\"query\":\"Locate the complete Apollo 15 lunar orbital photography support dataset for panoramic camera work, including spacecraft trajectory and camera pointing/geometry information plus associated documentation, for the 1971 Apollo 15 mission time frame.\",\"data_identifier\":\"urn:nasa:pds:a15photosupportdata::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_bundles_tool\",\"pds4search_bundles_tool\"],\"constraints_summary\":\"Initial: all PDS4 bundles with 'Apollo' in the title. Final: bundle title constrained to photographic ephemeris/geometry support content plus Apollo 15 mission time window (1971-07-01 to 1971-09-01), yielding a single bundle.\",\"initial_match_count\":35.0,\"final_match_count\":1.0}},{\"query\":\"Find derived spacecraft trajectory and camera-geometry information (state vectors/ephemeris) that supports Apollo 16 panoramic lunar orbital photography acquired during the April 1972 mission window.\",\"data_identifier\":\"urn:nasa:pds:a16photosupportdata::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_bundles_tool\",\"pds4search_bundles_tool\"],\"constraints_summary\":\"PDS4 bundle search constrained to items matching the concept of photographic ephemeris and narrowed to the Apollo 16 mission time window (1972-04-19 to 1972-04-26).\",\"initial_match_count\":8.0,\"final_match_count\":1.0}},{\"query\":\"Locate Apollo 16-derived tables used to compute footprints/geometry for lunar orbital film photography from the command module panoramic camera (and accompanying mapping camera) during April 20\u201324, 1972.\",\"data_identifier\":\"urn:nasa:pds:a16photosupportdata:geom_orbital_photo_ephem::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collection search narrowed from all Apollo 16 Moon collections to the Apollo 16 command-module instrument host, derived processing level, and the April 1972 mission time window; filtered using the panoramic camera context instrument as the requested camera geometry source.\",\"initial_match_count\":15.0,\"final_match_count\":1.0}}]}",
+    "output_parsed": {
+      "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+      "queries": [
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter Camera narrow-angle images of the Moon with better than ~2 m/pixel sampling that can be used to examine the morphology and degradation state of collapse pits in lunar maria and adjacent highlands.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "spatial_resolution",
+              "location_coverage",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='n/a' (to approximate monochrome/NAC-like imaging). Atlas search metadata lacks spatial (region/feature) constraints for pits and time/exposure fields appear unavailable for LRO LROC in this service, so results cannot be narrowed to a single unique dataset identifier.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 1407517.0
+          }
+        },
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter Camera wide-angle context images of the Moon in a visible band near 604 nm that could be used to map the broader geologic setting around mare pit regions.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage",
+              "measurement_observable",
+              "wavelength_bandpass"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='604' (visible-band WAC-style filter). The service does not provide dataset-level identifiers for these products, and available filters are insufficient to uniquely resolve to exactly one dataset identifier.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 393176.0
+          }
+        },
+        {
+          "query": "Find raw Lunar Reconnaissance Orbiter LROC Narrow Angle Camera images of the Moon acquired in off-nadir viewing suitable for stereo or monoscopic geometry measurements of lunar pit interiors, at sub\u20112 m/pixel scales.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "processing_level_calibration_level",
+              "data_type_product_type",
+              "spatial_resolution",
+              "location_coverage",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc', PRODUCT_TYPE='edr' (1986846 products). Attempted narrowing to NAC-like products via FILTER_NAME='n/a' still returns 1407517 products. IMG Atlas query fields do not expose off-nadir/roll-slew/stereo geometry or named-feature regional filters needed to isolate pit-interior oblique NAC subsets to a single dataset identifier; dataset-level identifier lookup via catalog tools was unavailable in this environment.",
+            "initial_match_count": 1986846.0,
+            "final_match_count": 1407517.0
+          }
+        },
+        {
+          "query": "Identify Lunar Reconnaissance Orbiter LROC experiment data record (raw) lunar images that include Narrow Angle Camera observations used for high-resolution (better than ~2 m/pixel) geomorphic analysis of mare/highland pit walls and floors.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "processing_level_calibration_level",
+              "data_type_product_type",
+              "spatial_resolution",
+              "location_coverage",
+              "how_used"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_count_products_tool"
+            ],
+            "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc' (4171196 products across all product types). Narrowed to PRODUCT_TYPE='edr' (1986846 products). Further narrowed using FILTER_NAME='n/a' as a proxy for NAC/non-filtered imaging (1407517 products). Remaining search fields available in IMG Atlas do not support restricting to off-nadir stereo/oblique subsets or specific pit regions without explicit coordinates, so the query cannot be validated down to a single unique dataset identifier here.",
+            "initial_match_count": 4171196.0,
+            "final_match_count": 1407517.0
+          }
+        },
+        {
+          "query": "Find processed Lunar Reconnaissance Orbiter LROC Narrow Angle Camera stereo digital terrain models of the Moon that provide meter-scale topography for analyzing small collapse pits and their surrounding terrain.",
+          "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+          "data_identifier_type": "pds3_dataset_id",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_search_products_tool",
+              "img_search_products_tool"
+            ],
+            "constraints_summary": "Broad count for Moon + Lunar Reconnaissance Orbiter + LROC (all product types), then restricted to processed products (RDR). Sampled RDR products returned by the IMG Atlas search show the same underlying PDS3 volume string in their file paths, supporting resolution to a single PDS3 archive volume for LRO/LROC RDR products: LRO-L-LROC-5-RDR-V1.0.",
+            "initial_match_count": 4171196.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate Lunar Reconnaissance Orbiter LROC Narrow Angle Camera derived digital terrain models of lunar mare regions (for example Marius Hills, Mare Tranquillitatis, Mare Ingenii, and Lacus Mortis) suitable for aligning and validating 3D reconstructions of pit interiors.",
+          "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+          "data_identifier_type": "pds3_dataset_id",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "img_count_products_tool",
+              "img_count_products_tool",
+              "img_search_products_tool",
+              "img_search_products_tool"
+            ],
+            "constraints_summary": "Started from all Moon RDR products in the IMG Atlas, then narrowed to Lunar Reconnaissance Orbiter + LROC + RDR. Sampling results at different offsets shows a consistent PDS3 archive volume string in returned file paths, indicating the relevant processed LRO/LROC products are archived under a single PDS3 volume: LRO-L-LROC-5-RDR-V1.0.",
+            "initial_match_count": 188630.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find a global GIS-ready catalog of lunar pit (collapse) features on the Moon that includes pit locations and basic attributes (e.g., size and morphology) for mapping and spatial analysis.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "pds_dataset_product_name",
+              "target_name",
+              "target_type",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "how_used"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_observational_tool",
+              "pds4search_observational_tool"
+            ],
+            "constraints_summary": "Broad PDS4 observational search using title keywords related to pit locations; then attempted to narrow to GIS/shapefile-style products using shapefile shorthand keywords. No indexed PDS4 product matched the GIS/shapefile constraint, so a unique dataset identifier could not be validated.",
+            "initial_match_count": 1071.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Locate a Moon-wide geospatial dataset that catalogs known lunar pit openings (including mare and highland settings) in a format suitable for importing into GIS and correlating with orbital imaging.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "pds_dataset_product_name",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_observational_tool",
+              "pds_catalog_search_tool"
+            ],
+            "constraints_summary": "Started with a broad PDS4 observational keyword search for lunar pit-related products; then attempted to resolve an indexed PDS catalog dataset for the Moon using a focused text query for lunar pit locations. The PDS catalog search returned zero matches, indicating this GIS pit-location product is not discoverable via the available PDS Catalog/PDS4 indexing tools.",
+            "initial_match_count": 5228.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Find Apollo 15 command-and-service-module orbital photography geometry/ephemeris support tables for the Moon (covering the mission period in late July to early August 1971) that can be used to georeference panoramic/metric camera photographs for comparison with modern LRO narrow-angle camera imaging of the Mare Tranquillitatis region.",
+          "data_identifier": "urn:nasa:pds:a15photosupportdata:geom_orbital_photo_ephem::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: collections filtered to Moon target + Apollo 15 investigation. Final: restricted to Apollo 15 command/service module as instrument host, Derived processing level, and mission time window (1971-07-30 to 1971-08-05).",
+            "initial_match_count": 30.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate the complete Apollo 15 lunar orbital photography support dataset for panoramic camera work, including spacecraft trajectory and camera pointing/geometry information plus associated documentation, for the 1971 Apollo 15 mission time frame.",
+          "data_identifier": "urn:nasa:pds:a15photosupportdata::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "Initial: all PDS4 bundles with 'Apollo' in the title. Final: bundle title constrained to photographic ephemeris/geometry support content plus Apollo 15 mission time window (1971-07-01 to 1971-09-01), yielding a single bundle.",
+            "initial_match_count": 35.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find derived spacecraft trajectory and camera-geometry information (state vectors/ephemeris) that supports Apollo 16 panoramic lunar orbital photography acquired during the April 1972 mission window.",
+          "data_identifier": "urn:nasa:pds:a16photosupportdata::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search constrained to items matching the concept of photographic ephemeris and narrowed to the Apollo 16 mission time window (1972-04-19 to 1972-04-26).",
+            "initial_match_count": 8.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Locate Apollo 16-derived tables used to compute footprints/geometry for lunar orbital film photography from the command module panoramic camera (and accompanying mapping camera) during April 20\u201324, 1972.",
+          "data_identifier": "urn:nasa:pds:a16photosupportdata:geom_orbital_photo_ephem::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search narrowed from all Apollo 16 Moon collections to the Apollo 16 command-module instrument host, derived processing level, and the April 1972 mission time window; filtered using the panoramic camera context instrument as the requested camera geometry source.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    "tool_calls": []
+  },
+  "final_output": {
+    "paper_title": "Lunar Pit Morphology: Implications for Exploration",
+    "queries": [
+      {
+        "query": "Find raw Lunar Reconnaissance Orbiter Camera narrow-angle images of the Moon with better than ~2 m/pixel sampling that can be used to examine the morphology and degradation state of collapse pits in lunar maria and adjacent highlands.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "spatial_resolution",
+            "location_coverage",
+            "measurement_observable"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool"
+          ],
+          "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='n/a' (to approximate monochrome/NAC-like imaging). Atlas search metadata lacks spatial (region/feature) constraints for pits and time/exposure fields appear unavailable for LRO LROC in this service, so results cannot be narrowed to a single unique dataset identifier.",
+          "initial_match_count": 1986846.0,
+          "final_match_count": 1407517.0
+        }
+      },
+      {
+        "query": "Find raw Lunar Reconnaissance Orbiter Camera wide-angle context images of the Moon in a visible band near 604 nm that could be used to map the broader geologic setting around mare pit regions.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "location_coverage",
+            "measurement_observable",
+            "wavelength_bandpass"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool"
+          ],
+          "constraints_summary": "Initial filter: TARGET=Moon; ATLAS_MISSION_NAME='lunar reconnaissance orbiter'; ATLAS_INSTRUMENT_NAME~'lroc'; PRODUCT_TYPE=EDR. Narrowing attempt: added FILTER_NAME='604' (visible-band WAC-style filter). The service does not provide dataset-level identifiers for these products, and available filters are insufficient to uniquely resolve to exactly one dataset identifier.",
+          "initial_match_count": 1986846.0,
+          "final_match_count": 393176.0
+        }
+      },
+      {
+        "query": "Find raw Lunar Reconnaissance Orbiter LROC Narrow Angle Camera images of the Moon acquired in off-nadir viewing suitable for stereo or monoscopic geometry measurements of lunar pit interiors, at sub\u20112 m/pixel scales.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "processing_level_calibration_level",
+            "data_type_product_type",
+            "spatial_resolution",
+            "location_coverage",
+            "measurement_observable"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool"
+          ],
+          "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc', PRODUCT_TYPE='edr' (1986846 products). Attempted narrowing to NAC-like products via FILTER_NAME='n/a' still returns 1407517 products. IMG Atlas query fields do not expose off-nadir/roll-slew/stereo geometry or named-feature regional filters needed to isolate pit-interior oblique NAC subsets to a single dataset identifier; dataset-level identifier lookup via catalog tools was unavailable in this environment.",
+          "initial_match_count": 1986846.0,
+          "final_match_count": 1407517.0
+        }
+      },
+      {
+        "query": "Identify Lunar Reconnaissance Orbiter LROC experiment data record (raw) lunar images that include Narrow Angle Camera observations used for high-resolution (better than ~2 m/pixel) geomorphic analysis of mare/highland pit walls and floors.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "processing_level_calibration_level",
+            "data_type_product_type",
+            "spatial_resolution",
+            "location_coverage",
+            "how_used"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool",
+            "img_count_products_tool"
+          ],
+          "constraints_summary": "Initial archive constraint: TARGET=Moon, ATLAS_MISSION_NAME='lunar reconnaissance orbiter', ATLAS_INSTRUMENT_NAME='lroc' (4171196 products across all product types). Narrowed to PRODUCT_TYPE='edr' (1986846 products). Further narrowed using FILTER_NAME='n/a' as a proxy for NAC/non-filtered imaging (1407517 products). Remaining search fields available in IMG Atlas do not support restricting to off-nadir stereo/oblique subsets or specific pit regions without explicit coordinates, so the query cannot be validated down to a single unique dataset identifier here.",
+          "initial_match_count": 4171196.0,
+          "final_match_count": 1407517.0
+        }
+      },
+      {
+        "query": "Find processed Lunar Reconnaissance Orbiter LROC Narrow Angle Camera stereo digital terrain models of the Moon that provide meter-scale topography for analyzing small collapse pits and their surrounding terrain.",
+        "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+        "data_identifier_type": "pds3_dataset_id",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool",
+            "img_search_products_tool",
+            "img_search_products_tool"
+          ],
+          "constraints_summary": "Broad count for Moon + Lunar Reconnaissance Orbiter + LROC (all product types), then restricted to processed products (RDR). Sampled RDR products returned by the IMG Atlas search show the same underlying PDS3 volume string in their file paths, supporting resolution to a single PDS3 archive volume for LRO/LROC RDR products: LRO-L-LROC-5-RDR-V1.0.",
+          "initial_match_count": 4171196.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Locate Lunar Reconnaissance Orbiter LROC Narrow Angle Camera derived digital terrain models of lunar mare regions (for example Marius Hills, Mare Tranquillitatis, Mare Ingenii, and Lacus Mortis) suitable for aligning and validating 3D reconstructions of pit interiors.",
+        "data_identifier": "LRO-L-LROC-5-RDR-V1.0",
+        "data_identifier_type": "pds3_dataset_id",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "location_coverage",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "img_count_products_tool",
+            "img_count_products_tool",
+            "img_search_products_tool",
+            "img_search_products_tool"
+          ],
+          "constraints_summary": "Started from all Moon RDR products in the IMG Atlas, then narrowed to Lunar Reconnaissance Orbiter + LROC + RDR. Sampling results at different offsets shows a consistent PDS3 archive volume string in returned file paths, indicating the relevant processed LRO/LROC products are archived under a single PDS3 volume: LRO-L-LROC-5-RDR-V1.0.",
+          "initial_match_count": 188630.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find a global GIS-ready catalog of lunar pit (collapse) features on the Moon that includes pit locations and basic attributes (e.g., size and morphology) for mapping and spatial analysis.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "pds_dataset_product_name",
+            "target_name",
+            "target_type",
+            "measurement_observable",
+            "data_type_product_type",
+            "location_coverage",
+            "how_used"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_observational_tool",
+            "pds4search_observational_tool"
+          ],
+          "constraints_summary": "Broad PDS4 observational search using title keywords related to pit locations; then attempted to narrow to GIS/shapefile-style products using shapefile shorthand keywords. No indexed PDS4 product matched the GIS/shapefile constraint, so a unique dataset identifier could not be validated.",
+          "initial_match_count": 1071.0,
+          "final_match_count": 0.0
+        }
+      },
+      {
+        "query": "Locate a Moon-wide geospatial dataset that catalogs known lunar pit openings (including mare and highland settings) in a format suitable for importing into GIS and correlating with orbital imaging.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "pds_dataset_product_name",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_observational_tool",
+            "pds_catalog_search_tool"
+          ],
+          "constraints_summary": "Started with a broad PDS4 observational keyword search for lunar pit-related products; then attempted to resolve an indexed PDS catalog dataset for the Moon using a focused text query for lunar pit locations. The PDS catalog search returned zero matches, indicating this GIS pit-location product is not discoverable via the available PDS Catalog/PDS4 indexing tools.",
+          "initial_match_count": 5228.0,
+          "final_match_count": 0.0
+        }
+      },
+      {
+        "query": "Find Apollo 15 command-and-service-module orbital photography geometry/ephemeris support tables for the Moon (covering the mission period in late July to early August 1971) that can be used to georeference panoramic/metric camera photographs for comparison with modern LRO narrow-angle camera imaging of the Mare Tranquillitatis region.",
+        "data_identifier": "urn:nasa:pds:a15photosupportdata:geom_orbital_photo_ephem::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type",
+            "location_coverage",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Initial: collections filtered to Moon target + Apollo 15 investigation. Final: restricted to Apollo 15 command/service module as instrument host, Derived processing level, and mission time window (1971-07-30 to 1971-08-05).",
+          "initial_match_count": 30.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Locate the complete Apollo 15 lunar orbital photography support dataset for panoramic camera work, including spacecraft trajectory and camera pointing/geometry information plus associated documentation, for the 1971 Apollo 15 mission time frame.",
+        "data_identifier": "urn:nasa:pds:a15photosupportdata::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_bundles_tool",
+            "pds4search_bundles_tool"
+          ],
+          "constraints_summary": "Initial: all PDS4 bundles with 'Apollo' in the title. Final: bundle title constrained to photographic ephemeris/geometry support content plus Apollo 15 mission time window (1971-07-01 to 1971-09-01), yielding a single bundle.",
+          "initial_match_count": 35.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find derived spacecraft trajectory and camera-geometry information (state vectors/ephemeris) that supports Apollo 16 panoramic lunar orbital photography acquired during the April 1972 mission window.",
+        "data_identifier": "urn:nasa:pds:a16photosupportdata::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_bundles_tool",
+            "pds4search_bundles_tool"
+          ],
+          "constraints_summary": "PDS4 bundle search constrained to items matching the concept of photographic ephemeris and narrowed to the Apollo 16 mission time window (1972-04-19 to 1972-04-26).",
+          "initial_match_count": 8.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Locate Apollo 16-derived tables used to compute footprints/geometry for lunar orbital film photography from the command module panoramic camera (and accompanying mapping camera) during April 20\u201324, 1972.",
+        "data_identifier": "urn:nasa:pds:a16photosupportdata:geom_orbital_photo_ephem::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collection search narrowed from all Apollo 16 Moon collections to the Apollo 16 command-module instrument host, derived processing level, and the April 1972 mission time window; filtered using the panoramic camera context instrument as the requested camera geometry source.",
+          "initial_match_count": 15.0,
+          "final_match_count": 1.0
+        }
+      }
+    ]
+  },
+  "all_tool_calls": [],
+  "tool_call_summary": {
+    "total_tool_calls": 0,
+    "extraction_agent_calls": 0,
+    "query_generation_agent_calls": 0,
+    "consolidated_output_agent_calls": 0
+  }
+}
