@@ -1,0 +1,1578 @@
+{
+  "extraction_agent": {
+    "output_text": "{\"datasets\":[{\"pds_dataset_product_name\":\"Phoenix thermal and electrical conductivity probe (TECP) atmospheric relative humidity (RH) sensor measurements; raw RH output (DNRH) and TECP board temperature (Tb)\",\"mission_project\":\"Phoenix (PHX)\",\"instrument_sensor\":\"Thermal and Electrical Conductivity Probe (TECP) RH sensor\",\"instrument_host_spacecraft\":\"Phoenix lander\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Atmospheric relative humidity (RH); raw RH sensor output (DNRH); TECP board temperature (Tb); derived frost point temperature (Tf) and water vapor pressure (e)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"In situ time-series environmental measurements\",\"acquisition_date_time_range\":\"PHX sols 1\u2013150 (Ls ~77\u00b0\u2013148\u00b0); examples referenced include sol 54 (~noon), sol 55 (nearly complete diurnal coverage), sol 122 (~2 a.m.); in-soil campaign sols 46\u201347, 54\u201355, 69\u201371, 86, 98, 103\u2013104, 111, 119, 122\u2013124, 149\u2013150\",\"location_coverage\":\"Phoenix landing site (68.2\u00b0N, 234.2\u00b0E); measurements in air at heights 0 to ~2.2 m depending on robotic arm position; some measurements a few centimeters (~3 cm) above the ground; one interval noted at 0.8 m height (6\u20138 a.m. on sols 55\u201356)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"Sampling rate 1.2 s during ~30 min blocks a few times per sol; extended blocks ~30 min to ~20 hr\",\"processing_level_calibration_level\":\"Raw sensor output (DNRH) used as input to recalibration/translation and new calibration functions in this paper\",\"pds_identifiers\":\"https://pds-geosciences.wustl.edu/missions/phoenix/martinez.htm\",\"how_used\":\"Primary in situ dataset analyzed. The paper applies a translation function (engineering unit to flight unit) and a new calibration function to TECP flight-unit raw measurements (DNRH, Tb) to obtain recalibrated frost point (Tf), water vapor pressure (e), and RH and to assess diurnal/seasonal humidity behavior at the Phoenix site.\"},{\"pds_dataset_product_name\":\"Phoenix TECP RH sensor processed humidity values from the revised/postflight calibration (Zent et al., 2016) described as the 'current PDS values'\",\"mission_project\":\"Phoenix (PHX)\",\"instrument_sensor\":\"Thermal and Electrical Conductivity Probe (TECP) RH sensor\",\"instrument_host_spacecraft\":\"Phoenix lander\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Processed humidity products (e.g., frost point / water vapor pressure / RH) from the Zent et al. (2016) revised calibration\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"In situ time-series environmental measurements (processed)\",\"acquisition_date_time_range\":\"PHX mission interval discussed: sols 1\u2013150 (Ls ~77\u00b0\u2013148\u00b0)\",\"location_coverage\":\"Phoenix landing site (68.2\u00b0N, 234.2\u00b0E)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"Postflight/revised calibration posted back into NASA PDS in 2016 (as stated in paper)\",\"pds_identifiers\":\"https://pds-geosciences.wustl.edu/missions/phoenix/martinez.htm\",\"how_used\":\"Used for comparison/benchmarking against the new recalibration presented in this paper (e.g., Figure 7; described as 'current PDS values').\"},{\"pds_dataset_product_name\":\"Phoenix Meteorological Station (MET) air temperatures at 2 m above the ground\",\"mission_project\":\"Phoenix (PHX)\",\"instrument_sensor\":\"Meteorological Station (MET)\",\"instrument_host_spacecraft\":\"Phoenix lander\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Air temperature at 2 m height (used to compute RH at different heights assuming constant near-surface water vapor pressure)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"In situ meteorology time-series\",\"acquisition_date_time_range\":\"\",\"location_coverage\":\"Phoenix landing site; 2 m height above ground\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"Used as an independent temperature reference to recompute/interpret RH away from the TECP sensor board temperature (Tb), illustrating that RH can exceed saturation when referenced to the colder 2 m MET temperatures.\"},{\"pds_dataset_product_name\":\"Phoenix LIDAR measurements indicating atmospheric saturation/fog near the surface\",\"mission_project\":\"Phoenix (PHX)\",\"instrument_sensor\":\"LIDAR\",\"instrument_host_spacecraft\":\"Phoenix lander\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Atmospheric saturation/fog indicators (used to infer RH = 100% conditions); saturation throughout lowest ~1 km after ~23:00 on certain sols is described\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"Active remote-sensing atmospheric profiles/observations\",\"acquisition_date_time_range\":\"Sols 86, 91, 103, 104, and 122; saturated after ~23:00; calibration augmentation described for data taken between 00:00 and 04:00\",\"location_coverage\":\"Phoenix landing site atmosphere; lowest ~1 km of atmosphere referenced\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"Used to justify assuming saturated conditions (RH = 100%) for selected in-flight conditions, enabling estimation of frost point for calibration augmentation/constraints discussed in the paper.\"},{\"pds_dataset_product_name\":\"Phoenix Surface Stereo Imager (SSI) precipitable water vapor column abundance (PWC) retrievals at the Phoenix landing site\",\"mission_project\":\"Phoenix (PHX)\",\"instrument_sensor\":\"Surface Stereo Imager (SSI)\",\"instrument_host_spacecraft\":\"Phoenix lander\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Retrieved precipitable water vapor column abundance (PWC); used as independent estimate of near-surface daytime water vapor pressure (e)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"Derived atmospheric water vapor column retrievals (from surface imaging)\",\"acquisition_date_time_range\":\"Daytime SSI retrievals referenced; maximum values around 50 pr-\u03bcm are mentioned\",\"location_coverage\":\"Phoenix landing site\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"Used as an independent dataset to evaluate whether recalibrated TECP daytime water vapor pressures are consistent with surface-based PWC retrievals (comparison shown/described around Figure 8).\"},{\"pds_dataset_product_name\":\"Compact Reconnaissance Imaging Spectrometer for Mars (CRISM) precipitable water vapor column abundance / water vapor retrievals at the Phoenix landing site\",\"mission_project\":\"\",\"instrument_sensor\":\"Compact Reconnaissance Imaging Spectrometer for Mars (CRISM)\",\"instrument_host_spacecraft\":\"\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Retrieved atmospheric water vapor (PWC / equivalent daytime water vapor pressure, e) at the Phoenix location\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"Orbital remote-sensing atmospheric water vapor retrievals\",\"acquisition_date_time_range\":\"CRISM measurements referenced as daytime at ~14:00 Local Mean Solar Time (LMST) in Figure 8 caption\",\"location_coverage\":\"Phoenix landing site location referenced\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"Used as an independent orbital constraint for daytime water vapor at the Phoenix site to assess agreement with the paper\u2019s recalibrated TECP-derived water vapor pressure values (comparison in Figure 8 and text).\"},{\"pds_dataset_product_name\":\"Mars Science Laboratory (MSL) Rover Environmental Monitoring Station (REMS) data used in Figures 9 and 10\",\"mission_project\":\"Mars Science Laboratory (MSL)\",\"instrument_sensor\":\"Rover Environmental Monitoring Station (REMS)\",\"instrument_host_spacecraft\":\"MSL Curiosity rover\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Near-surface relative humidity and temperature at MSL site (ground and at ~1.6 m height are referenced for Figure 10); nighttime REMS values used for day/night ratios\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"In situ meteorology time-series\",\"acquisition_date_time_range\":\"Nighttime values referenced at ~04:00\u201306:00 (used for day/night ratios); REMS operations noted as >2,400 sols as of May 2019\",\"location_coverage\":\"MSL landing site (4.5\u00b0S, 37.4\u00b0E); ground level and ~1.6 m height (Figure 10)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html\",\"how_used\":\"Used to compare Phoenix-derived diurnal water vapor pressure variability against MSL conditions (day/night ratios in Figure 9) and to plot MSL RH-temperature conditions on brine stability diagrams (Figure 10).\"},{\"pds_dataset_product_name\":\"Mars Science Laboratory (MSL) ChemCam-derived water vapor pressure values around noon (as plotted in Figure 8)\",\"mission_project\":\"Mars Science Laboratory (MSL)\",\"instrument_sensor\":\"ChemCam\",\"instrument_host_spacecraft\":\"MSL Curiosity rover\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Water vapor pressure (e) derived around noon from ChemCam observations (passive sky spectroscopy is implied via cited work)\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"Derived atmospheric water vapor product (from in situ spectroscopy)\",\"acquisition_date_time_range\":\"Daytime (~noon) values; also referenced for day/night ratio comparisons together with nighttime REMS\",\"location_coverage\":\"MSL landing site (4.5\u00b0S, 37.4\u00b0E)\",\"spatial_resolution\":\"\",\"temporal_resolution_cadence\":\"\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"Used as the MSL daytime water vapor pressure estimate for comparison to Phoenix and to form MSL day/night water vapor pressure ratios (Figure 9) and inter-site comparisons (Figure 8).\"}]}",
+    "output_parsed": {
+      "datasets": [
+        {
+          "pds_dataset_product_name": "Phoenix thermal and electrical conductivity probe (TECP) atmospheric relative humidity (RH) sensor measurements; raw RH output (DNRH) and TECP board temperature (Tb)",
+          "mission_project": "Phoenix (PHX)",
+          "instrument_sensor": "Thermal and Electrical Conductivity Probe (TECP) RH sensor",
+          "instrument_host_spacecraft": "Phoenix lander",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Atmospheric relative humidity (RH); raw RH sensor output (DNRH); TECP board temperature (Tb); derived frost point temperature (Tf) and water vapor pressure (e)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "In situ time-series environmental measurements",
+          "acquisition_date_time_range": "PHX sols 1\u2013150 (Ls ~77\u00b0\u2013148\u00b0); examples referenced include sol 54 (~noon), sol 55 (nearly complete diurnal coverage), sol 122 (~2 a.m.); in-soil campaign sols 46\u201347, 54\u201355, 69\u201371, 86, 98, 103\u2013104, 111, 119, 122\u2013124, 149\u2013150",
+          "location_coverage": "Phoenix landing site (68.2\u00b0N, 234.2\u00b0E); measurements in air at heights 0 to ~2.2 m depending on robotic arm position; some measurements a few centimeters (~3 cm) above the ground; one interval noted at 0.8 m height (6\u20138 a.m. on sols 55\u201356)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "Sampling rate 1.2 s during ~30 min blocks a few times per sol; extended blocks ~30 min to ~20 hr",
+          "processing_level_calibration_level": "Raw sensor output (DNRH) used as input to recalibration/translation and new calibration functions in this paper",
+          "pds_identifiers": "https://pds-geosciences.wustl.edu/missions/phoenix/martinez.htm",
+          "how_used": "Primary in situ dataset analyzed. The paper applies a translation function (engineering unit to flight unit) and a new calibration function to TECP flight-unit raw measurements (DNRH, Tb) to obtain recalibrated frost point (Tf), water vapor pressure (e), and RH and to assess diurnal/seasonal humidity behavior at the Phoenix site."
+        },
+        {
+          "pds_dataset_product_name": "Phoenix TECP RH sensor processed humidity values from the revised/postflight calibration (Zent et al., 2016) described as the 'current PDS values'",
+          "mission_project": "Phoenix (PHX)",
+          "instrument_sensor": "Thermal and Electrical Conductivity Probe (TECP) RH sensor",
+          "instrument_host_spacecraft": "Phoenix lander",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Processed humidity products (e.g., frost point / water vapor pressure / RH) from the Zent et al. (2016) revised calibration",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "In situ time-series environmental measurements (processed)",
+          "acquisition_date_time_range": "PHX mission interval discussed: sols 1\u2013150 (Ls ~77\u00b0\u2013148\u00b0)",
+          "location_coverage": "Phoenix landing site (68.2\u00b0N, 234.2\u00b0E)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "Postflight/revised calibration posted back into NASA PDS in 2016 (as stated in paper)",
+          "pds_identifiers": "https://pds-geosciences.wustl.edu/missions/phoenix/martinez.htm",
+          "how_used": "Used for comparison/benchmarking against the new recalibration presented in this paper (e.g., Figure 7; described as 'current PDS values')."
+        },
+        {
+          "pds_dataset_product_name": "Phoenix Meteorological Station (MET) air temperatures at 2 m above the ground",
+          "mission_project": "Phoenix (PHX)",
+          "instrument_sensor": "Meteorological Station (MET)",
+          "instrument_host_spacecraft": "Phoenix lander",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Air temperature at 2 m height (used to compute RH at different heights assuming constant near-surface water vapor pressure)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "In situ meteorology time-series",
+          "acquisition_date_time_range": "",
+          "location_coverage": "Phoenix landing site; 2 m height above ground",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "Used as an independent temperature reference to recompute/interpret RH away from the TECP sensor board temperature (Tb), illustrating that RH can exceed saturation when referenced to the colder 2 m MET temperatures."
+        },
+        {
+          "pds_dataset_product_name": "Phoenix LIDAR measurements indicating atmospheric saturation/fog near the surface",
+          "mission_project": "Phoenix (PHX)",
+          "instrument_sensor": "LIDAR",
+          "instrument_host_spacecraft": "Phoenix lander",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Atmospheric saturation/fog indicators (used to infer RH = 100% conditions); saturation throughout lowest ~1 km after ~23:00 on certain sols is described",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "Active remote-sensing atmospheric profiles/observations",
+          "acquisition_date_time_range": "Sols 86, 91, 103, 104, and 122; saturated after ~23:00; calibration augmentation described for data taken between 00:00 and 04:00",
+          "location_coverage": "Phoenix landing site atmosphere; lowest ~1 km of atmosphere referenced",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "Used to justify assuming saturated conditions (RH = 100%) for selected in-flight conditions, enabling estimation of frost point for calibration augmentation/constraints discussed in the paper."
+        },
+        {
+          "pds_dataset_product_name": "Phoenix Surface Stereo Imager (SSI) precipitable water vapor column abundance (PWC) retrievals at the Phoenix landing site",
+          "mission_project": "Phoenix (PHX)",
+          "instrument_sensor": "Surface Stereo Imager (SSI)",
+          "instrument_host_spacecraft": "Phoenix lander",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Retrieved precipitable water vapor column abundance (PWC); used as independent estimate of near-surface daytime water vapor pressure (e)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "Derived atmospheric water vapor column retrievals (from surface imaging)",
+          "acquisition_date_time_range": "Daytime SSI retrievals referenced; maximum values around 50 pr-\u03bcm are mentioned",
+          "location_coverage": "Phoenix landing site",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "Used as an independent dataset to evaluate whether recalibrated TECP daytime water vapor pressures are consistent with surface-based PWC retrievals (comparison shown/described around Figure 8)."
+        },
+        {
+          "pds_dataset_product_name": "Compact Reconnaissance Imaging Spectrometer for Mars (CRISM) precipitable water vapor column abundance / water vapor retrievals at the Phoenix landing site",
+          "mission_project": "",
+          "instrument_sensor": "Compact Reconnaissance Imaging Spectrometer for Mars (CRISM)",
+          "instrument_host_spacecraft": "",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Retrieved atmospheric water vapor (PWC / equivalent daytime water vapor pressure, e) at the Phoenix location",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "Orbital remote-sensing atmospheric water vapor retrievals",
+          "acquisition_date_time_range": "CRISM measurements referenced as daytime at ~14:00 Local Mean Solar Time (LMST) in Figure 8 caption",
+          "location_coverage": "Phoenix landing site location referenced",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "Used as an independent orbital constraint for daytime water vapor at the Phoenix site to assess agreement with the paper\u2019s recalibrated TECP-derived water vapor pressure values (comparison in Figure 8 and text)."
+        },
+        {
+          "pds_dataset_product_name": "Mars Science Laboratory (MSL) Rover Environmental Monitoring Station (REMS) data used in Figures 9 and 10",
+          "mission_project": "Mars Science Laboratory (MSL)",
+          "instrument_sensor": "Rover Environmental Monitoring Station (REMS)",
+          "instrument_host_spacecraft": "MSL Curiosity rover",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Near-surface relative humidity and temperature at MSL site (ground and at ~1.6 m height are referenced for Figure 10); nighttime REMS values used for day/night ratios",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "In situ meteorology time-series",
+          "acquisition_date_time_range": "Nighttime values referenced at ~04:00\u201306:00 (used for day/night ratios); REMS operations noted as >2,400 sols as of May 2019",
+          "location_coverage": "MSL landing site (4.5\u00b0S, 37.4\u00b0E); ground level and ~1.6 m height (Figure 10)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html",
+          "how_used": "Used to compare Phoenix-derived diurnal water vapor pressure variability against MSL conditions (day/night ratios in Figure 9) and to plot MSL RH-temperature conditions on brine stability diagrams (Figure 10)."
+        },
+        {
+          "pds_dataset_product_name": "Mars Science Laboratory (MSL) ChemCam-derived water vapor pressure values around noon (as plotted in Figure 8)",
+          "mission_project": "Mars Science Laboratory (MSL)",
+          "instrument_sensor": "ChemCam",
+          "instrument_host_spacecraft": "MSL Curiosity rover",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Water vapor pressure (e) derived around noon from ChemCam observations (passive sky spectroscopy is implied via cited work)",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "Derived atmospheric water vapor product (from in situ spectroscopy)",
+          "acquisition_date_time_range": "Daytime (~noon) values; also referenced for day/night ratio comparisons together with nighttime REMS",
+          "location_coverage": "MSL landing site (4.5\u00b0S, 37.4\u00b0E)",
+          "spatial_resolution": "",
+          "temporal_resolution_cadence": "",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "Used as the MSL daytime water vapor pressure estimate for comparison to Phoenix and to form MSL day/night water vapor pressure ratios (Figure 9) and inter-site comparisons (Figure 8)."
+        }
+      ]
+    }
+  },
+  "query_generation_agent_results": [
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "I need Phoenix lander Thermal and Electrical Conductivity Probe (TECP) in-situ atmospheric humidity measurements from the Mars arctic landing site spanning the full surface mission (about sols 1\u2013150), including the humidity sensor\u2019s raw output and board temperature along with recalibrated humidity products such as frost point and water vapor pressure for studying diurnal variability.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_host_spacecraft",
+              "instrument_sensor",
+              "target_name",
+              "data_type_product_type",
+              "measurement_observable",
+              "acquisition_date_time_range",
+              "temporal_resolution_cadence",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: Phoenix mission collections for Mars (instrument host = Phoenix lander; investigation = Phoenix). Final: additionally constrained to instrument = Phoenix MECA TECP and processing level = Derived.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find derived (recalibrated) near-surface water vapor environment time series from the Phoenix lander TECP humidity sensor on Mars during northern spring\u2013summer operations (roughly 2008), suitable for comparing daytime vs nighttime water vapor pressure and frost point at the Phoenix landing site.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_host_spacecraft",
+              "instrument_sensor",
+              "target_name",
+              "measurement_observable",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: Phoenix mission collections for Mars filtered to processing level = Derived. Final: additionally constrained to instrument = Phoenix MECA TECP (humidity sensor).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "In situ derived near-surface relative humidity, frost-point temperature, and water vapor pressure time series from the Phoenix lander TECP humidity sensor during the 2008 Mars arctic surface mission, using the postflight revised calibration.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Start broad with Mars Phoenix investigation collections (ref_lid_investigation=urn:nasa:pds:context:investigation:mission.phoenix), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) + Mars target (ref_lid_target=urn:nasa:pds:context:target:planet.mars) to isolate the recalibrated/derived TECP humidity time-series collection.",
+            "initial_match_count": 30.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived Phoenix lander TECP atmospheric humidity measurements covering sols 1\u2013150 to examine the diurnal cycle of water vapor pressure and frost point in the Martian north polar region (late northern spring through summer), calibrated products only.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Start with all Phoenix spacecraft derived collections targeting Mars (ref_lid_instrument_host=urn:nasa:pds:context:instrument_host:spacecraft.phx, ref_lid_target=urn:nasa:pds:context:target:planet.mars, processing_level=Derived), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) and Phoenix time window (start_time=2008-05-01T00:00:00Z, end_time=2008-11-30T00:00:00Z) to reach a single matching collection.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Find raw time-series meteorology measurements from the Phoenix lander Meteorological Station (MET) at the Mars Phoenix landing site during the 2008 surface mission, suitable for reprocessing air temperatures used as a reference for near-surface humidity studies.",
+          "data_identifier": "urn:nasa:pds:phx_met:raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "location_coverage",
+              "primary_result_summary.processing_level",
+              "time_coordinates.start_date_time",
+              "time_coordinates.stop_date_time"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Raw, Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find partially processed Phoenix lander MET time-series air temperature measurements representative of about 2 m above the surface at the Phoenix landing site on Mars during late northern spring to early summer 2008, for use as an independent temperature reference when interpreting near-surface relative humidity.",
+          "data_identifier": "urn:nasa:pds:phx_met:reduced::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "primary_result_summary.processing_level",
+              "time_coordinates.start_date_time",
+              "time_coordinates.stop_date_time"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Partially Processed (reduced), Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Find raw Phoenix lander LIDAR vertical atmospheric profiles of Mars acquired during the 2008 surface mission (late May through late June 2008) that can be used to identify nighttime fog or near-surface saturation conditions.",
+          "data_identifier": "urn:nasa:pds:phx_lidar:raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Raw (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find partially processed (reduced) Phoenix lander LIDAR atmospheric backscatter profile data for Mars from the 2008 landing campaign (late May to late June 2008) for studying near-surface ice clouds and fog.",
+          "data_identifier": "urn:nasa:pds:phx_lidar:reduced::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Partially Processed (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Find derived atmospheric retrieval products from the Phoenix lander Surface Stereo Imager sun observations over the Phoenix landing site that can be used as an independent estimate of atmospheric water vapor (column abundance) during the 2008 surface mission on Mars.",
+          "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_investigations_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections filtered to Phoenix mission on Mars, instrument = Surface Stereo Imager, instrument host = Phoenix lander, then narrowed to processing level = Derived to isolate the single derived SSI atmospheric (sun-observation) collection covering the 2008 Phoenix surface mission time span.",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find Phoenix Surface Stereo Imager derived products that summarize atmospheric opacity from sun imaging at multiple wavelengths over the Phoenix landing site on Mars during the full 2008 landed mission (late spring through autumn).",
+          "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Started from all PDS4 collections for the Phoenix mission (Phoenix lander) targeting Mars, then narrowed to instrument = Surface Stereo Imager and processing level = Derived, yielding a single collection for SSI-derived atmospheric (sun-observation) products spanning the 2008 Phoenix surface mission.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Find derived, recalibrated in situ atmospheric relative humidity measurements from the Phoenix lander TECP sensor at the Mars north polar landing site during the 2008 surface mission.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "location_coverage",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "processing_level_calibration_level",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission (instrument host = Phoenix lander) + Mars target + Derived processing level (no instrument) -> then restricted to 2008 mission timeframe -> final restriction to TECP instrument (recalibrated/derived relative humidity).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find Phoenix TECP humidity time series suitable for analyzing the diurnal cycle of near-surface water vapor (day versus night) at the Phoenix landing site on Mars during late northern spring through summer 2008.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission collections for Mars (no processing-level constraint) -> narrowed to Derived products within 2008 Phoenix mission timeframe -> final restriction to TECP instrument collection for derived/recalibrated relative humidity.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Find Curiosity rover Rover Environmental Monitoring Station (REMS) in situ meteorology time-series measurements of near-surface relative humidity and air temperature on Mars, focusing on the pre-dawn period around 04:00\u201306:00 local time for day/night water-vapor comparisons.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_investigations_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial discovery used PDS4 Context to identify the MSL Curiosity REMS instrument and Mars target, then searched PDS4 collections for Mars Science Laboratory (Curiosity) targeting Mars (84 hits). Narrowing to collections explicitly associated with the REMS instrument returned 0 hits, so no unique PDS4 collection/dataset identifier could be validated here (likely a PDS3 Atmospheres Node archive not indexed by the PDS4 collection search endpoint).",
+            "initial_match_count": 84.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Locate Curiosity rover REMS measurements of relative humidity and temperature at both near-ground level and approximately rover-deck height (~1.6 m) at the Gale crater landing site on Mars, suitable for comparing humidity\u2013temperature conditions against brine stability thresholds.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Started from a broad PDS4 collection search for products tied to the Curiosity (MSL) instrument host and Mars target (84 hits). Attempted to narrow to collections referencing the REMS instrument; the PDS4 collection search returned 0 matching collections, so a unique dataset identifier could not be validated in this environment (likely a PDS3 Atmospheres Node archive not represented as PDS4 collections).",
+            "initial_match_count": 84.0,
+            "final_match_count": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "Locate Mars Science Laboratory (Curiosity) ChemCam derived products that support estimating atmospheric water vapor pressure near local noon at the Gale Crater landing site (i.e., derived atmospheric quantities based on ChemCam passive spectroscopy).",
+          "data_identifier": "urn:nasa:pds:msl_chemcam_derived::2.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Derived' (MSL/ChemCam, target Mars).",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find raw Mars Science Laboratory (Curiosity) ChemCam passive spectroscopy observations of the Martian atmosphere acquired around midday at the Gale Crater landing site, suitable for deriving a time series of water vapor pressure.",
+          "data_identifier": "urn:nasa:pds:msl_chemcam_raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Raw' (MSL/ChemCam, target Mars).",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "consolidated_output": {
+    "output_text": "{\"paper_title\":\"Relative Humidity on Mars: New Results From the Phoenix TECP Sensor\",\"queries\":[{\"query\":\"I need Phoenix lander Thermal and Electrical Conductivity Probe (TECP) in-situ atmospheric humidity measurements from the Mars arctic landing site spanning the full surface mission (about sols 1\u2013150), including the humidity sensor\u2019s raw output and board temperature along with recalibrated humidity products such as frost point and water vapor pressure for studying diurnal variability.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_host_spacecraft\",\"instrument_sensor\",\"target_name\",\"data_type_product_type\",\"measurement_observable\",\"acquisition_date_time_range\",\"temporal_resolution_cadence\",\"processing_level_calibration_level\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Initial: Phoenix mission collections for Mars (instrument host = Phoenix lander; investigation = Phoenix). Final: additionally constrained to instrument = Phoenix MECA TECP and processing level = Derived.\",\"initial_match_count\":19.0,\"final_match_count\":1.0}},{\"query\":\"Find derived (recalibrated) near-surface water vapor environment time series from the Phoenix lander TECP humidity sensor on Mars during northern spring\u2013summer operations (roughly 2008), suitable for comparing daytime vs nighttime water vapor pressure and frost point at the Phoenix landing site.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_host_spacecraft\",\"instrument_sensor\",\"target_name\",\"measurement_observable\",\"processing_level_calibration_level\",\"acquisition_date_time_range\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Initial: Phoenix mission collections for Mars filtered to processing level = Derived. Final: additionally constrained to instrument = Phoenix MECA TECP (humidity sensor).\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"In situ derived near-surface relative humidity, frost-point temperature, and water vapor pressure time series from the Phoenix lander TECP humidity sensor during the 2008 Mars arctic surface mission, using the postflight revised calibration.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"acquisition_date_time_range\",\"location_coverage\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_investigations_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Start broad with Mars Phoenix investigation collections (ref_lid_investigation=urn:nasa:pds:context:investigation:mission.phoenix), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) + Mars target (ref_lid_target=urn:nasa:pds:context:target:planet.mars) to isolate the recalibrated/derived TECP humidity time-series collection.\",\"initial_match_count\":30.0,\"final_match_count\":1.0}},{\"query\":\"Derived Phoenix lander TECP atmospheric humidity measurements covering sols 1\u2013150 to examine the diurnal cycle of water vapor pressure and frost point in the Martian north polar region (late northern spring through summer), calibrated products only.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"acquisition_date_time_range\",\"location_coverage\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Start with all Phoenix spacecraft derived collections targeting Mars (ref_lid_instrument_host=urn:nasa:pds:context:instrument_host:spacecraft.phx, ref_lid_target=urn:nasa:pds:context:target:planet.mars, processing_level=Derived), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) and Phoenix time window (start_time=2008-05-01T00:00:00Z, end_time=2008-11-30T00:00:00Z) to reach a single matching collection.\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find raw time-series meteorology measurements from the Phoenix lander Meteorological Station (MET) at the Mars Phoenix landing site during the 2008 surface mission, suitable for reprocessing air temperatures used as a reference for near-surface humidity studies.\",\"data_identifier\":\"urn:nasa:pds:phx_met:raw::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"data_type_product_type\",\"location_coverage\",\"primary_result_summary.processing_level\",\"time_coordinates.start_date_time\",\"time_coordinates.stop_date_time\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Raw, Phoenix MET collection time span 2008-05-26 to 2008-06-25.\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find partially processed Phoenix lander MET time-series air temperature measurements representative of about 2 m above the surface at the Phoenix landing site on Mars during late northern spring to early summer 2008, for use as an independent temperature reference when interpreting near-surface relative humidity.\",\"data_identifier\":\"urn:nasa:pds:phx_met:reduced::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"location_coverage\",\"primary_result_summary.processing_level\",\"time_coordinates.start_date_time\",\"time_coordinates.stop_date_time\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Partially Processed (reduced), Phoenix MET collection time span 2008-05-26 to 2008-06-25.\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find raw Phoenix lander LIDAR vertical atmospheric profiles of Mars acquired during the 2008 surface mission (late May through late June 2008) that can be used to identify nighttime fog or near-surface saturation conditions.\",\"data_identifier\":\"urn:nasa:pds:phx_lidar:raw::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_investigations_tool\",\"pds4search_instruments_tool\",\"pds4search_targets_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Raw (time span in collection metadata: 2008-05-28 to 2008-06-24).\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find partially processed (reduced) Phoenix lander LIDAR atmospheric backscatter profile data for Mars from the 2008 landing campaign (late May to late June 2008) for studying near-surface ice clouds and fog.\",\"data_identifier\":\"urn:nasa:pds:phx_lidar:reduced::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"acquisition_date_time_range\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_investigations_tool\",\"pds4search_instruments_tool\",\"pds4search_targets_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Partially Processed (time span in collection metadata: 2008-05-28 to 2008-06-24).\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find derived atmospheric retrieval products from the Phoenix lander Surface Stereo Imager sun observations over the Phoenix landing site that can be used as an independent estimate of atmospheric water vapor (column abundance) during the 2008 surface mission on Mars.\",\"data_identifier\":\"urn:nasa:pds:phx_ao:data_derived\",\"data_identifier_type\":\"collection_lid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"location_coverage\",\"measurement_observable\",\"data_type_product_type\",\"processing_level_calibration_level\",\"acquisition_date_time_range\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_targets_tool\",\"pds4search_investigations_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collections filtered to Phoenix mission on Mars, instrument = Surface Stereo Imager, instrument host = Phoenix lander, then narrowed to processing level = Derived to isolate the single derived SSI atmospheric (sun-observation) collection covering the 2008 Phoenix surface mission time span.\",\"initial_match_count\":3.0,\"final_match_count\":1.0}},{\"query\":\"Find Phoenix Surface Stereo Imager derived products that summarize atmospheric opacity from sun imaging at multiple wavelengths over the Phoenix landing site on Mars during the full 2008 landed mission (late spring through autumn).\",\"data_identifier\":\"urn:nasa:pds:phx_ao:data_derived\",\"data_identifier_type\":\"collection_lid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"location_coverage\",\"data_type_product_type\",\"processing_level_calibration_level\",\"acquisition_date_time_range\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_investigations_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_targets_tool\",\"pds4search_collections_tool\",\"pds4search_instruments_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Started from all PDS4 collections for the Phoenix mission (Phoenix lander) targeting Mars, then narrowed to instrument = Surface Stereo Imager and processing level = Derived, yielding a single collection for SSI-derived atmospheric (sun-observation) products spanning the 2008 Phoenix surface mission.\",\"initial_match_count\":19.0,\"final_match_count\":1.0}},{\"query\":\"Find derived, recalibrated in situ atmospheric relative humidity measurements from the Phoenix lander TECP sensor at the Mars north polar landing site during the 2008 surface mission.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"target_name\",\"location_coverage\",\"acquisition_date_time_range\",\"measurement_observable\",\"processing_level_calibration_level\",\"data_type_product_type\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: Phoenix mission (instrument host = Phoenix lander) + Mars target + Derived processing level (no instrument) -> then restricted to 2008 mission timeframe -> final restriction to TECP instrument (recalibrated/derived relative humidity).\",\"initial_match_count\":4.0,\"final_match_count\":1.0}},{\"query\":\"Find Phoenix TECP humidity time series suitable for analyzing the diurnal cycle of near-surface water vapor (day versus night) at the Phoenix landing site on Mars during late northern spring through summer 2008.\",\"data_identifier\":\"urn:nasa:pds:phx_meca:data_tecp_rhs::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"location_coverage\",\"acquisition_date_time_range\",\"measurement_observable\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_collections_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: Phoenix mission collections for Mars (no processing-level constraint) -> narrowed to Derived products within 2008 Phoenix mission timeframe -> final restriction to TECP instrument collection for derived/recalibrated relative humidity.\",\"initial_match_count\":19.0,\"final_match_count\":1.0}},{\"query\":\"Find Curiosity rover Rover Environmental Monitoring Station (REMS) in situ meteorology time-series measurements of near-surface relative humidity and air temperature on Mars, focusing on the pre-dawn period around 04:00\u201306:00 local time for day/night water-vapor comparisons.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"acquisition_date_time_range\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_targets_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_investigations_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Initial discovery used PDS4 Context to identify the MSL Curiosity REMS instrument and Mars target, then searched PDS4 collections for Mars Science Laboratory (Curiosity) targeting Mars (84 hits). Narrowing to collections explicitly associated with the REMS instrument returned 0 hits, so no unique PDS4 collection/dataset identifier could be validated here (likely a PDS3 Atmospheres Node archive not indexed by the PDS4 collection search endpoint).\",\"initial_match_count\":84.0,\"final_match_count\":0.0}},{\"query\":\"Locate Curiosity rover REMS measurements of relative humidity and temperature at both near-ground level and approximately rover-deck height (~1.6 m) at the Gale crater landing site on Mars, suitable for comparing humidity\u2013temperature conditions against brine stability thresholds.\",\"data_identifier\":\"\",\"data_identifier_type\":\"unknown\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"location_coverage\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_targets_tool\",\"pds4search_instrument_hosts_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Started from a broad PDS4 collection search for products tied to the Curiosity (MSL) instrument host and Mars target (84 hits). Attempted to narrow to collections referencing the REMS instrument; the PDS4 collection search returned 0 matching collections, so a unique dataset identifier could not be validated in this environment (likely a PDS3 Atmospheres Node archive not represented as PDS4 collections).\",\"initial_match_count\":84.0,\"final_match_count\":0.0}},{\"query\":\"Locate Mars Science Laboratory (Curiosity) ChemCam derived products that support estimating atmospheric water vapor pressure near local noon at the Gale Crater landing site (i.e., derived atmospheric quantities based on ChemCam passive spectroscopy).\",\"data_identifier\":\"urn:nasa:pds:msl_chemcam_derived::2.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"acquisition_date_time_range\",\"location_coverage\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_bundles_tool\",\"pds4search_bundles_tool\"],\"constraints_summary\":\"PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Derived' (MSL/ChemCam, target Mars).\",\"initial_match_count\":3.0,\"final_match_count\":1.0}},{\"query\":\"Find raw Mars Science Laboratory (Curiosity) ChemCam passive spectroscopy observations of the Martian atmosphere acquired around midday at the Gale Crater landing site, suitable for deriving a time series of water vapor pressure.\",\"data_identifier\":\"urn:nasa:pds:msl_chemcam_raw::1.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"measurement_observable\",\"data_type_product_type\",\"acquisition_date_time_range\",\"location_coverage\",\"processing_level_calibration_level\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_bundles_tool\",\"pds4search_bundles_tool\"],\"constraints_summary\":\"PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Raw' (MSL/ChemCam, target Mars).\",\"initial_match_count\":3.0,\"final_match_count\":1.0}}]}",
+    "output_parsed": {
+      "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+      "queries": [
+        {
+          "query": "I need Phoenix lander Thermal and Electrical Conductivity Probe (TECP) in-situ atmospheric humidity measurements from the Mars arctic landing site spanning the full surface mission (about sols 1\u2013150), including the humidity sensor\u2019s raw output and board temperature along with recalibrated humidity products such as frost point and water vapor pressure for studying diurnal variability.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_host_spacecraft",
+              "instrument_sensor",
+              "target_name",
+              "data_type_product_type",
+              "measurement_observable",
+              "acquisition_date_time_range",
+              "temporal_resolution_cadence",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: Phoenix mission collections for Mars (instrument host = Phoenix lander; investigation = Phoenix). Final: additionally constrained to instrument = Phoenix MECA TECP and processing level = Derived.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find derived (recalibrated) near-surface water vapor environment time series from the Phoenix lander TECP humidity sensor on Mars during northern spring\u2013summer operations (roughly 2008), suitable for comparing daytime vs nighttime water vapor pressure and frost point at the Phoenix landing site.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_host_spacecraft",
+              "instrument_sensor",
+              "target_name",
+              "measurement_observable",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial: Phoenix mission collections for Mars filtered to processing level = Derived. Final: additionally constrained to instrument = Phoenix MECA TECP (humidity sensor).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "In situ derived near-surface relative humidity, frost-point temperature, and water vapor pressure time series from the Phoenix lander TECP humidity sensor during the 2008 Mars arctic surface mission, using the postflight revised calibration.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Start broad with Mars Phoenix investigation collections (ref_lid_investigation=urn:nasa:pds:context:investigation:mission.phoenix), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) + Mars target (ref_lid_target=urn:nasa:pds:context:target:planet.mars) to isolate the recalibrated/derived TECP humidity time-series collection.",
+            "initial_match_count": 30.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived Phoenix lander TECP atmospheric humidity measurements covering sols 1\u2013150 to examine the diurnal cycle of water vapor pressure and frost point in the Martian north polar region (late northern spring through summer), calibrated products only.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Start with all Phoenix spacecraft derived collections targeting Mars (ref_lid_instrument_host=urn:nasa:pds:context:instrument_host:spacecraft.phx, ref_lid_target=urn:nasa:pds:context:target:planet.mars, processing_level=Derived), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) and Phoenix time window (start_time=2008-05-01T00:00:00Z, end_time=2008-11-30T00:00:00Z) to reach a single matching collection.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find raw time-series meteorology measurements from the Phoenix lander Meteorological Station (MET) at the Mars Phoenix landing site during the 2008 surface mission, suitable for reprocessing air temperatures used as a reference for near-surface humidity studies.",
+          "data_identifier": "urn:nasa:pds:phx_met:raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "location_coverage",
+              "primary_result_summary.processing_level",
+              "time_coordinates.start_date_time",
+              "time_coordinates.stop_date_time"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Raw, Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find partially processed Phoenix lander MET time-series air temperature measurements representative of about 2 m above the surface at the Phoenix landing site on Mars during late northern spring to early summer 2008, for use as an independent temperature reference when interpreting near-surface relative humidity.",
+          "data_identifier": "urn:nasa:pds:phx_met:reduced::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage",
+              "primary_result_summary.processing_level",
+              "time_coordinates.start_date_time",
+              "time_coordinates.stop_date_time"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Partially Processed (reduced), Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find raw Phoenix lander LIDAR vertical atmospheric profiles of Mars acquired during the 2008 surface mission (late May through late June 2008) that can be used to identify nighttime fog or near-surface saturation conditions.",
+          "data_identifier": "urn:nasa:pds:phx_lidar:raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Raw (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find partially processed (reduced) Phoenix lander LIDAR atmospheric backscatter profile data for Mars from the 2008 landing campaign (late May to late June 2008) for studying near-surface ice clouds and fog.",
+          "data_identifier": "urn:nasa:pds:phx_lidar:reduced::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Partially Processed (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find derived atmospheric retrieval products from the Phoenix lander Surface Stereo Imager sun observations over the Phoenix landing site that can be used as an independent estimate of atmospheric water vapor (column abundance) during the 2008 surface mission on Mars.",
+          "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_investigations_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections filtered to Phoenix mission on Mars, instrument = Surface Stereo Imager, instrument host = Phoenix lander, then narrowed to processing level = Derived to isolate the single derived SSI atmospheric (sun-observation) collection covering the 2008 Phoenix surface mission time span.",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find Phoenix Surface Stereo Imager derived products that summarize atmospheric opacity from sun imaging at multiple wavelengths over the Phoenix landing site on Mars during the full 2008 landed mission (late spring through autumn).",
+          "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "data_type_product_type",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_investigations_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Started from all PDS4 collections for the Phoenix mission (Phoenix lander) targeting Mars, then narrowed to instrument = Surface Stereo Imager and processing level = Derived, yielding a single collection for SSI-derived atmospheric (sun-observation) products spanning the 2008 Phoenix surface mission.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find derived, recalibrated in situ atmospheric relative humidity measurements from the Phoenix lander TECP sensor at the Mars north polar landing site during the 2008 surface mission.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "target_name",
+              "location_coverage",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "processing_level_calibration_level",
+              "data_type_product_type"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission (instrument host = Phoenix lander) + Mars target + Derived processing level (no instrument) -> then restricted to 2008 mission timeframe -> final restriction to TECP instrument (recalibrated/derived relative humidity).",
+            "initial_match_count": 4.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find Phoenix TECP humidity time series suitable for analyzing the diurnal cycle of near-surface water vapor (day versus night) at the Phoenix landing site on Mars during late northern spring through summer 2008.",
+          "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "acquisition_date_time_range",
+              "measurement_observable",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_collections_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: Phoenix mission collections for Mars (no processing-level constraint) -> narrowed to Derived products within 2008 Phoenix mission timeframe -> final restriction to TECP instrument collection for derived/recalibrated relative humidity.",
+            "initial_match_count": 19.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find Curiosity rover Rover Environmental Monitoring Station (REMS) in situ meteorology time-series measurements of near-surface relative humidity and air temperature on Mars, focusing on the pre-dawn period around 04:00\u201306:00 local time for day/night water-vapor comparisons.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_investigations_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Initial discovery used PDS4 Context to identify the MSL Curiosity REMS instrument and Mars target, then searched PDS4 collections for Mars Science Laboratory (Curiosity) targeting Mars (84 hits). Narrowing to collections explicitly associated with the REMS instrument returned 0 hits, so no unique PDS4 collection/dataset identifier could be validated here (likely a PDS3 Atmospheres Node archive not indexed by the PDS4 collection search endpoint).",
+            "initial_match_count": 84.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Locate Curiosity rover REMS measurements of relative humidity and temperature at both near-ground level and approximately rover-deck height (~1.6 m) at the Gale crater landing site on Mars, suitable for comparing humidity\u2013temperature conditions against brine stability thresholds.",
+          "data_identifier": "",
+          "data_identifier_type": "unknown",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "location_coverage"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_targets_tool",
+              "pds4search_instrument_hosts_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Started from a broad PDS4 collection search for products tied to the Curiosity (MSL) instrument host and Mars target (84 hits). Attempted to narrow to collections referencing the REMS instrument; the PDS4 collection search returned 0 matching collections, so a unique dataset identifier could not be validated in this environment (likely a PDS3 Atmospheres Node archive not represented as PDS4 collections).",
+            "initial_match_count": 84.0,
+            "final_match_count": 0.0
+          }
+        },
+        {
+          "query": "Locate Mars Science Laboratory (Curiosity) ChemCam derived products that support estimating atmospheric water vapor pressure near local noon at the Gale Crater landing site (i.e., derived atmospheric quantities based on ChemCam passive spectroscopy).",
+          "data_identifier": "urn:nasa:pds:msl_chemcam_derived::2.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Derived' (MSL/ChemCam, target Mars).",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Find raw Mars Science Laboratory (Curiosity) ChemCam passive spectroscopy observations of the Martian atmosphere acquired around midday at the Gale Crater landing site, suitable for deriving a time series of water vapor pressure.",
+          "data_identifier": "urn:nasa:pds:msl_chemcam_raw::1.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "location_coverage",
+              "processing_level_calibration_level"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_bundles_tool",
+              "pds4search_bundles_tool"
+            ],
+            "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Raw' (MSL/ChemCam, target Mars).",
+            "initial_match_count": 3.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    }
+  },
+  "final_output": {
+    "paper_title": "Relative Humidity on Mars: New Results From the Phoenix TECP Sensor",
+    "queries": [
+      {
+        "query": "I need Phoenix lander Thermal and Electrical Conductivity Probe (TECP) in-situ atmospheric humidity measurements from the Mars arctic landing site spanning the full surface mission (about sols 1\u2013150), including the humidity sensor\u2019s raw output and board temperature along with recalibrated humidity products such as frost point and water vapor pressure for studying diurnal variability.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_host_spacecraft",
+            "instrument_sensor",
+            "target_name",
+            "data_type_product_type",
+            "measurement_observable",
+            "acquisition_date_time_range",
+            "temporal_resolution_cadence",
+            "processing_level_calibration_level",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Initial: Phoenix mission collections for Mars (instrument host = Phoenix lander; investigation = Phoenix). Final: additionally constrained to instrument = Phoenix MECA TECP and processing level = Derived.",
+          "initial_match_count": 19.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find derived (recalibrated) near-surface water vapor environment time series from the Phoenix lander TECP humidity sensor on Mars during northern spring\u2013summer operations (roughly 2008), suitable for comparing daytime vs nighttime water vapor pressure and frost point at the Phoenix landing site.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_host_spacecraft",
+            "instrument_sensor",
+            "target_name",
+            "measurement_observable",
+            "processing_level_calibration_level",
+            "acquisition_date_time_range",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Initial: Phoenix mission collections for Mars filtered to processing level = Derived. Final: additionally constrained to instrument = Phoenix MECA TECP (humidity sensor).",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "In situ derived near-surface relative humidity, frost-point temperature, and water vapor pressure time series from the Phoenix lander TECP humidity sensor during the 2008 Mars arctic surface mission, using the postflight revised calibration.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "acquisition_date_time_range",
+            "location_coverage",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_investigations_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Start broad with Mars Phoenix investigation collections (ref_lid_investigation=urn:nasa:pds:context:investigation:mission.phoenix), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) + Mars target (ref_lid_target=urn:nasa:pds:context:target:planet.mars) to isolate the recalibrated/derived TECP humidity time-series collection.",
+          "initial_match_count": 30.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Derived Phoenix lander TECP atmospheric humidity measurements covering sols 1\u2013150 to examine the diurnal cycle of water vapor pressure and frost point in the Martian north polar region (late northern spring through summer), calibrated products only.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "acquisition_date_time_range",
+            "location_coverage",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Start with all Phoenix spacecraft derived collections targeting Mars (ref_lid_instrument_host=urn:nasa:pds:context:instrument_host:spacecraft.phx, ref_lid_target=urn:nasa:pds:context:target:planet.mars, processing_level=Derived), then narrow to TECP instrument context (ref_lid_instrument=urn:nasa:pds:context:instrument:meca_tecp.phx) and Phoenix time window (start_time=2008-05-01T00:00:00Z, end_time=2008-11-30T00:00:00Z) to reach a single matching collection.",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find raw time-series meteorology measurements from the Phoenix lander Meteorological Station (MET) at the Mars Phoenix landing site during the 2008 surface mission, suitable for reprocessing air temperatures used as a reference for near-surface humidity studies.",
+        "data_identifier": "urn:nasa:pds:phx_met:raw::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "data_type_product_type",
+            "location_coverage",
+            "primary_result_summary.processing_level",
+            "time_coordinates.start_date_time",
+            "time_coordinates.stop_date_time"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Raw, Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find partially processed Phoenix lander MET time-series air temperature measurements representative of about 2 m above the surface at the Phoenix landing site on Mars during late northern spring to early summer 2008, for use as an independent temperature reference when interpreting near-surface relative humidity.",
+        "data_identifier": "urn:nasa:pds:phx_met:reduced::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "location_coverage",
+            "primary_result_summary.processing_level",
+            "time_coordinates.start_date_time",
+            "time_coordinates.stop_date_time"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: Phoenix mission + MET instrument on Phoenix lander + target Mars returned 4 MET collections; narrowed by processing level = Partially Processed (reduced), Phoenix MET collection time span 2008-05-26 to 2008-06-25.",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find raw Phoenix lander LIDAR vertical atmospheric profiles of Mars acquired during the 2008 surface mission (late May through late June 2008) that can be used to identify nighttime fog or near-surface saturation conditions.",
+        "data_identifier": "urn:nasa:pds:phx_lidar:raw::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_investigations_tool",
+            "pds4search_instruments_tool",
+            "pds4search_targets_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Raw (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find partially processed (reduced) Phoenix lander LIDAR atmospheric backscatter profile data for Mars from the 2008 landing campaign (late May to late June 2008) for studying near-surface ice clouds and fog.",
+        "data_identifier": "urn:nasa:pds:phx_lidar:reduced::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_investigations_tool",
+            "pds4search_instruments_tool",
+            "pds4search_targets_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collection search constrained to Mars Phoenix investigation, Phoenix lander instrument host, Phoenix MET suite LIDAR instrument, target Mars; initial broad match returned 4 collections; final validation added processing level = Partially Processed (time span in collection metadata: 2008-05-28 to 2008-06-24).",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find derived atmospheric retrieval products from the Phoenix lander Surface Stereo Imager sun observations over the Phoenix landing site that can be used as an independent estimate of atmospheric water vapor (column abundance) during the 2008 surface mission on Mars.",
+        "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+        "data_identifier_type": "collection_lid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "location_coverage",
+            "measurement_observable",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "acquisition_date_time_range"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_targets_tool",
+            "pds4search_investigations_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collections filtered to Phoenix mission on Mars, instrument = Surface Stereo Imager, instrument host = Phoenix lander, then narrowed to processing level = Derived to isolate the single derived SSI atmospheric (sun-observation) collection covering the 2008 Phoenix surface mission time span.",
+          "initial_match_count": 3.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find Phoenix Surface Stereo Imager derived products that summarize atmospheric opacity from sun imaging at multiple wavelengths over the Phoenix landing site on Mars during the full 2008 landed mission (late spring through autumn).",
+        "data_identifier": "urn:nasa:pds:phx_ao:data_derived",
+        "data_identifier_type": "collection_lid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "location_coverage",
+            "data_type_product_type",
+            "processing_level_calibration_level",
+            "acquisition_date_time_range"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_investigations_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_targets_tool",
+            "pds4search_collections_tool",
+            "pds4search_instruments_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Started from all PDS4 collections for the Phoenix mission (Phoenix lander) targeting Mars, then narrowed to instrument = Surface Stereo Imager and processing level = Derived, yielding a single collection for SSI-derived atmospheric (sun-observation) products spanning the 2008 Phoenix surface mission.",
+          "initial_match_count": 19.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find derived, recalibrated in situ atmospheric relative humidity measurements from the Phoenix lander TECP sensor at the Mars north polar landing site during the 2008 surface mission.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "target_name",
+            "location_coverage",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "processing_level_calibration_level",
+            "data_type_product_type"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: Phoenix mission (instrument host = Phoenix lander) + Mars target + Derived processing level (no instrument) -> then restricted to 2008 mission timeframe -> final restriction to TECP instrument (recalibrated/derived relative humidity).",
+          "initial_match_count": 4.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find Phoenix TECP humidity time series suitable for analyzing the diurnal cycle of near-surface water vapor (day versus night) at the Phoenix landing site on Mars during late northern spring through summer 2008.",
+        "data_identifier": "urn:nasa:pds:phx_meca:data_tecp_rhs::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "location_coverage",
+            "acquisition_date_time_range",
+            "measurement_observable",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_collections_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: Phoenix mission collections for Mars (no processing-level constraint) -> narrowed to Derived products within 2008 Phoenix mission timeframe -> final restriction to TECP instrument collection for derived/recalibrated relative humidity.",
+          "initial_match_count": 19.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find Curiosity rover Rover Environmental Monitoring Station (REMS) in situ meteorology time-series measurements of near-surface relative humidity and air temperature on Mars, focusing on the pre-dawn period around 04:00\u201306:00 local time for day/night water-vapor comparisons.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "acquisition_date_time_range",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_targets_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_investigations_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Initial discovery used PDS4 Context to identify the MSL Curiosity REMS instrument and Mars target, then searched PDS4 collections for Mars Science Laboratory (Curiosity) targeting Mars (84 hits). Narrowing to collections explicitly associated with the REMS instrument returned 0 hits, so no unique PDS4 collection/dataset identifier could be validated here (likely a PDS3 Atmospheres Node archive not indexed by the PDS4 collection search endpoint).",
+          "initial_match_count": 84.0,
+          "final_match_count": 0.0
+        }
+      },
+      {
+        "query": "Locate Curiosity rover REMS measurements of relative humidity and temperature at both near-ground level and approximately rover-deck height (~1.6 m) at the Gale crater landing site on Mars, suitable for comparing humidity\u2013temperature conditions against brine stability thresholds.",
+        "data_identifier": "",
+        "data_identifier_type": "unknown",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "location_coverage"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_targets_tool",
+            "pds4search_instrument_hosts_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Started from a broad PDS4 collection search for products tied to the Curiosity (MSL) instrument host and Mars target (84 hits). Attempted to narrow to collections referencing the REMS instrument; the PDS4 collection search returned 0 matching collections, so a unique dataset identifier could not be validated in this environment (likely a PDS3 Atmospheres Node archive not represented as PDS4 collections).",
+          "initial_match_count": 84.0,
+          "final_match_count": 0.0
+        }
+      },
+      {
+        "query": "Locate Mars Science Laboratory (Curiosity) ChemCam derived products that support estimating atmospheric water vapor pressure near local noon at the Gale Crater landing site (i.e., derived atmospheric quantities based on ChemCam passive spectroscopy).",
+        "data_identifier": "urn:nasa:pds:msl_chemcam_derived::2.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "acquisition_date_time_range",
+            "location_coverage",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_bundles_tool",
+            "pds4search_bundles_tool"
+          ],
+          "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Derived' (MSL/ChemCam, target Mars).",
+          "initial_match_count": 3.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Find raw Mars Science Laboratory (Curiosity) ChemCam passive spectroscopy observations of the Martian atmosphere acquired around midday at the Gale Crater landing site, suitable for deriving a time series of water vapor pressure.",
+        "data_identifier": "urn:nasa:pds:msl_chemcam_raw::1.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "measurement_observable",
+            "data_type_product_type",
+            "acquisition_date_time_range",
+            "location_coverage",
+            "processing_level_calibration_level"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_bundles_tool",
+            "pds4search_bundles_tool"
+          ],
+          "constraints_summary": "PDS4 bundle search narrowed from all bundles matching title query 'ChemCam' to the single result with processing_level='Raw' (MSL/ChemCam, target Mars).",
+          "initial_match_count": 3.0,
+          "final_match_count": 1.0
+        }
+      }
+    ]
+  }
+}

@@ -27,6 +27,7 @@ async def main():
         type=str,
         help="Path to input file (PDF or text file containing research paper)"
     )
+    
     input_group.add_argument(
         "--text",
         "-t",
