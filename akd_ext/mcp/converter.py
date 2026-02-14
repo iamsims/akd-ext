@@ -80,6 +80,42 @@ def _build_output_description(output_schema) -> str:
     return "\n\nReturns:\n" + "\n".join(lines)
 
 
+def _build_output_description(output_schema) -> str:
+    """
+    Build a human-readable description of a tool's output schema.
+
+    Extracts field names, types, and descriptions from the output Pydantic model
+    so the LLM knows what data the tool returns.
+
+    Args:
+        output_schema: A Pydantic model class (the tool's output_schema).
+
+    Returns:
+        A formatted string describing the output fields, or empty string if none.
+    """
+    if output_schema is None:
+        return ""
+
+    fields = getattr(output_schema, "model_fields", None)
+    if not fields:
+        return ""
+
+    lines = []
+    for field_name, field in fields.items():
+        field_type = field.annotation
+        type_name = getattr(field_type, "__name__", str(field_type))
+        desc = field.description or ""
+        if desc:
+            lines.append(f"  - {field_name} ({type_name}): {desc}")
+        else:
+            lines.append(f"  - {field_name} ({type_name})")
+
+    if not lines:
+        return ""
+
+    return "\n\nReturns:\n" + "\n".join(lines)
+
+
 def tool_converter(tool: BaseTool) -> Callable[..., Awaitable[Any]]:
     """
     Convert akd BaseTool to FastMCP-compatible async function.

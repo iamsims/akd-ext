@@ -1,0 +1,417 @@
+{
+  "extraction_agent": {
+    "output_text": "{\"datasets\":[{\"pds_dataset_product_name\":\"MEDA data (Mars 2020 Mars Environmental Dynamics Analyzer)\",\"mission_project\":\"Mars 2020\",\"instrument_sensor\":\"Mars Environmental Dynamics Analyzer (MEDA) instrument package; Relative Humidity Sensor (HS); Thermal Infrared Sensor (TIRS); Air Temperature Sensor (ATS); pressure measurements\",\"instrument_host_spacecraft\":\"Perseverance rover\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Relative humidity (with respect to ice) at 1.45 m; atmospheric pressure; air temperature (including at 0.84 m); surface brightness temperature (ground temperature) used to derive water vapor pressure, H2O volume mixing ratio (VMR), and surface water activity (aw)\",\"wavelength_bandpass\":\"TIRS: 8\u201314 \u00b5m (downward-looking channel)\",\"data_type_product_type\":\"In-situ environmental time-series measurements (meteorology) and derived parameters (H2O VMR, water activity)\",\"acquisition_date_time_range\":\"First Martian year at Jezero crater (one full Martian year of MEDA surface measurements); examples include sols 285\u2013305 (Ls=139\u00b0\u2013149\u00b0) and sample sealing sols listed in Table 1 (Sol 120 through Sol 639)\",\"location_coverage\":\"Jezero crater, Mars; landing site given as 18.4663\u00b0N, 77.4298\u00b0E; measurements at 1.45 m above surface (HS), surface footprint for TIRS, and air temperature at 0.84 m used as comparable to sealing station height\",\"spatial_resolution\":\"TIRS footprint covers an ellipsoid area of 3\u20134 m\u00b2\",\"temporal_resolution_cadence\":\"Local-time coverage for reliable HS retrieval stated as ~20:00 to 07:00 LMST (daytime RH too low for accurate VMR retrieval)\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"PDS Atmospheres Node archive URL: https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/ (bundle/directory name: mars2020_meda)\",\"how_used\":\"Used MEDA HS, TIRS, ATS, and pressure measurements to (1) derive seasonal/diurnal near-surface H2O VMR and precipitable water estimates, (2) compute surface water activity (aw) from derived water vapor pressure and ground temperature, and (3) provide temperature/pressure at the time of sample sealing for estimating headspace gas and H2O content in sealed tubes (Table 1, Figs. 2\u20134).\"},{\"pds_dataset_product_name\":\"Thermal Emission Spectrometer (TES) derived water column abundance climatology dataset (non-normalized to constant surface pressure)\",\"mission_project\":\"Mars Global Surveyor (MGS)\",\"instrument_sensor\":\"Thermal Emission Spectrometer (TES)\",\"instrument_host_spacecraft\":\"Mars Global Surveyor orbiter\",\"target_name\":\"Mars\",\"target_type\":\"planet\",\"small_body_designations\":\"\",\"measurement_observable\":\"Total atmospheric H2O column abundance (precipitable microns) from TES climatology; used as daytime zonally averaged orbital observations for comparison to MEDA-derived columns\",\"wavelength_bandpass\":\"\",\"data_type_product_type\":\"Orbital climatology/gridded column abundance dataset (3\u00b0 latitude, 7.5\u00b0 longitude, Ls=5\u00b0 averaged bins; zonally averaged)\",\"acquisition_date_time_range\":\"Mars Years 24\u201327; daytime observations at ~14:00 LMST (MGS near-polar orbit)\",\"location_coverage\":\"Latitude bin encompassing Jezero crater: 18\u00b0\u201321\u00b0N; column abundances zonally averaged for the region\",\"spatial_resolution\":\"3\u00b0 latitude \u00d7 7.5\u00b0 longitude bins (climatology dataset)\",\"temporal_resolution_cadence\":\"Ls-binned at 5\u00b0 increments (climatology averaging)\",\"processing_level_calibration_level\":\"\",\"pds_identifiers\":\"\",\"how_used\":\"TES climatology water column abundance for MY24\u2013MY27 was compared against MEDA-based nighttime column estimates to assess seasonal coherence and quantify discrepancies between daytime orbital columns and pre-dawn near-surface observations (Fig. 2 Bottom).\"}]}",
+    "output_parsed": {
+      "datasets": [
+        {
+          "pds_dataset_product_name": "MEDA data (Mars 2020 Mars Environmental Dynamics Analyzer)",
+          "mission_project": "Mars 2020",
+          "instrument_sensor": "Mars Environmental Dynamics Analyzer (MEDA) instrument package; Relative Humidity Sensor (HS); Thermal Infrared Sensor (TIRS); Air Temperature Sensor (ATS); pressure measurements",
+          "instrument_host_spacecraft": "Perseverance rover",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Relative humidity (with respect to ice) at 1.45 m; atmospheric pressure; air temperature (including at 0.84 m); surface brightness temperature (ground temperature) used to derive water vapor pressure, H2O volume mixing ratio (VMR), and surface water activity (aw)",
+          "wavelength_bandpass": "TIRS: 8\u201314 \u00b5m (downward-looking channel)",
+          "data_type_product_type": "In-situ environmental time-series measurements (meteorology) and derived parameters (H2O VMR, water activity)",
+          "acquisition_date_time_range": "First Martian year at Jezero crater (one full Martian year of MEDA surface measurements); examples include sols 285\u2013305 (Ls=139\u00b0\u2013149\u00b0) and sample sealing sols listed in Table 1 (Sol 120 through Sol 639)",
+          "location_coverage": "Jezero crater, Mars; landing site given as 18.4663\u00b0N, 77.4298\u00b0E; measurements at 1.45 m above surface (HS), surface footprint for TIRS, and air temperature at 0.84 m used as comparable to sealing station height",
+          "spatial_resolution": "TIRS footprint covers an ellipsoid area of 3\u20134 m\u00b2",
+          "temporal_resolution_cadence": "Local-time coverage for reliable HS retrieval stated as ~20:00 to 07:00 LMST (daytime RH too low for accurate VMR retrieval)",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "PDS Atmospheres Node archive URL: https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/ (bundle/directory name: mars2020_meda)",
+          "how_used": "Used MEDA HS, TIRS, ATS, and pressure measurements to (1) derive seasonal/diurnal near-surface H2O VMR and precipitable water estimates, (2) compute surface water activity (aw) from derived water vapor pressure and ground temperature, and (3) provide temperature/pressure at the time of sample sealing for estimating headspace gas and H2O content in sealed tubes (Table 1, Figs. 2\u20134)."
+        },
+        {
+          "pds_dataset_product_name": "Thermal Emission Spectrometer (TES) derived water column abundance climatology dataset (non-normalized to constant surface pressure)",
+          "mission_project": "Mars Global Surveyor (MGS)",
+          "instrument_sensor": "Thermal Emission Spectrometer (TES)",
+          "instrument_host_spacecraft": "Mars Global Surveyor orbiter",
+          "target_name": "Mars",
+          "target_type": "planet",
+          "small_body_designations": "",
+          "measurement_observable": "Total atmospheric H2O column abundance (precipitable microns) from TES climatology; used as daytime zonally averaged orbital observations for comparison to MEDA-derived columns",
+          "wavelength_bandpass": "",
+          "data_type_product_type": "Orbital climatology/gridded column abundance dataset (3\u00b0 latitude, 7.5\u00b0 longitude, Ls=5\u00b0 averaged bins; zonally averaged)",
+          "acquisition_date_time_range": "Mars Years 24\u201327; daytime observations at ~14:00 LMST (MGS near-polar orbit)",
+          "location_coverage": "Latitude bin encompassing Jezero crater: 18\u00b0\u201321\u00b0N; column abundances zonally averaged for the region",
+          "spatial_resolution": "3\u00b0 latitude \u00d7 7.5\u00b0 longitude bins (climatology dataset)",
+          "temporal_resolution_cadence": "Ls-binned at 5\u00b0 increments (climatology averaging)",
+          "processing_level_calibration_level": "",
+          "pds_identifiers": "",
+          "how_used": "TES climatology water column abundance for MY24\u2013MY27 was compared against MEDA-based nighttime column estimates to assess seasonal coherence and quantify discrepancies between daytime orbital columns and pre-dawn near-surface observations (Fig. 2 Bottom)."
+        }
+      ]
+    },
+    "tool_calls": []
+  },
+  "query_generation_agent_results": [
+    {
+      "paper_title": "Present\u2011day thermal and water activity environment of the Mars Sample Return collection",
+      "queries": [
+        {
+          "query": "Calibrated in-situ meteorology from the Perseverance rover\u2019s MEDA environmental station at Jezero crater on Mars, including relative humidity, atmospheric pressure, air temperature, and thermal-infrared ground temperature measurements, spanning the start of surface operations in 2021 through early 2024.",
+          "data_identifier": "urn:nasa:pds:mars2020_meda:data_calibrated_env::9.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "wavelength_bandpass",
+              "data_type_product_type",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_investigations_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Calibrated processing level and an end time of 2024-02-01 to isolate the single calibrated MEDA environmental collection version returned.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived near-surface water vapor volume mixing ratio and surface water activity estimates computed from Perseverance MEDA environmental measurements at Jezero crater, covering the start of the mission in 2021 through early 2024.",
+          "data_identifier": "urn:nasa:pds:mars2020_meda:data_derived_env::9.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "temporal_resolution_cadence"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_investigations_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Derived processing level and an end time of 2024-02-01 to isolate the single derived MEDA environmental collection version returned.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "paper_title": "Present-day thermal and water activity environment of the Mars Sample Return collection",
+      "queries": [
+        {
+          "query": "Calibrated Mars Global Surveyor Thermal Emission Spectrometer atmospheric observations of Mars from the main mapping mission period (roughly 1999\u20132005) suitable for retrieving atmospheric temperature structure and aerosol opacity.",
+          "data_identifier": "urn:nasa:pds:mgs_tes_recalib_atmos:data_calibrated",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Calibrated, yielding the single calibrated TES atmospheric collection (time coverage 1999-02-28 to 2005-02-16).",
+            "initial_match_count": 17.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived Mars Global Surveyor Thermal Emission Spectrometer daytime gridded climatology of Martian atmospheric dust optical depth in the visible, covering the mapping-era years starting in early 1999 through 2004.",
+          "data_identifier": "urn:nasa:pds:mgs_tes_atmos_dust-ice:data_derived_vis-dust-optical-depth",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Derived and start_time=1999-03-01T00:00:00Z, which uniquely selected the derived visible dust column optical depth collection (time coverage 1999-03-12 to 2004-08-28).",
+            "initial_match_count": 17.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    }
+  ],
+  "consolidated_output": {
+    "output_text": "{\"paper_title\":\"Present\u2011day thermal and water activity environment of the Mars Sample Return collection\",\"queries\":[{\"query\":\"Calibrated in-situ meteorology from the Perseverance rover\u2019s MEDA environmental station at Jezero crater on Mars, including relative humidity, atmospheric pressure, air temperature, and thermal-infrared ground temperature measurements, spanning the start of surface operations in 2021 through early 2024.\",\"data_identifier\":\"urn:nasa:pds:mars2020_meda:data_calibrated_env::9.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"location_coverage\",\"measurement_observable\",\"wavelength_bandpass\",\"data_type_product_type\",\"acquisition_date_time_range\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_investigations_tool\",\"pds4search_targets_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Calibrated processing level and an end time of 2024-02-01 to isolate the single calibrated MEDA environmental collection version returned.\",\"initial_match_count\":15.0,\"final_match_count\":1.0}},{\"query\":\"Derived near-surface water vapor volume mixing ratio and surface water activity estimates computed from Perseverance MEDA environmental measurements at Jezero crater, covering the start of the mission in 2021 through early 2024.\",\"data_identifier\":\"urn:nasa:pds:mars2020_meda:data_derived_env::9.0\",\"data_identifier_type\":\"lidvid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"location_coverage\",\"measurement_observable\",\"data_type_product_type\",\"acquisition_date_time_range\",\"temporal_resolution_cadence\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_investigations_tool\",\"pds4search_targets_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Derived processing level and an end time of 2024-02-01 to isolate the single derived MEDA environmental collection version returned.\",\"initial_match_count\":15.0,\"final_match_count\":1.0}},{\"query\":\"Calibrated Mars Global Surveyor Thermal Emission Spectrometer atmospheric observations of Mars from the main mapping mission period (roughly 1999\u20132005) suitable for retrieving atmospheric temperature structure and aerosol opacity.\",\"data_identifier\":\"urn:nasa:pds:mgs_tes_recalib_atmos:data_calibrated\",\"data_identifier_type\":\"collection_lid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"processing_level_calibration_level\",\"acquisition_date_time_range\",\"measurement_observable\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Calibrated, yielding the single calibrated TES atmospheric collection (time coverage 1999-02-28 to 2005-02-16).\",\"initial_match_count\":17.0,\"final_match_count\":1.0}},{\"query\":\"Derived Mars Global Surveyor Thermal Emission Spectrometer daytime gridded climatology of Martian atmospheric dust optical depth in the visible, covering the mapping-era years starting in early 1999 through 2004.\",\"data_identifier\":\"urn:nasa:pds:mgs_tes_atmos_dust-ice:data_derived_vis-dust-optical-depth\",\"data_identifier_type\":\"collection_lid\",\"pds_metadata_fields\":{\"fields\":[\"mission_project\",\"instrument_sensor\",\"instrument_host_spacecraft\",\"target_name\",\"data_type_product_type\",\"acquisition_date_time_range\",\"measurement_observable\"]},\"tool_validation\":{\"tools_used\":[\"pds4search_instruments_tool\",\"pds4search_collections_tool\",\"pds4search_collections_tool\"],\"constraints_summary\":\"Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Derived and start_time=1999-03-01T00:00:00Z, which uniquely selected the derived visible dust column optical depth collection (time coverage 1999-03-12 to 2004-08-28).\",\"initial_match_count\":17.0,\"final_match_count\":1.0}}]}",
+    "output_parsed": {
+      "paper_title": "Present\u2011day thermal and water activity environment of the Mars Sample Return collection",
+      "queries": [
+        {
+          "query": "Calibrated in-situ meteorology from the Perseverance rover\u2019s MEDA environmental station at Jezero crater on Mars, including relative humidity, atmospheric pressure, air temperature, and thermal-infrared ground temperature measurements, spanning the start of surface operations in 2021 through early 2024.",
+          "data_identifier": "urn:nasa:pds:mars2020_meda:data_calibrated_env::9.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "wavelength_bandpass",
+              "data_type_product_type",
+              "acquisition_date_time_range"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_investigations_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Calibrated processing level and an end time of 2024-02-01 to isolate the single calibrated MEDA environmental collection version returned.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived near-surface water vapor volume mixing ratio and surface water activity estimates computed from Perseverance MEDA environmental measurements at Jezero crater, covering the start of the mission in 2021 through early 2024.",
+          "data_identifier": "urn:nasa:pds:mars2020_meda:data_derived_env::9.0",
+          "data_identifier_type": "lidvid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "location_coverage",
+              "measurement_observable",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "temporal_resolution_cadence"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_investigations_tool",
+              "pds4search_targets_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Derived processing level and an end time of 2024-02-01 to isolate the single derived MEDA environmental collection version returned.",
+            "initial_match_count": 15.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Calibrated Mars Global Surveyor Thermal Emission Spectrometer atmospheric observations of Mars from the main mapping mission period (roughly 1999\u20132005) suitable for retrieving atmospheric temperature structure and aerosol opacity.",
+          "data_identifier": "urn:nasa:pds:mgs_tes_recalib_atmos:data_calibrated",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "processing_level_calibration_level",
+              "acquisition_date_time_range",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Calibrated, yielding the single calibrated TES atmospheric collection (time coverage 1999-02-28 to 2005-02-16).",
+            "initial_match_count": 17.0,
+            "final_match_count": 1.0
+          }
+        },
+        {
+          "query": "Derived Mars Global Surveyor Thermal Emission Spectrometer daytime gridded climatology of Martian atmospheric dust optical depth in the visible, covering the mapping-era years starting in early 1999 through 2004.",
+          "data_identifier": "urn:nasa:pds:mgs_tes_atmos_dust-ice:data_derived_vis-dust-optical-depth",
+          "data_identifier_type": "collection_lid",
+          "pds_metadata_fields": {
+            "fields": [
+              "mission_project",
+              "instrument_sensor",
+              "instrument_host_spacecraft",
+              "target_name",
+              "data_type_product_type",
+              "acquisition_date_time_range",
+              "measurement_observable"
+            ]
+          },
+          "tool_validation": {
+            "tools_used": [
+              "pds4search_instruments_tool",
+              "pds4search_collections_tool",
+              "pds4search_collections_tool"
+            ],
+            "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Derived and start_time=1999-03-01T00:00:00Z, which uniquely selected the derived visible dust column optical depth collection (time coverage 1999-03-12 to 2004-08-28).",
+            "initial_match_count": 17.0,
+            "final_match_count": 1.0
+          }
+        }
+      ]
+    },
+    "tool_calls": []
+  },
+  "final_output": {
+    "paper_title": "Present\u2011day thermal and water activity environment of the Mars Sample Return collection",
+    "queries": [
+      {
+        "query": "Calibrated in-situ meteorology from the Perseverance rover\u2019s MEDA environmental station at Jezero crater on Mars, including relative humidity, atmospheric pressure, air temperature, and thermal-infrared ground temperature measurements, spanning the start of surface operations in 2021 through early 2024.",
+        "data_identifier": "urn:nasa:pds:mars2020_meda:data_calibrated_env::9.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "location_coverage",
+            "measurement_observable",
+            "wavelength_bandpass",
+            "data_type_product_type",
+            "acquisition_date_time_range"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_investigations_tool",
+            "pds4search_targets_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Calibrated processing level and an end time of 2024-02-01 to isolate the single calibrated MEDA environmental collection version returned.",
+          "initial_match_count": 15.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Derived near-surface water vapor volume mixing ratio and surface water activity estimates computed from Perseverance MEDA environmental measurements at Jezero crater, covering the start of the mission in 2021 through early 2024.",
+        "data_identifier": "urn:nasa:pds:mars2020_meda:data_derived_env::9.0",
+        "data_identifier_type": "lidvid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "location_coverage",
+            "measurement_observable",
+            "data_type_product_type",
+            "acquisition_date_time_range",
+            "temporal_resolution_cadence"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_investigations_tool",
+            "pds4search_targets_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "PDS4 collections constrained to Mars 2020 investigation, Perseverance instrument host, Mars target, MEDA instrument; time window starting 2021-02-19; narrowed to Derived processing level and an end time of 2024-02-01 to isolate the single derived MEDA environmental collection version returned.",
+          "initial_match_count": 15.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Calibrated Mars Global Surveyor Thermal Emission Spectrometer atmospheric observations of Mars from the main mapping mission period (roughly 1999\u20132005) suitable for retrieving atmospheric temperature structure and aerosol opacity.",
+        "data_identifier": "urn:nasa:pds:mgs_tes_recalib_atmos:data_calibrated",
+        "data_identifier_type": "collection_lid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "processing_level_calibration_level",
+            "acquisition_date_time_range",
+            "measurement_observable"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Calibrated, yielding the single calibrated TES atmospheric collection (time coverage 1999-02-28 to 2005-02-16).",
+          "initial_match_count": 17.0,
+          "final_match_count": 1.0
+        }
+      },
+      {
+        "query": "Derived Mars Global Surveyor Thermal Emission Spectrometer daytime gridded climatology of Martian atmospheric dust optical depth in the visible, covering the mapping-era years starting in early 1999 through 2004.",
+        "data_identifier": "urn:nasa:pds:mgs_tes_atmos_dust-ice:data_derived_vis-dust-optical-depth",
+        "data_identifier_type": "collection_lid",
+        "pds_metadata_fields": {
+          "fields": [
+            "mission_project",
+            "instrument_sensor",
+            "instrument_host_spacecraft",
+            "target_name",
+            "data_type_product_type",
+            "acquisition_date_time_range",
+            "measurement_observable"
+          ]
+        },
+        "tool_validation": {
+          "tools_used": [
+            "pds4search_instruments_tool",
+            "pds4search_collections_tool",
+            "pds4search_collections_tool"
+          ],
+          "constraints_summary": "Broad search: PDS4 collections with ref_lid_instrument=urn:nasa:pds:context:instrument:mgs.tes and ref_lid_target=urn:nasa:pds:context:target:planet.mars. Final narrowing added processing_level=Derived and start_time=1999-03-01T00:00:00Z, which uniquely selected the derived visible dust column optical depth collection (time coverage 1999-03-12 to 2004-08-28).",
+          "initial_match_count": 17.0,
+          "final_match_count": 1.0
+        }
+      }
+    ]
+  },
+  "all_tool_calls": [],
+  "tool_call_summary": {
+    "total_tool_calls": 0,
+    "extraction_agent_calls": 0,
+    "query_generation_agent_calls": 0,
+    "consolidated_output_agent_calls": 0
+  }
+}
