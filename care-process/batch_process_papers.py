@@ -1,248 +1,201 @@
 """
 Batch process all papers in a folder and output results to a spreadsheet.
 
+Uses synthetic_data_generation_with_tracking which includes token usage tracking
+and removes the consolidated output agent (consolidation done in Python).
+
+Each run gets a unique timestamp ID. Structure:
+    batch_results/run_<timestamp>/
+        results/   -> results_spreadsheet.xlsx, results_spreadsheet.csv
+        outputs/   -> individual JSON full outputs per paper
+
+Spreadsheet format (one row per query, not per paper):
+    paper_name | query | data_identifier | data_identifier_type
+
 Usage:
-    uv run python care-process/batch_process_papers.py
+    uv run python care-process/batch_process_papers.py            # fresh run
+    uv run python care-process/batch_process_papers.py --resume   # resume most recent run
 """
 
+import argparse
 import asyncio
 import json
 from pathlib import Path
 from datetime import datetime
-import os
 import dotenv
 import pandas as pd
+from loguru import logger
 
 # Load environment variables from .env file
 dotenv.load_dotenv()
 
-from synthetic_data_generation import run_workflow, WorkflowInput
+from synthetic_data_generation_with_tracking import run_workflow, WorkflowInput
 
 
 # Configuration
-PAPERS_FOLDER = Path("care-process/temp")
-OUTPUT_FOLDER = Path("care-process/batch_results")
-SPREADSHEET_PATH = OUTPUT_FOLDER / "results_spreadsheet.xlsx"
-CSV_PATH = OUTPUT_FOLDER / "results_spreadsheet.csv"
-TOOL_CALLS_CSV_PATH = OUTPUT_FOLDER / "tool_calls_detailed.csv"
+PAPERS_FOLDER = Path("care-process/data")
+BATCH_RESULTS_ROOT = Path("care-process/batch_results")
 
 
-async def process_single_paper(paper_path: Path) -> dict:
-    """Process a single paper and return structured results."""
-    print(f"\nProcessing: {paper_path.name}")
-    print("="*80)
+def find_most_recent_run() -> Path | None:
+    """Find the most recent run_* folder by name (timestamp-sorted)."""
+    if not BATCH_RESULTS_ROOT.exists():
+        return None
+    run_folders = sorted(
+        [d for d in BATCH_RESULTS_ROOT.iterdir() if d.is_dir() and d.name.startswith("run_")],
+        key=lambda d: d.name,
+        reverse=True
+    )
+    return run_folders[0] if run_folders else None
+
+
+async def process_single_paper(paper_path: Path, outputs_folder: Path) -> list[dict]:
+    """Process a single paper and return a list of query rows for the spreadsheet."""
+    logger.info("Processing: {}", paper_path.name)
 
     try:
-        # Pass the PDF file path to the workflow
-        # The workflow will read and send the PDF content to the agent
         workflow_input = WorkflowInput(pdf_file_path=str(paper_path.absolute()))
-
-        # Run workflow
         result = await run_workflow(workflow_input)
 
-        # Extract key information for spreadsheet
-        extraction_output = result["extraction_agent"]["output_parsed"]
-        query_gen_outputs = result["query_generation_agent_results"]
-        final_output = result["final_output"]
-
-        num_datasets = len(extraction_output.get("datasets", []))
-        num_queries = len(final_output.get("queries", []))
-
-        # Extract tool call information
-        all_tool_calls = result.get("all_tool_calls", [])
-        tool_call_summary = result.get("tool_call_summary", {})
-
-        paper_result = {
-            "paper_name": paper_path.name,
-            "status": "success",
-            "num_datasets_extracted": num_datasets,
-            "num_queries_generated": num_queries,
-            "total_tool_calls": tool_call_summary.get("total_tool_calls", 0),
-            "extraction_agent_tool_calls": tool_call_summary.get("extraction_agent_calls", 0),
-            "query_generation_agent_tool_calls": tool_call_summary.get("query_generation_agent_calls", 0),
-            "consolidated_output_agent_tool_calls": tool_call_summary.get("consolidated_output_agent_calls", 0),
-            "extraction_output": json.dumps(extraction_output, indent=2),
-            "query_generation_outputs": json.dumps(query_gen_outputs, indent=2),
-            "final_output": json.dumps(final_output, indent=2),
-            "all_tool_calls": json.dumps(all_tool_calls, indent=2),
-            "paper_title": final_output.get("paper_title", "N/A"),
-            "error": None,
-            "timestamp": datetime.now().isoformat()
-        }
-
-        # Save individual JSON result
-        individual_output = OUTPUT_FOLDER / "json" / f"{paper_path.stem}.json"
-        individual_output.parent.mkdir(parents=True, exist_ok=True)
+        # Save full JSON output
+        individual_output = outputs_folder / f"{paper_path.stem}.json"
         with open(individual_output, "w", encoding="utf-8") as f:
             json.dump(result, f, indent=2)
+        logger.debug("Saved full output to {}", individual_output)
 
-        print(f"✓ Successfully processed: {paper_path.name}")
-        print(f"  - Datasets extracted: {num_datasets}")
-        print(f"  - Queries generated: {num_queries}")
-        print(f"  - Total tool calls: {paper_result['total_tool_calls']}")
+        # Build one row per query
+        final_output = result["final_output"]  # flat list of query dicts
+        rows = []
+        for q in final_output:
+            rows.append({
+                "paper_name": paper_path.name,
+                "query": q["query"],
+                "data_identifier": q["data_identifier"],
+                "data_identifier_type": q["data_identifier_type"],
+            })
 
-        return paper_result
+        token_totals = result.get("token_usage", {}).get("totals", {})
+        logger.success(
+            "Finished: {} | {} queries | {} tool calls | {} total tokens",
+            paper_path.name, len(rows),
+            result.get("tool_call_summary", {}).get("total_tool_calls", 0),
+            token_totals.get("total_tokens", "N/A"),
+        )
+        return rows
 
     except Exception as e:
-        print(f"✗ Error processing {paper_path.name}: {str(e)}")
-        import traceback
-        traceback.print_exc()
+        logger.exception("Error processing {}", paper_path.name)
 
-        return {
+        return [{
             "paper_name": paper_path.name,
-            "status": "error",
-            "num_datasets_extracted": 0,
-            "num_queries_generated": 0,
-            "total_tool_calls": 0,
-            "extraction_agent_tool_calls": 0,
-            "query_generation_agent_tool_calls": 0,
-            "consolidated_output_agent_tool_calls": 0,
-            "extraction_output": None,
-            "query_generation_outputs": None,
-            "final_output": None,
-            "all_tool_calls": None,
-            "paper_title": None,
-            "error": str(e),
-            "timestamp": datetime.now().isoformat()
-        }
+            "query": None,
+            "data_identifier": None,
+            "data_identifier_type": f"ERROR: {e}",
+        }]
+
+
+def save_results(rows: list[dict], spreadsheet_path: Path, csv_path: Path):
+    """Save query rows to Excel and CSV."""
+    df = pd.DataFrame(rows, columns=["paper_name", "query", "data_identifier", "data_identifier_type"])
+
+    df.to_excel(spreadsheet_path, index=False, engine='openpyxl')
+    logger.success("Excel saved to: {}", spreadsheet_path)
+
+    df.to_csv(csv_path, index=False)
+    logger.success("CSV saved to: {}", csv_path)
+
+
+def setup_run(paper_files: list[Path], resume: bool) -> tuple[Path, Path, Path, Path, list[Path], list[dict]]:
+    """Set up run folder and determine which papers to process.
+
+    Returns (run_folder, outputs_folder, spreadsheet_path, csv_path, papers_to_process, existing_rows).
+    """
+    existing_rows: list[dict] = []
+
+    if resume:
+        run_folder = find_most_recent_run()
+        if run_folder is None:
+            logger.warning("No existing runs found to resume. Starting a fresh run instead.")
+            resume = False
+
+    if not resume:
+        run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+        run_folder = BATCH_RESULTS_ROOT / f"run_{run_id}"
+
+    results_folder = run_folder / "results"
+    outputs_folder = run_folder / "outputs"
+    results_folder.mkdir(parents=True, exist_ok=True)
+    outputs_folder.mkdir(parents=True, exist_ok=True)
+
+    spreadsheet_path = results_folder / "results_spreadsheet.xlsx"
+    csv_path = results_folder / "results_spreadsheet.csv"
+
+    if resume and spreadsheet_path.exists():
+        try:
+            existing_df = pd.read_excel(spreadsheet_path, engine='openpyxl')
+            existing_rows = existing_df.to_dict('records')
+            done_papers = set(existing_df['paper_name'].unique())
+        except Exception as e:
+            logger.warning("Could not load existing spreadsheet: {}", e)
+            done_papers = set()
+    else:
+        done_papers = set()
+
+    papers_to_process = [pf for pf in paper_files if pf.name not in done_papers]
+    return run_folder, outputs_folder, spreadsheet_path, csv_path, papers_to_process, existing_rows
 
 
 async def main():
-    print("="*80)
-    print("PDS Dataset Benchmark Generation - Batch Processing")
-    print("="*80)
+    parser = argparse.ArgumentParser(description="Batch process papers for PDS benchmark generation")
+    parser.add_argument("--resume", action="store_true", help="Resume the most recent run, skipping already processed papers")
+    args = parser.parse_args()
 
-    # Create output folder
-    OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
-
-    # Find all PDF files
     paper_files = list(PAPERS_FOLDER.glob("*.pdf"))
-
     if not paper_files:
-        print(f"\nNo PDF files found in: {PAPERS_FOLDER}")
+        logger.warning("No PDF files found in: {}", PAPERS_FOLDER)
         return
 
-    print(f"\nFound {len(paper_files)} papers to process:")
-    for pf in paper_files:
-        print(f"  - {pf.name}")
+    run_folder, outputs_folder, spreadsheet_path, csv_path, papers_to_process, existing_rows = setup_run(
+        paper_files, args.resume
+    )
 
-    # Load existing results if spreadsheet exists
-    existing_papers = set()
-    existing_results = []
-    if SPREADSHEET_PATH.exists():
-        print(f"\nLoading existing results from: {SPREADSHEET_PATH}")
-        try:
-            existing_df = pd.read_excel(SPREADSHEET_PATH, engine='openpyxl')
-            existing_papers = set(existing_df['paper_name'].tolist())
-            existing_results = existing_df.to_dict('records')
-            print(f"Found {len(existing_papers)} already processed papers")
-        except Exception as e:
-            print(f"Warning: Could not load existing spreadsheet: {e}")
-            print("Will start fresh.")
+    # Add a file sink for this run (DEBUG level captures everything)
+    logger.add(run_folder / "run.log", level="DEBUG")
 
-    # Filter out already processed papers
-    papers_to_process = [pf for pf in paper_files if pf.name not in existing_papers]
-    skipped_count = len(paper_files) - len(papers_to_process)
+    run_id = run_folder.name.removeprefix("run_")
+    mode = "Resuming" if args.resume else "Batch Processing"
 
-    if skipped_count > 0:
-        print(f"\nSkipping {skipped_count} already processed papers:")
-        for pf in paper_files:
-            if pf.name in existing_papers:
-                print(f"  - {pf.name} (already exists)")
+    logger.info("PDS Dataset Benchmark Generation - {} (Run {})", mode, run_id)
+    logger.info("Output: {}", run_folder)
+
+    if existing_rows:
+        logger.info(
+            "Found {} total papers, {} already processed",
+            len(paper_files), len(paper_files) - len(papers_to_process),
+        )
 
     if not papers_to_process:
-        print("\n" + "="*80)
-        print("All papers have already been processed. Nothing to do.")
-        print("="*80)
+        logger.info("All papers have already been processed. Nothing to do.")
         return
 
-    print("\n" + "="*80)
-    print(f"Starting parallel processing of {len(papers_to_process)} new papers...")
-    print("="*80)
+    logger.info("Processing {} papers:", len(papers_to_process))
+    for pf in papers_to_process:
+        logger.info("  - {}", pf.name)
 
-    # Process papers in parallel
-    print("\nProcessing all papers concurrently...")
-    tasks = [process_single_paper(paper_path) for paper_path in papers_to_process]
-    new_results = await asyncio.gather(*tasks, return_exceptions=True)
+    logger.info("Starting concurrent processing...")
 
-    # Combine with existing results
-    results = existing_results.copy()
-    for result in new_results:
-        if isinstance(result, Exception):
-            print(f"\n✗ Unexpected error: {result}")
-        else:
-            results.append(result)
+    tasks = [process_single_paper(p, outputs_folder) for p in papers_to_process]
+    results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    # Create DataFrame
-    df = pd.DataFrame(results)
-
-    # Reorder columns for better readability
-    column_order = [
-        "paper_name",
-        "status",
-        "paper_title",
-        "num_datasets_extracted",
-        "num_queries_generated",
-        "total_tool_calls",
-        "extraction_agent_tool_calls",
-        "query_generation_agent_tool_calls",
-        "consolidated_output_agent_tool_calls",
-        "extraction_output",
-        "query_generation_outputs",
-        "final_output",
-        "all_tool_calls",
-        "error",
-        "timestamp"
-    ]
-    df = df[column_order]
-
-    # Save to Excel
-    print("\n" + "="*80)
-    print("Saving results to spreadsheet...")
-    print("="*80)
-
-    df.to_excel(SPREADSHEET_PATH, index=False, engine='openpyxl')
-    print(f"✓ Excel saved to: {SPREADSHEET_PATH}")
-
-    # Save to CSV as well
-    df.to_csv(CSV_PATH, index=False)
-    print(f"✓ CSV saved to: {CSV_PATH}")
-
-    # Create detailed tool calls CSV
-    tool_calls_rows = []
+    all_rows = existing_rows.copy()
     for result in results:
-        if result.get("all_tool_calls"):
-            try:
-                tool_calls = json.loads(result["all_tool_calls"]) if isinstance(result["all_tool_calls"], str) else result["all_tool_calls"]
-                for tc in tool_calls:
-                    tool_calls_rows.append({
-                        "paper_name": result["paper_name"],
-                        "tool_call_id": tc.get("id", ""),
-                        "tool_name": tc.get("name", ""),
-                        "arguments": tc.get("arguments", ""),
-                        "result": tc.get("result", "")
-                    })
-            except Exception as e:
-                print(f"Warning: Could not parse tool calls for {result['paper_name']}: {e}")
+        if isinstance(result, Exception):
+            logger.error("Unexpected error: {}", result)
+        else:
+            all_rows.extend(result)
 
-    if tool_calls_rows:
-        tool_calls_df = pd.DataFrame(tool_calls_rows)
-        tool_calls_df.to_csv(TOOL_CALLS_CSV_PATH, index=False)
-        print(f"✓ Tool calls CSV saved to: {TOOL_CALLS_CSV_PATH}")
-
-    # Print summary
-    print("\n" + "="*80)
-    print("SUMMARY")
-    print("="*80)
-    print(f"Total papers in spreadsheet: {len(results)}")
-    print(f"Previously processed: {len(existing_results)}")
-    print(f"Newly processed: {len(results) - len(existing_results)}")
-    print(f"Successful: {sum(1 for r in results if r['status'] == 'success')}")
-    print(f"Errors: {sum(1 for r in results if r['status'] == 'error')}")
-    print(f"Total datasets extracted: {sum(r.get('num_datasets_extracted', 0) for r in results)}")
-    print(f"Total queries generated: {sum(r.get('num_queries_generated', 0) for r in results)}")
-    print(f"Total tool calls made: {sum(r.get('total_tool_calls', 0) for r in results)}")
-    print("="*80)
+    logger.info("Saving results...")
+    save_results(all_rows, spreadsheet_path, csv_path)
 
 
 if __name__ == "__main__":
