@@ -33,7 +33,7 @@ from synthetic_data_generation_with_tracking import run_workflow, WorkflowInput
 
 
 # Configuration
-PAPERS_FOLDER = Path("care-process/data-temp")
+PAPERS_FOLDER = Path("care-process/data")
 BATCH_RESULTS_ROOT = Path("care-process/batch_results")
 
 
