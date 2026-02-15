@@ -44,9 +44,13 @@ EXTRACTION RULES
    - NOT merely cited as related work or background context
    - NOT just mentioned as \"available\" without clear usage evidence
 
-3. GRANULARITY
+3. GRANULARITY & LIMIT
    - Create ONE record per distinct dataset usage instance
-   - If the paper uses multiple products from same mission/instrument with different parameters (time, location, processing level), create separate records
+   - MAXIMUM 5 RECORDS PER PAPER. If the paper uses more than 5 datasets, prioritize by:
+     a. Datasets most central to the paper's primary analysis/methodology
+     b. Datasets with the most complete metadata (especially PDS identifiers)
+     c. Datasets with unique instruments/missions (avoid duplicates from same instrument with minor parameter differences)
+   - If the paper uses multiple products from same mission/instrument with different parameters (time, location, processing level), consolidate into a single record combining the parameter ranges rather than creating separate records
    - If multiple values apply to same usage (e.g., \"Mars and Phobos targets\"), combine in one field OR split into two records if usage context differs
 
 4. PDS IDENTIFIER EMPHASIS (CRITICAL)
