@@ -1,0 +1,254 @@
+"""Batch runner for PDS agent configurations.
+
+Reads queries from an input spreadsheet, runs each through a specified
+agent configuration, and writes results to an Excel file.
+
+Usage:
+    uv run python care-process/agent_run/batch_run.py \
+        --input care-process/batch_results/run_20260214_002038/results/results_spreadsheet.xlsx \
+        --config simple_agent_no_tools
+
+    uv run python care-process/agent_run/batch_run.py \
+        --input care-process/batch_results/run_20260214_002038/results/results_spreadsheet.xlsx \
+        --config simple_agent_with_tools
+
+    uv run python care-process/agent_run/batch_run.py \
+        --input care-process/batch_results/run_20260214_002038/results/results_spreadsheet.xlsx \
+        --config care_agent_with_tools
+"""
+
+import argparse
+import asyncio
+import sys
+from pathlib import Path
+
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment
+
+# Ensure care-process is on sys.path so `utils` and `agent_run` imports work
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from agent_run.simple_agent_with_tools import run, AgentConfig
+from agent_run.prompts.simple_agent import simple_agent_prompt
+from agent_run.prompts.simple_agent_with_tools import simple_agent_with_tools_prompt
+from agent_run.prompts.care_agent import care_prompt
+
+
+
+CONFIGS: dict[str, AgentConfig] = {
+    "simple_agent_no_tools": AgentConfig(
+        system_prompt=simple_agent_prompt,
+        use_mcp_tools=False,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "simple_agent_with_web_search": AgentConfig(
+        system_prompt=simple_agent_with_tools_prompt,
+        use_mcp_tools=False,
+        use_web_search=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "simple_agent_with_tools": AgentConfig(
+        system_prompt=simple_agent_with_tools_prompt,
+        use_mcp_tools=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "care_agent_with_tools": AgentConfig(
+        system_prompt=care_prompt,
+        use_mcp_tools=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "simple_agent_with_tools_web_search": AgentConfig(
+        system_prompt=simple_agent_with_tools_prompt,
+        use_mcp_tools=True,
+        use_web_search=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+}
+
+RESULTS_DIR = Path(__file__).resolve().parent / "batch_results"
+
+
+
+def load_queries(input_path: str) -> list[dict]:
+    """Load queries from the input spreadsheet."""
+    wb = openpyxl.load_workbook(input_path)
+    ws = wb.active
+    rows = []
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        rows.append({
+            "paper_name": row[0],
+            "query": row[1],
+            "expected_identifier": row[2],
+            "expected_identifier_type": row[3],
+        })
+    return rows
+
+
+def load_existing_results(output_path: Path) -> set[str]:
+    """Load already-processed queries from an existing output file for resume."""
+    if not output_path.exists():
+        return set()
+    wb = openpyxl.load_workbook(output_path)
+    ws = wb.active
+    processed = set()
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        if row[1]:  # query column
+            processed.add(row[1])
+    return processed
+
+
+def save_results(results: list[dict], output_path: Path):
+    """Write results to an Excel file with formatting."""
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Results"
+
+    headers = [
+        "paper_name", "query", "expected_identifier", "expected_identifier_type",
+        "predicted_identifier", "predicted_identifier_type", "reasoning",
+        "match", "tool_call_count", "total_tokens",
+    ]
+
+    # Header styling
+    header_font = Font(bold=True)
+    header_fill = PatternFill(start_color="D9E1F2", end_color="D9E1F2", fill_type="solid")
+    for col, header in enumerate(headers, 1):
+        cell = ws.cell(row=1, column=col, value=header)
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center")
+
+    # Data rows
+    match_fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
+    no_match_fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
+
+    for row_idx, result in enumerate(results, 2):
+        for col_idx, key in enumerate(headers, 1):
+            cell = ws.cell(row=row_idx, column=col_idx, value=result.get(key))
+            if key == "match":
+                cell.fill = match_fill if result.get(key) else no_match_fill
+
+    # Summary row
+    summary_row = len(results) + 3
+    total_matches = sum(1 for r in results if r.get("match"))
+    total_queries = len(results)
+    total_tokens = sum(int(r.get("total_tokens", 0) or 0) for r in results)
+
+    ws.cell(row=summary_row, column=1, value="SUMMARY").font = Font(bold=True)
+    ws.cell(row=summary_row, column=2, value=f"Accuracy: {total_matches}/{total_queries} ({total_matches/total_queries*100:.1f}%)" if total_queries else "N/A")
+    ws.cell(row=summary_row, column=10, value=f"Total tokens: {total_tokens:,}")
+
+    # Column widths
+    ws.column_dimensions["A"].width = 30
+    ws.column_dimensions["B"].width = 60
+    ws.column_dimensions["C"].width = 40
+    ws.column_dimensions["E"].width = 40
+    ws.column_dimensions["G"].width = 50
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    wb.save(output_path)
+
+
+async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
+    config = CONFIGS[config_name]
+    queries = load_queries(input_path)
+    output_path = RESULTS_DIR / f"{config_name}.xlsx"
+
+    # Resume support
+    already_done = load_existing_results(output_path)
+    if already_done:
+        print(f"Resuming: {len(already_done)} queries already processed, skipping them.")
+
+    # Load existing results to preserve them
+    results: list[dict] = []
+    if output_path.exists():
+        wb = openpyxl.load_workbook(output_path)
+        ws = wb.active
+        headers = [cell.value for cell in ws[1]]
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if row[1] and row[1] in already_done:
+                results.append(dict(zip(headers, row)))
+
+    total = len(queries)
+    pending = [q for q in queries if q["query"] not in already_done]
+    print(f"Config: {config_name}")
+    print(f"Total queries: {total}, pending: {len(pending)}, concurrency: {concurrency}")
+    print(f"Output: {output_path}\n")
+
+    semaphore = asyncio.Semaphore(concurrency)
+    save_lock = asyncio.Lock()
+    completed = {"count": 0}
+
+    async def run_single(i: int, q: dict):
+        query_text = q["query"]
+        short = query_text[:80] + "..." if len(query_text) > 80 else query_text
+
+        async with semaphore:
+            print(f"[{i}/{len(pending)}] {short}")
+            try:
+                result = await run(query_text, config)
+                output = result["output"]
+
+                predicted_id = output.get("data_identifier", "")
+                match = predicted_id == q["expected_identifier"]
+
+                row = {
+                    "paper_name": q["paper_name"],
+                    "query": query_text,
+                    "expected_identifier": q["expected_identifier"],
+                    "expected_identifier_type": q["expected_identifier_type"],
+                    "predicted_identifier": predicted_id,
+                    "predicted_identifier_type": output.get("data_identifier_type", ""),
+                    "reasoning": output.get("reasoning", ""),
+                    "match": match,
+                    "tool_call_count": result.get("tool_call_count", 0),
+                    "total_tokens": result.get("token_usage", {}).get("totals", {}).get("total_tokens", 0),
+                }
+                status = "MATCH" if match else "NO MATCH"
+                print(f"  → [{i}/{len(pending)}] {status} | predicted: {predicted_id}")
+
+            except Exception as e:
+                print(f"  → [{i}/{len(pending)}] ERROR: {e}")
+                row = {
+                    "paper_name": q["paper_name"],
+                    "query": query_text,
+                    "expected_identifier": q["expected_identifier"],
+                    "expected_identifier_type": q["expected_identifier_type"],
+                    "predicted_identifier": f"ERROR: {e}",
+                    "predicted_identifier_type": "",
+                    "reasoning": "",
+                    "match": False,
+                    "tool_call_count": 0,
+                    "total_tokens": 0,
+                }
+
+            async with save_lock:
+                results.append(row)
+                completed["count"] += 1
+                save_results(results, output_path)
+
+    tasks = [run_single(i, q) for i, q in enumerate(pending, 1)]
+    await asyncio.gather(*tasks)
+
+    # Final summary
+    total_matches = sum(1 for r in results if r.get("match"))
+    print(f"\nDone! Accuracy: {total_matches}/{len(results)} ({total_matches/len(results)*100:.1f}%)")
+    print(f"Results saved to: {output_path}")
+
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Batch runner for PDS agent configurations")
+    parser.add_argument("--input", required=True, help="Path to input spreadsheet with queries")
+    parser.add_argument("--config", required=True, choices=list(CONFIGS.keys()),
+                        help="Agent configuration to use")
+    parser.add_argument("--concurrency", type=int, default=1,
+                        help="Number of queries to run in parallel (default: 1)")
+    args = parser.parse_args()
+
+    asyncio.run(batch_run(args.input, args.config, concurrency=args.concurrency))

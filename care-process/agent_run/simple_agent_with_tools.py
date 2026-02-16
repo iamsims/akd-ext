@@ -1,4 +1,4 @@
-from agents import Agent, ModelSettings, Runner, RunConfig, trace, set_default_openai_client
+from agents import Agent, ModelSettings, Runner, RunConfig, WebSearchTool, trace, set_default_openai_client
 from pydantic import BaseModel, Field
 from openai import AsyncOpenAI
 from openai.types.shared.reasoning import Reasoning
@@ -65,6 +65,7 @@ class AgentConfig:
     """Configuration for the PDS agent. Pass a custom prompt / output_type / tools flag."""
     system_prompt: str = DEFAULT_SYSTEM_PROMPT
     use_mcp_tools: bool = True
+    use_web_search: bool = False
     output_type: type[BaseModel] | None = None   # None → uses DatasetResult
     model: str = "gpt-5.2"
     reasoning_effort: str = "high"
@@ -78,6 +79,8 @@ class AgentConfig:
 def build_agent(config: AgentConfig) -> Agent:
     """Build an Agent instance from the given config."""
     tools = [make_mcp_tool()] if config.use_mcp_tools else []
+    if config.use_web_search:
+        tools.append(WebSearchTool(search_context_size="medium"))
     output_type = config.output_type or DatasetResult
 
     return Agent(
@@ -154,6 +157,8 @@ if __name__ == "__main__":
                         default="Find calibrated MRO CRISM targeted observations of Mars from 2007")
     parser.add_argument("--no-tools", action="store_true",
                         help="Run without MCP tools")
+    parser.add_argument("--web-search", action="store_true", default=False,
+                        help="Enable web search tool (default: disabled)")
     parser.add_argument("--model", default="gpt-5.2")
     parser.add_argument("--reasoning-effort", default="high",
                         choices=["low", "medium", "high"])
@@ -161,6 +166,7 @@ if __name__ == "__main__":
 
     config = AgentConfig(
         use_mcp_tools=not args.no_tools,
+        use_web_search=args.web_search,
         model=args.model,
         reasoning_effort=args.reasoning_effort,
     )
