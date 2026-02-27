@@ -17,7 +17,7 @@ dotenv.load_dotenv()
 
 class DatasetResult(BaseModel):
     """Output schema for the dataset discovery agent."""
-    data_identifier: str = Field(..., description="The dataset identifier copied verbatim from tool output")
+    data_identifier: str = Field(..., description="The dataset identifier that best matches from the user's query")
     data_identifier_type: str = Field(
         ...,
         description='One of: lidvid, lid, collection_lid, bundle_lid, pds3_dataset_id, pds3_product_id, opus_id, ode_id, unknown'

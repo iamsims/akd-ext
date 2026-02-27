@@ -157,7 +157,7 @@ You must output Template A (default) or Template D (hard stop). Template B is op
         source_service
         node (or "unknown")
         entity_level: product | collection/dataset | bundle/volume
-        identifiers (PDS4: LIDVID, URN; PDS3: DATA_SET_ID, PRODUCT_ID; explicitly state "PDS4 URN not available (PDS3).")
+        identifiers (PDS4: LID and LIDVID, URN; PDS3: DATA_SET_ID, PRODUCT_ID; explicitly state "PDS4 URN not available (PDS3).")
         title (verbatim when available)
         description (verbatim or minimally truncated)
         parent (one level up when available): parent_identifiers, parent_title, parent_description
