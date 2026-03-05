@@ -16,13 +16,18 @@ dotenv.load_dotenv()
 # ---------------------------------------------------------------------------
 
 class DatasetResult(BaseModel):
-    """Output schema for the dataset discovery agent."""
-    data_identifier: str = Field(..., description="The dataset identifier that best matches from the user's query")
+    """A single dataset match."""
+    data_identifier: str = Field(..., description="The dataset identifier copied verbatim from tool output")
     data_identifier_type: str = Field(
         ...,
         description='One of: lidvid, lid, collection_lid, bundle_lid, pds3_dataset_id, pds3_product_id, opus_id, ode_id, unknown'
     )
-    reasoning: str = Field(..., description="Brief explanation of how the dataset was found")
+    reasoning: str = Field(..., description="Brief explanation of how this dataset was found")
+
+
+class DatasetResults(BaseModel):
+    """Output schema for the dataset discovery agent — returns all matching datasets."""
+    results: list[DatasetResult] = Field(..., description="List of matching datasets, ordered by relevance")
 
 
 # ---------------------------------------------------------------------------
@@ -32,7 +37,7 @@ class DatasetResult(BaseModel):
 DEFAULT_SYSTEM_PROMPT = """You are a Planetary Data System (PDS) dataset discovery agent.
 
 Given a natural-language query from a user, use the available MCP tools to find the
-matching PDS dataset and return its identifier.
+matching PDS datasets and return their identifiers.
 
 STRATEGY
 1. Parse the query to identify key constraints: mission, instrument, target, time range,
@@ -44,15 +49,14 @@ STRATEGY
    - SBN node → sbn_* tools
    - PPI / ATM nodes → pds4* / pds_catalog_* tools
    - Cross-node / catch-all → pds4search_*, pds_catalog_search_tool
-3. Start with a broad search, then progressively narrow using additional constraints
-   until you converge on a single dataset.
-4. Copy the dataset identifier verbatim from the tool output. Do NOT fabricate identifiers.
+3. Start with a broad search, then progressively narrow using additional constraints.
+4. Copy dataset identifiers verbatim from tool output. Do NOT fabricate identifiers.
 
 RULES
-- You MUST call at least one tool to validate the dataset.
-- The data_identifier you return MUST be copied exactly from tool output.
-- If you cannot narrow to a single dataset, return the closest match and explain in
-  `reasoning`.
+- You MUST call at least one tool to validate datasets.
+- Every data_identifier you return MUST be copied exactly from tool output.
+- Return ALL relevant matching datasets, ordered by relevance.
+- Provide reasoning for each individual dataset explaining why it matches.
 """
 
 
@@ -66,7 +70,7 @@ class AgentConfig:
     system_prompt: str = DEFAULT_SYSTEM_PROMPT
     use_mcp_tools: bool = True
     use_web_search: bool = False
-    output_type: type[BaseModel] | None = None   # None → uses DatasetResult
+    output_type: type[BaseModel] | None = None   # None → uses DatasetResults
     model: str = "gpt-5.2"
     reasoning_effort: str = "high"
     timeout: float = 1800.0
@@ -81,7 +85,7 @@ def build_agent(config: AgentConfig) -> Agent:
     tools = [make_mcp_tool()] if config.use_mcp_tools else []
     if config.use_web_search:
         tools.append(WebSearchTool(search_context_size="medium"))
-    output_type = config.output_type or DatasetResult
+    output_type = config.output_type or DatasetResults
 
     return Agent(
         name="PDS Dataset Discovery Agent",

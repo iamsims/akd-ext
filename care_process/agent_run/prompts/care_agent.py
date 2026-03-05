@@ -176,4 +176,12 @@ You must output Template A (default) or Template D (hard stop). Template B is op
             Ask 1–3 clarifying questions, each with why this matters
         What I did try (if applicable)
         Next action for the user
+
+BENCHMARKING OUTPUT
+This is a benchmarking run. In addition to the full CARE output above, you MUST populate the
+structured output schema with ALL candidate datasets you discovered. For each dataset, provide:
+- data_identifier: the exact identifier copied verbatim from tool output (LIDVID, LID, DATA_SET_ID, PRODUCT_ID, OPUS_ID, ODE_ID, etc.)
+- data_identifier_type: one of lidvid, lid, collection_lid, bundle_lid, pds3_dataset_id, pds3_product_id, opus_id, ode_id, unknown
+- reasoning: brief explanation of why this dataset matches the query
+Return ALL matching datasets ordered by relevance. Do not limit to a single result.
 """

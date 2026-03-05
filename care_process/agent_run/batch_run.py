@@ -24,6 +24,7 @@ Usage:
 
 import argparse
 import asyncio
+import json
 import sys
 from pathlib import Path
 
@@ -125,8 +126,8 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
 
     headers = [
         "paper_name", "query", "expected_identifier", "expected_identifier_type",
-        "predicted_identifier", "predicted_identifier_type", "reasoning",
-        "match", "tool_call_count", "total_tokens",
+        "predicted_results",
+        "top_match", "any_match", "tool_call_count", "total_tokens",
     ]
 
     # Header styling
@@ -145,25 +146,32 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
     for row_idx, result in enumerate(results, 2):
         for col_idx, key in enumerate(headers, 1):
             cell = ws.cell(row=row_idx, column=col_idx, value=result.get(key))
-            if key == "match":
+            if key == "top_match":
+                cell.fill = match_fill if result.get(key) else no_match_fill
+            elif key == "any_match":
                 cell.fill = match_fill if result.get(key) else no_match_fill
 
     # Summary row
     summary_row = len(results) + 3
-    total_matches = sum(1 for r in results if r.get("match"))
+    top_matches = sum(1 for r in results if r.get("top_match"))
+    any_matches = sum(1 for r in results if r.get("any_match"))
     total_queries = len(results)
     total_tokens = sum(int(r.get("total_tokens", 0) or 0) for r in results)
 
     ws.cell(row=summary_row, column=1, value="SUMMARY").font = Font(bold=True)
-    ws.cell(row=summary_row, column=2, value=f"Accuracy: {total_matches}/{total_queries} ({total_matches/total_queries*100:.1f}%)" if total_queries else "N/A")
-    ws.cell(row=summary_row, column=10, value=f"Total tokens: {total_tokens:,}")
+    if total_queries:
+        ws.cell(row=summary_row, column=2, value=f"Top match: {top_matches}/{total_queries} ({top_matches/total_queries*100:.1f}%) | Any match: {any_matches}/{total_queries} ({any_matches/total_queries*100:.1f}%)")
+    else:
+        ws.cell(row=summary_row, column=2, value="N/A")
+    ws.cell(row=summary_row, column=9, value=f"Total tokens: {total_tokens:,}")
 
     # Column widths
     ws.column_dimensions["A"].width = 30
     ws.column_dimensions["B"].width = 60
     ws.column_dimensions["C"].width = 40
-    ws.column_dimensions["E"].width = 40
-    ws.column_dimensions["G"].width = 50
+    ws.column_dimensions["E"].width = 80
+    ws.column_dimensions["F"].width = 15
+    ws.column_dimensions["G"].width = 15
 
     # --- Tool Calls sheet ---
     tc_ws = wb.create_sheet("Tool Calls")
@@ -240,19 +248,22 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
             try:
                 result = await run(query_text, config)
                 output = result["output"]
+                dataset_results = output.get("results", [])
 
-                predicted_id = output.get("data_identifier", "")
-                match = predicted_id == q["expected_identifier"]
+                # Check matches
+                expected_id = q["expected_identifier"]
+                all_predicted_ids = [r.get("data_identifier", "") for r in dataset_results]
+                top_match = len(all_predicted_ids) > 0 and all_predicted_ids[0] == expected_id
+                any_match = expected_id in all_predicted_ids
 
                 row = {
                     "paper_name": q["paper_name"],
                     "query": query_text,
-                    "expected_identifier": q["expected_identifier"],
+                    "expected_identifier": expected_id,
                     "expected_identifier_type": q["expected_identifier_type"],
-                    "predicted_identifier": predicted_id,
-                    "predicted_identifier_type": output.get("data_identifier_type", ""),
-                    "reasoning": output.get("reasoning", ""),
-                    "match": match,
+                    "predicted_results": json.dumps(dataset_results, default=str),
+                    "top_match": top_match,
+                    "any_match": any_match,
                     "tool_call_count": result.get("tool_call_count", 0),
                     "total_tokens": result.get("token_usage", {}).get("totals", {}).get("total_tokens", 0),
                 }
@@ -268,8 +279,8 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
                         "output": str(tc.get("output", "")),
                     })
 
-                status = "MATCH" if match else "NO MATCH"
-                print(f"  → [{i}/{len(pending)}] {status} | predicted: {predicted_id}")
+                top_str = "TOP MATCH" if top_match else ("ANY MATCH" if any_match else "NO MATCH")
+                print(f"  → [{i}/{len(pending)}] {top_str} | {len(dataset_results)} results returned")
 
             except Exception as e:
                 print(f"  → [{i}/{len(pending)}] ERROR: {e}")
@@ -278,10 +289,9 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
                     "query": query_text,
                     "expected_identifier": q["expected_identifier"],
                     "expected_identifier_type": q["expected_identifier_type"],
-                    "predicted_identifier": f"ERROR: {e}",
-                    "predicted_identifier_type": "",
-                    "reasoning": "",
-                    "match": False,
+                    "predicted_results": json.dumps([{"error": str(e)}]),
+                    "top_match": False,
+                    "any_match": False,
                     "tool_call_count": 0,
                     "total_tokens": 0,
                 }
@@ -296,8 +306,10 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
     await asyncio.gather(*tasks)
 
     # Final summary
-    total_matches = sum(1 for r in results if r.get("match"))
-    print(f"\nDone! Accuracy: {total_matches}/{len(results)} ({total_matches/len(results)*100:.1f}%)")
+    top_matches = sum(1 for r in results if r.get("top_match"))
+    any_matches = sum(1 for r in results if r.get("any_match"))
+    n = len(results)
+    print(f"\nDone! Top match: {top_matches}/{n} ({top_matches/n*100:.1f}%) | Any match: {any_matches}/{n} ({any_matches/n*100:.1f}%)")
     print(f"Results saved to: {output_path}")
 
 
