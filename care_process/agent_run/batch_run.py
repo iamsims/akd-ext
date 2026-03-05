@@ -25,7 +25,9 @@ Usage:
 import argparse
 import asyncio
 import json
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import openpyxl
@@ -34,7 +36,7 @@ from openpyxl.styles import Font, PatternFill, Alignment
 # Ensure care-process is on sys.path so `utils` and `agent_run` imports work
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agent_run.simple_agent_with_tools import run, AgentConfig
+from agent_run.simple_agent_with_tools import run, AgentConfig, CareDatasetResults
 from agent_run.prompts.simple_agent import simple_agent_prompt
 from agent_run.prompts.simple_agent_with_tools import simple_agent_with_tools_prompt
 from agent_run.prompts.care_agent import care_prompt
@@ -64,6 +66,7 @@ CONFIGS: dict[str, AgentConfig] = {
     "care_agent_with_tools": AgentConfig(
         system_prompt=care_prompt,
         use_mcp_tools=True,
+        output_type=CareDatasetResults,
         model="gpt-5.2",
         reasoning_effort="high",
     ),
@@ -76,7 +79,62 @@ CONFIGS: dict[str, AgentConfig] = {
     ),
 }
 
-RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "v2" / "tests"
+RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "v3" 
+
+
+def _git_info() -> dict:
+    """Capture current git commit, branch, and dirty status."""
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    info = {}
+    try:
+        info["commit"] = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=repo_root, text=True
+        ).strip()
+        info["commit_short"] = info["commit"][:8]
+        info["branch"] = subprocess.check_output(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=repo_root, text=True
+        ).strip()
+        info["dirty"] = bool(subprocess.check_output(
+            ["git", "status", "--porcelain"], cwd=repo_root, text=True
+        ).strip())
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        info["commit"] = "unknown"
+        info["branch"] = "unknown"
+        info["dirty"] = None
+    return info
+
+
+def save_run_config(
+    config_name: str,
+    config: AgentConfig,
+    input_path: str,
+    output_path: Path,
+    concurrency: int,
+    limit: int | None,
+):
+    """Save a JSON config file capturing the full run parameters for reproducibility."""
+    git = _git_info()
+    run_config = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "git": git,
+        "config_name": config_name,
+        "agent_config": {
+            "model": config.model,
+            "reasoning_effort": config.reasoning_effort,
+            "use_mcp_tools": config.use_mcp_tools,
+            "use_web_search": config.use_web_search,
+            "timeout": config.timeout,
+            "system_prompt": config.system_prompt,
+        },
+        "input_path": str(input_path),
+        "output_path": str(output_path),
+        "concurrency": concurrency,
+        "limit": limit,
+    }
+    config_path = output_path.with_suffix(".run_config.json")
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    config_path.write_text(json.dumps(run_config, indent=2))
+    print(f"Run config saved to: {config_path}")
 
 
 
@@ -199,6 +257,9 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
     config = CONFIGS[config_name]
     queries = load_queries(input_path)
     output_path = RESULTS_DIR / f"{config_name}.xlsx"
+
+    # Save run config for reproducibility
+    save_run_config(config_name, config, input_path, output_path, concurrency, limit)
 
     # Resume support
     already_done = load_existing_results(output_path)

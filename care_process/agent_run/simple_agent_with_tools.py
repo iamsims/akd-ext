@@ -30,6 +30,23 @@ class DatasetResults(BaseModel):
     results: list[DatasetResult] = Field(..., description="List of matching datasets, ordered by relevance")
 
 
+class CareDatasetResult(BaseModel):
+    """A single dataset match with parent info (used by CARE agent)."""
+    data_identifier: str = Field(..., description="The dataset identifier copied verbatim from tool output")
+    data_identifier_type: str = Field(
+        ...,
+        description='One of: lidvid, lid, collection_lid, bundle_lid, pds3_dataset_id, pds3_product_id, opus_id, ode_id, unknown'
+    )
+    reasoning: str = Field(..., description="Brief explanation of how this dataset was found")
+    parent_identifier: str | None = Field(None, description="Identifier of the parent dataset (one level up), copied verbatim from tool output")
+    parent_title: str | None = Field(None, description="Title of the parent dataset, copied verbatim from tool output")
+
+
+class CareDatasetResults(BaseModel):
+    """Output schema for the CARE agent — returns all matching datasets with parent info."""
+    results: list[CareDatasetResult] = Field(..., description="List of matching datasets, Curated Shortlist first then Additional Candidates")
+
+
 # ---------------------------------------------------------------------------
 # Default system prompt (used for standalone / quick testing)
 # ---------------------------------------------------------------------------

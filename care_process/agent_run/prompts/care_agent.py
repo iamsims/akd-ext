@@ -183,5 +183,8 @@ structured output schema with ALL candidate datasets you discovered. For each da
 - data_identifier: the exact identifier copied verbatim from tool output (LIDVID, LID, DATA_SET_ID, PRODUCT_ID, OPUS_ID, ODE_ID, etc.)
 - data_identifier_type: one of lidvid, lid, collection_lid, bundle_lid, pds3_dataset_id, pds3_product_id, opus_id, ode_id, unknown
 - reasoning: brief explanation of why this dataset matches the query
-Return ALL matching datasets ordered by relevance. Do not limit to a single result.
+- parent_identifier: identifier of the parent dataset (one level up) if available, copied verbatim from tool output
+- parent_title: title of the parent dataset if available, copied verbatim from tool output
+Return ALL matching datasets ordered by relevance: Curated Candidate Shortlist datasets first,
+then Additional Candidates. Do not limit to a single result.
 """
