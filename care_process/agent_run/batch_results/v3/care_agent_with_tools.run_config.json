@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-03-05T04:06:36.862613+00:00",
+  "timestamp": "2026-03-05T05:17:33.111633+00:00",
   "git": {
-    "commit": "8de67cdf0173f911db5c703830c7b38ad8134c85",
-    "commit_short": "8de67cdf",
+    "commit": "e2c78f8a551e1f89a00201d3110166426b2d685e",
+    "commit_short": "e2c78f8a",
     "branch": "track/care-process",
     "dirty": true
   },
@@ -17,6 +17,6 @@
   },
   "input_path": "batch_results/run_20260227_132012/results/results_spreadsheet.xlsx",
   "output_path": "/Users/skc/Desktop/Work/Benchmarking-pds/claude_code_second_version/akd-ext/care_process/agent_run/batch_results/v3/care_agent_with_tools.xlsx",
-  "concurrency": 1,
-  "limit": 2
+  "concurrency": 5,
+  "limit": null
 }

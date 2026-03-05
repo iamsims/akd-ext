@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-05T05:17:51.231233+00:00",
+  "git": {
+    "commit": "e2c78f8a551e1f89a00201d3110166426b2d685e",
+    "commit_short": "e2c78f8a",
+    "branch": "track/care-process",
+    "dirty": true
+  },
+  "config_name": "simple_agent_with_tools",
+  "agent_config": {
+    "model": "gpt-5.2",
+    "reasoning_effort": "high",
+    "use_mcp_tools": true,
+    "use_web_search": false,
+    "timeout": 1800.0,
+    "system_prompt": "You are a Planetary Data System (PDS) dataset discovery agent.\n\nGiven a natural-language query from a user, use the available MCP tools to find the\nmatching PDS datasets and return their identifiers.\n\nSTRATEGY\n1. Parse the query to identify key constraints: mission, instrument, target, time range,\n   product type, processing level, spatial/spectral parameters, etc.\n2. Choose the right MCP tools based on the PDS node mapping:\n   - GEO node \u2192 ode_* tools\n   - IMG node \u2192 img_* tools\n   - RMS node \u2192 opus_* tools\n   - SBN node \u2192 sbn_* tools\n   - PPI / ATM nodes \u2192 pds4* / pds_catalog_* tools\n   - Cross-node / catch-all \u2192 pds4search_*, pds_catalog_search_tool\n3. Start with a broad search, then progressively narrow using additional constraints.\n4. Copy dataset identifiers verbatim from tool output. Do NOT fabricate identifiers.\n\nRULES\n- You MUST call at least one tool to validate datasets.\n- Every data_identifier you return MUST be copied exactly from tool output.\n- Return ALL relevant matching datasets, ordered by relevance.\n- Provide reasoning for each individual dataset explaining why it matches.\n"
+  },
+  "input_path": "batch_results/run_20260227_132012/results/results_spreadsheet.xlsx",
+  "output_path": "/Users/skc/Desktop/Work/Benchmarking-pds/claude_code_second_version/akd-ext/care_process/agent_run/batch_results/v3/simple_agent_with_tools.xlsx",
+  "concurrency": 5,
+  "limit": null
+}

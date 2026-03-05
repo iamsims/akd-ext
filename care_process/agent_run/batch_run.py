@@ -184,8 +184,8 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
 
     headers = [
         "paper_name", "query", "expected_identifier", "expected_identifier_type",
-        "predicted_results",
-        "top_match", "any_match", "tool_call_count", "total_tokens",
+        "predicted_results", "top_match", "any_match", "tool_call_count", "total_tokens",
+        "number_of_identifiers_returned", "data_identifiers",
     ]
 
     # Header styling
@@ -197,11 +197,15 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
         cell.fill = header_fill
         cell.alignment = Alignment(horizontal="center")
 
+    # Sort results and tool calls by query for consistent ordering
+    sorted_results = sorted(results, key=lambda r: r.get("query", ""))
+    sorted_tool_calls = sorted(all_tool_calls, key=lambda tc: (tc.get("query", ""), tc.get("tool_call_index", 0)))
+
     # Data rows
     match_fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
     no_match_fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
 
-    for row_idx, result in enumerate(results, 2):
+    for row_idx, result in enumerate(sorted_results, 2):
         for col_idx, key in enumerate(headers, 1):
             cell = ws.cell(row=row_idx, column=col_idx, value=result.get(key))
             if key == "top_match":
@@ -210,26 +214,28 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
                 cell.fill = match_fill if result.get(key) else no_match_fill
 
     # Summary row
-    summary_row = len(results) + 3
-    top_matches = sum(1 for r in results if r.get("top_match"))
-    any_matches = sum(1 for r in results if r.get("any_match"))
-    total_queries = len(results)
-    total_tokens = sum(int(r.get("total_tokens", 0) or 0) for r in results)
+    summary_row = len(sorted_results) + 3
+    top_matches = sum(1 for r in sorted_results if r.get("top_match"))
+    any_matches = sum(1 for r in sorted_results if r.get("any_match"))
+    total_queries = len(sorted_results)
+    total_tokens = sum(int(r.get("total_tokens", 0) or 0) for r in sorted_results)
 
     ws.cell(row=summary_row, column=1, value="SUMMARY").font = Font(bold=True)
     if total_queries:
         ws.cell(row=summary_row, column=2, value=f"Top match: {top_matches}/{total_queries} ({top_matches/total_queries*100:.1f}%) | Any match: {any_matches}/{total_queries} ({any_matches/total_queries*100:.1f}%)")
     else:
         ws.cell(row=summary_row, column=2, value="N/A")
-    ws.cell(row=summary_row, column=9, value=f"Total tokens: {total_tokens:,}")
+    ws.cell(row=summary_row, column=11, value=f"Total tokens: {total_tokens:,}")
 
     # Column widths
     ws.column_dimensions["A"].width = 30
     ws.column_dimensions["B"].width = 60
     ws.column_dimensions["C"].width = 40
-    ws.column_dimensions["E"].width = 80
-    ws.column_dimensions["F"].width = 15
-    ws.column_dimensions["G"].width = 15
+    ws.column_dimensions["E"].width = 15
+    ws.column_dimensions["F"].width = 60
+    ws.column_dimensions["G"].width = 80
+    ws.column_dimensions["H"].width = 15
+    ws.column_dimensions["I"].width = 15
 
     # --- Tool Calls sheet ---
     tc_ws = wb.create_sheet("Tool Calls")
@@ -240,7 +246,7 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
         cell.fill = header_fill
         cell.alignment = Alignment(horizontal="center")
 
-    for row_idx, tc in enumerate(all_tool_calls, 2):
+    for row_idx, tc in enumerate(sorted_tool_calls, 2):
         for col_idx, key in enumerate(tc_headers, 1):
             tc_ws.cell(row=row_idx, column=col_idx, value=tc.get(key))
 
@@ -311,11 +317,12 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
                 output = result["output"]
                 dataset_results = output.get("results", [])
 
-                # Check matches
+                # Truncate to 25 results max, then check matches
                 expected_id = q["expected_identifier"]
-                all_predicted_ids = [r.get("data_identifier", "") for r in dataset_results]
-                top_match = len(all_predicted_ids) > 0 and all_predicted_ids[0] == expected_id
-                any_match = expected_id in all_predicted_ids
+                dataset_results = dataset_results[:25]
+                truncated_ids = [r.get("data_identifier", "") for r in dataset_results]
+                top_match = len(truncated_ids) > 0 and truncated_ids[0] == expected_id
+                any_match = expected_id in truncated_ids
 
                 row = {
                     "paper_name": q["paper_name"],
@@ -327,6 +334,8 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
                     "any_match": any_match,
                     "tool_call_count": result.get("tool_call_count", 0),
                     "total_tokens": result.get("token_usage", {}).get("totals", {}).get("total_tokens", 0),
+                    "number_of_identifiers_returned": len(truncated_ids),
+                    "data_identifiers": ", ".join(truncated_ids),
                 }
 
                 # Flatten tool calls into rows for the Tool Calls sheet
@@ -355,6 +364,8 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
                     "any_match": False,
                     "tool_call_count": 0,
                     "total_tokens": 0,
+                    "number_of_identifiers_returned": 0,
+                    "data_identifiers": "",
                 }
 
             async with save_lock:
