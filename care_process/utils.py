@@ -64,6 +64,20 @@ def extract_tool_calls_with_outputs(runner_result) -> list[dict]:
         if isinstance(item, ToolCallItem):
             raw = item.raw_item
             call_id = getattr(raw, "id", None) or getattr(raw, "call_id", None)
+            raw_type = getattr(raw, "type", None)
+
+            # Web search tool calls have a different structure
+            if raw_type == "web_search_call":
+                action = getattr(raw, "action", None)
+                queries = getattr(action, "queries", None) or [getattr(action, "query", "")]
+                tool_calls.append({
+                    "id": call_id,
+                    "name": "web_search",
+                    "arguments": str(queries),
+                    "output": getattr(raw, "status", ""),
+                })
+                continue
+
             name = getattr(raw, "name", None) or getattr(getattr(raw, "function", None), "name", None)
             arguments = getattr(raw, "arguments", None) or getattr(getattr(raw, "function", None), "arguments", None)
             # For MCP tools, the output lives directly on the McpCall object.

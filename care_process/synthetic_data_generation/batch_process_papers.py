@@ -29,12 +29,12 @@ from loguru import logger
 # Load environment variables from .env file
 dotenv.load_dotenv()
 
-from synthetic_data_generation_with_tracking import run_workflow, WorkflowInput
+from .synthetic_data_generation_with_tracking import run_workflow, WorkflowInput
 
 
 # Configuration
-PAPERS_FOLDER = Path("care-process/data")
-BATCH_RESULTS_ROOT = Path("care-process/batch_results")
+PAPERS_FOLDER = Path("care_process/data")
+BATCH_RESULTS_ROOT = Path("care_process/batch_results")
 
 
 def find_most_recent_run() -> Path | None:

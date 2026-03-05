@@ -2,8 +2,8 @@ from agents import Agent, ModelSettings, TResponseInputItem, Runner, RunConfig, 
 from pydantic import BaseModel
 from openai import AsyncOpenAI
 from openai.types.shared.reasoning import Reasoning
-from prompts import extraction_prompt, query_generation_prompt
-from utils import make_mcp_tool, extract_tool_calls_with_outputs, extract_token_usage, aggregate_token_usage
+from .prompts import extraction_prompt, query_generation_prompt
+from ..utils import make_mcp_tool, extract_tool_calls_with_outputs, extract_token_usage, aggregate_token_usage
 from loguru import logger
 import dotenv
 import os

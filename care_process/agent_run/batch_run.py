@@ -15,6 +15,11 @@ Usage:
     uv run python care-process/agent_run/batch_run.py \
         --input care-process/batch_results/run_20260214_002038/results/results_spreadsheet.xlsx \
         --config care_agent_with_tools
+
+    # Run only 5 pending queries (useful for debugging / quick tests)
+    uv run python care-process/agent_run/batch_run.py \
+        --input care-process/batch_results/run_20260214_002038/results/results_spreadsheet.xlsx \
+        --config simple_agent_no_tools --limit 5
 """
 
 import argparse
@@ -70,7 +75,7 @@ CONFIGS: dict[str, AgentConfig] = {
     ),
 }
 
-RESULTS_DIR = Path(__file__).resolve().parent / "batch_results"
+RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "v2" / "tests"
 
 
 
@@ -89,6 +94,11 @@ def load_queries(input_path: str) -> list[dict]:
     return rows
 
 
+def _is_data_row(row: tuple) -> bool:
+    """Return True if the row is a real data row (not blank or summary)."""
+    return row[0] is not None and row[1] is not None and row[0] != "SUMMARY"
+
+
 def load_existing_results(output_path: Path) -> set[str]:
     """Load already-processed queries from an existing output file for resume."""
     if not output_path.exists():
@@ -97,13 +107,18 @@ def load_existing_results(output_path: Path) -> set[str]:
     ws = wb.active
     processed = set()
     for row in ws.iter_rows(min_row=2, values_only=True):
-        if row[1]:  # query column
+        if _is_data_row(row):
             processed.add(row[1])
     return processed
 
 
-def save_results(results: list[dict], output_path: Path):
-    """Write results to an Excel file with formatting."""
+def save_results(results: list[dict], all_tool_calls: list[dict], output_path: Path):
+    """Write results to an Excel file with formatting.
+
+    ``all_tool_calls`` is a flat list of dicts, each with keys:
+    query, tool_call_index, tool_id, tool_name, arguments, output.
+    They are written to a second sheet called "Tool Calls".
+    """
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Results"
@@ -150,11 +165,29 @@ def save_results(results: list[dict], output_path: Path):
     ws.column_dimensions["E"].width = 40
     ws.column_dimensions["G"].width = 50
 
+    # --- Tool Calls sheet ---
+    tc_ws = wb.create_sheet("Tool Calls")
+    tc_headers = ["query", "tool_call_index", "tool_id", "tool_name", "arguments", "output"]
+    for col, header in enumerate(tc_headers, 1):
+        cell = tc_ws.cell(row=1, column=col, value=header)
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center")
+
+    for row_idx, tc in enumerate(all_tool_calls, 2):
+        for col_idx, key in enumerate(tc_headers, 1):
+            tc_ws.cell(row=row_idx, column=col_idx, value=tc.get(key))
+
+    tc_ws.column_dimensions["A"].width = 60
+    tc_ws.column_dimensions["D"].width = 30
+    tc_ws.column_dimensions["E"].width = 60
+    tc_ws.column_dimensions["F"].width = 80
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(output_path)
 
 
-async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
+async def batch_run(input_path: str, config_name: str, concurrency: int = 1, limit: int | None = None):
     config = CONFIGS[config_name]
     queries = load_queries(input_path)
     output_path = RESULTS_DIR / f"{config_name}.xlsx"
@@ -166,16 +199,29 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
 
     # Load existing results to preserve them
     results: list[dict] = []
+    all_tool_calls: list[dict] = []
     if output_path.exists():
         wb = openpyxl.load_workbook(output_path)
         ws = wb.active
         headers = [cell.value for cell in ws[1]]
         for row in ws.iter_rows(min_row=2, values_only=True):
-            if row[1] and row[1] in already_done:
+            if _is_data_row(row) and row[1] in already_done:
                 results.append(dict(zip(headers, row)))
+        # Restore tool calls from the "Tool Calls" sheet if it exists
+        if "Tool Calls" in wb.sheetnames:
+            tc_ws = wb["Tool Calls"]
+            tc_headers = [cell.value for cell in tc_ws[1]]
+            for row in tc_ws.iter_rows(min_row=2, values_only=True):
+                if row[0] and row[0] in already_done:
+                    all_tool_calls.append(dict(zip(tc_headers, row)))
 
     total = len(queries)
     pending = [q for q in queries if q["query"] not in already_done]
+
+    if limit is not None:
+        pending = pending[:limit]
+        print(f"LIMIT MODE: capping pending queries to {limit}")
+
     print(f"Config: {config_name}")
     print(f"Total queries: {total}, pending: {len(pending)}, concurrency: {concurrency}")
     print(f"Output: {output_path}\n")
@@ -187,6 +233,7 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
     async def run_single(i: int, q: dict):
         query_text = q["query"]
         short = query_text[:80] + "..." if len(query_text) > 80 else query_text
+        tc_rows: list[dict] = []
 
         async with semaphore:
             print(f"[{i}/{len(pending)}] {short}")
@@ -209,6 +256,18 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
                     "tool_call_count": result.get("tool_call_count", 0),
                     "total_tokens": result.get("token_usage", {}).get("totals", {}).get("total_tokens", 0),
                 }
+
+                # Flatten tool calls into rows for the Tool Calls sheet
+                for idx, tc in enumerate(result.get("tool_calls", []), 1):
+                    tc_rows.append({
+                        "query": query_text,
+                        "tool_call_index": idx,
+                        "tool_id": tc.get("id", ""),
+                        "tool_name": tc.get("name", ""),
+                        "arguments": str(tc.get("arguments", "")),
+                        "output": str(tc.get("output", "")),
+                    })
+
                 status = "MATCH" if match else "NO MATCH"
                 print(f"  → [{i}/{len(pending)}] {status} | predicted: {predicted_id}")
 
@@ -229,8 +288,9 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1):
 
             async with save_lock:
                 results.append(row)
+                all_tool_calls.extend(tc_rows)
                 completed["count"] += 1
-                save_results(results, output_path)
+                save_results(results, all_tool_calls, output_path)
 
     tasks = [run_single(i, q) for i, q in enumerate(pending, 1)]
     await asyncio.gather(*tasks)
@@ -249,6 +309,8 @@ if __name__ == "__main__":
                         help="Agent configuration to use")
     parser.add_argument("--concurrency", type=int, default=1,
                         help="Number of queries to run in parallel (default: 1)")
+    parser.add_argument("--limit", type=int, default=None,
+                        help="Only process the first N pending queries (e.g. --limit 2 for a quick debug run)")
     args = parser.parse_args()
 
-    asyncio.run(batch_run(args.input, args.config, concurrency=args.concurrency))
+    asyncio.run(batch_run(args.input, args.config, concurrency=args.concurrency, limit=args.limit))
