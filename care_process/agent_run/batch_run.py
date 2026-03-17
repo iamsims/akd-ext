@@ -29,6 +29,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from statistics import mean, stdev
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
@@ -79,7 +80,7 @@ CONFIGS: dict[str, AgentConfig] = {
     ),
 }
 
-RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "v3" 
+RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "finalv_multiple_runs"
 
 
 def _git_info() -> dict:
@@ -259,23 +260,33 @@ def save_results(results: list[dict], all_tool_calls: list[dict], output_path: P
     wb.save(output_path)
 
 
-async def batch_run(input_path: str, config_name: str, concurrency: int = 1, limit: int | None = None):
+async def batch_run(
+    input_path: str,
+    config_name: str,
+    concurrency: int = 1,
+    limit: int | None = None,
+    run_id: int | None = None,
+    fresh: bool = False,
+):
     config = CONFIGS[config_name]
     queries = load_queries(input_path)
-    output_path = RESULTS_DIR / f"{config_name}.xlsx"
+    suffix = f"_run{run_id}" if run_id is not None else ""
+    output_path = RESULTS_DIR / f"{config_name}{suffix}.xlsx"
 
     # Save run config for reproducibility
     save_run_config(config_name, config, input_path, output_path, concurrency, limit)
 
-    # Resume support
-    already_done = load_existing_results(output_path)
-    if already_done:
-        print(f"Resuming: {len(already_done)} queries already processed, skipping them.")
+    # Resume support (disabled when fresh=True for independent multi-run)
+    already_done: set[str] = set()
+    if not fresh:
+        already_done = load_existing_results(output_path)
+        if already_done:
+            print(f"Resuming: {len(already_done)} queries already processed, skipping them.")
 
-    # Load existing results to preserve them
+    # Load existing results to preserve them (skip when fresh)
     results: list[dict] = []
     all_tool_calls: list[dict] = []
-    if output_path.exists():
+    if not fresh and output_path.exists():
         wb = openpyxl.load_workbook(output_path)
         ws = wb.active
         headers = [cell.value for cell in ws[1]]
@@ -386,6 +397,54 @@ async def batch_run(input_path: str, config_name: str, concurrency: int = 1, lim
 
 
 
+async def multi_batch_run(
+    input_path: str,
+    config_name: str,
+    num_runs: int = 3,
+    concurrency: int = 1,
+    limit: int | None = None,
+):
+    """Run batch_run() multiple times independently, then report recall@k mean/std."""
+    for run_id in range(1, num_runs + 1):
+        print(f"\n{'=' * 60}")
+        print(f"RUN {run_id}/{num_runs}")
+        print(f"{'=' * 60}\n")
+        await batch_run(input_path, config_name, concurrency, limit, run_id=run_id, fresh=True)
+
+    # Import recall helpers (same sys.path already set up at module level)
+    from calculate_top_k_recall import load_results, compute_top_k_recall
+
+    max_k = 10
+    recall_data: dict[int, list[float]] = {k: [] for k in range(1, max_k + 1)}
+
+    for run_id in range(1, num_runs + 1):
+        path = RESULTS_DIR / f"{config_name}_run{run_id}.xlsx"
+        results = load_results(path)
+        for k in range(1, max_k + 1):
+            hits, total = compute_top_k_recall(results, k)
+            recall_data[k].append(hits / total * 100 if total else 0.0)
+
+    # Print summary table
+    print(f"\n{'=' * 60}")
+    print(f"Recall@k Summary ({num_runs} runs)")
+    print(f"{'=' * 60}")
+    print(f"{'k':<5} {'mean':>8} {'std':>8}  per-run values")
+    print("-" * 60)
+
+    summary: dict[str, dict] = {}
+    for k in range(1, max_k + 1):
+        values = recall_data[k]
+        m = mean(values)
+        s = stdev(values) if len(values) > 1 else 0.0
+        summary[f"recall@{k}"] = {"mean": round(m, 2), "std": round(s, 2), "values": [round(v, 2) for v in values]}
+        print(f"{k:<5} {m:>7.1f}% {s:>7.1f}%  {values}")
+
+    summary_path = RESULTS_DIR / f"{config_name}_summary.json"
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(json.dumps(summary, indent=2))
+    print(f"\nSummary saved to: {summary_path}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Batch runner for PDS agent configurations")
     parser.add_argument("--input", required=True, help="Path to input spreadsheet with queries")
@@ -395,6 +454,11 @@ if __name__ == "__main__":
                         help="Number of queries to run in parallel (default: 1)")
     parser.add_argument("--limit", type=int, default=None,
                         help="Only process the first N pending queries (e.g. --limit 2 for a quick debug run)")
+    parser.add_argument("--num-runs", type=int, default=1,
+                        help="Number of independent runs (default: 1). When >1, runs N times and reports recall@k mean/std.")
     args = parser.parse_args()
 
-    asyncio.run(batch_run(args.input, args.config, concurrency=args.concurrency, limit=args.limit))
+    if args.num_runs > 1:
+        asyncio.run(multi_batch_run(args.input, args.config, num_runs=args.num_runs, concurrency=args.concurrency, limit=args.limit))
+    else:
+        asyncio.run(batch_run(args.input, args.config, concurrency=args.concurrency, limit=args.limit))

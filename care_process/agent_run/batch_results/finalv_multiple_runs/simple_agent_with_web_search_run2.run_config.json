@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-06T03:55:04.677042+00:00",
+  "git": {
+    "commit": "4752a77d1d00748f1a39fb3d441e6b7b8a9ae800",
+    "commit_short": "4752a77d",
+    "branch": "track/care-process",
+    "dirty": true
+  },
+  "config_name": "simple_agent_with_web_search",
+  "agent_config": {
+    "model": "gpt-5.2",
+    "reasoning_effort": "high",
+    "use_mcp_tools": false,
+    "use_web_search": true,
+    "timeout": 1800.0,
+    "system_prompt": "You are a Planetary Data System (PDS) dataset discovery agent.\n\nGiven a natural-language query from a user, find ALL PDS dataset identifiers that answer the query.\nReturn every relevant dataset ordered by relevance, with reasoning for each.\n"
+  },
+  "input_path": "batch_results/run_20260227_132012/results/results_spreadsheet.xlsx",
+  "output_path": "/Users/skc/Desktop/Work/Benchmarking-pds/claude_code_second_version/akd-ext/care_process/agent_run/batch_results/finalv_multiple_runs/simple_agent_with_web_search_run2.xlsx",
+  "concurrency": 10,
+  "limit": null
+}
