@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+# Must come before local imports so `utils` and `prompts` are findable from any cwd
+sys.path.insert(0, str(Path(__file__).resolve().parent))          # agent_run/
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))   # care_process/
+
 from agents import Agent, ModelSettings, Runner, RunConfig, WebSearchTool, trace, set_default_openai_client
 from pydantic import BaseModel, Field
 from openai import AsyncOpenAI
@@ -9,7 +16,6 @@ import os
 import json
 
 dotenv.load_dotenv()
-
 
 # ---------------------------------------------------------------------------
 # Default output schema (used when caller doesn't provide one)
@@ -148,6 +154,43 @@ async def run(query: str, config: AgentConfig | None = None) -> dict:
 
 
 # ---------------------------------------------------------------------------
+# Preset configs (mirrors batch_run_v2.CONFIGS)
+# ---------------------------------------------------------------------------
+
+from prompts.simple_agent_with_tools import simple_agent_with_tools_prompt
+from prompts.care_agent import care_prompt
+
+CONFIGS: dict[str, AgentConfig] = {
+    "simple_agent_with_tools": AgentConfig(
+        system_prompt=simple_agent_with_tools_prompt,
+        use_mcp_tools=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "care_agent_with_tools": AgentConfig(
+        system_prompt=care_prompt,
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    "simple_agent_with_tools_web_search": AgentConfig(
+        system_prompt=simple_agent_with_tools_prompt,
+        use_mcp_tools=True,
+        use_web_search=True,
+        model="gpt-5.2",
+        reasoning_effort="high",
+    ),
+    # simple agent without tools
+        "simple_agent_no_tools": AgentConfig(
+            system_prompt=simple_agent_with_tools_prompt,
+            use_mcp_tools=False,
+            model="gpt-5.2",
+            reasoning_effort="high",
+        ),
+}
+
+# ---------------------------------------------------------------------------
 # CLI entry point for quick standalone testing
 # ---------------------------------------------------------------------------
 
@@ -157,7 +200,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="PDS Dataset Discovery Agent")
     parser.add_argument("query", nargs="?",
-                        default="Find calibrated MRO CRISM targeted observations of Mars from 2007")
+                        default="Are ammoniated phyllosilicates restricted to a few special regions on Ceres or are they widespread? How does this compare to organic materials?")
+    parser.add_argument("--config", default=None, choices=list(CONFIGS.keys()),
+                        help="Use a preset config (overrides --no-tools, --web-search, --model, --reasoning-effort)")
     parser.add_argument("--no-tools", action="store_true",
                         help="Run without MCP tools")
     parser.add_argument("--web-search", action="store_true", default=False,
@@ -167,11 +212,17 @@ if __name__ == "__main__":
                         choices=["low", "medium", "high"])
     args = parser.parse_args()
 
-    config = AgentConfig(
-        use_mcp_tools=not args.no_tools,
-        use_web_search=args.web_search,
-        model=args.model,
-        reasoning_effort=args.reasoning_effort,
-    )
+    # if args.query is None:
+        # query = "Are ammoniated phyllosilicates restricted to a few special regions on Ceres or are they widespread? How does this compare to organic materials?"
+    if args.config:
+        config = CONFIGS[args.config]
+    else:
+        config = AgentConfig(
+            system_prompt=simple_agent_with_tools_prompt,
+            use_mcp_tools=not args.no_tools,
+            use_web_search=args.web_search,
+            model=args.model,
+            reasoning_effort=args.reasoning_effort,
+        )
     result = asyncio.run(run(args.query, config))
     print(json.dumps(result, indent=2, default=str))

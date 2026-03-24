@@ -8,7 +8,7 @@ def make_mcp_tool() -> HostedMCPTool:
     return HostedMCPTool(tool_config={
         "type": "mcp",
         "server_label": "pds_mcp_server",
-        "server_url": "https://complex-chocolate-python.fastmcp.app/mcp",
+        "server_url": "https://natural-bronze-stingray.fastmcp.app/mcp",
         "authorization": os.getenv("FAST_MCP_AUTH"),
         "allowed_tools": [
             "img_count_tool",
