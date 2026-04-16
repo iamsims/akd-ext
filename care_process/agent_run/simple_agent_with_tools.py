@@ -71,13 +71,17 @@ class CareDatasetResults(BaseModel):
 @dataclass
 class AgentConfig:
     """Configuration for the PDS agent. Pass a custom prompt / output_type / tools flag."""
-    system_prompt: str 
+    system_prompt: str
     use_mcp_tools: bool = True
     use_web_search: bool = False
     output_type: type[BaseModel] | None = None   # None → uses DatasetResults
     model: str = "gpt-5.2"
     reasoning_effort: str = "high"
     timeout: float = 1800.0
+    # Which PDS MCP tool categories to expose when use_mcp_tools is True.
+    # Any combination of "pds_catalog", "pds4", "node_specific".
+    # None → all categories (preserves original behavior).
+    tool_categories: list[str] | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -86,7 +90,7 @@ class AgentConfig:
 
 def build_agent(config: AgentConfig) -> Agent:
     """Build an Agent instance from the given config."""
-    tools = [make_mcp_tool()] if config.use_mcp_tools else []
+    tools = [make_mcp_tool(tool_categories=config.tool_categories)] if config.use_mcp_tools else []
     if config.use_web_search:
         tools.append(WebSearchTool(search_context_size="medium"))
     output_type = config.output_type or DatasetResults

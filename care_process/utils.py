@@ -3,46 +3,100 @@ from agents.items import ToolCallItem, ToolCallOutputItem
 import os
 
 
-def make_mcp_tool() -> HostedMCPTool:
-    """Create the standard PDS MCP hosted tool with the full allowed_tools list."""
+# ---------------------------------------------------------------------------
+# PDS MCP tool catalog, grouped by category
+# ---------------------------------------------------------------------------
+# Three logical categories:
+#   - "pds_catalog"  : breadth catalog tools scraped from the PDS website
+#   - "pds4"         : PDS4 registry / standards-based search tools
+#   - "node_specific": per-node services (IMG, ODE/GEO, OPUS/RMS, SBN)
+#
+# Adding a new tool? Put its exact name in exactly one of these lists.
+PDS_TOOL_CATEGORIES: dict[str, list[str]] = {
+    "pds_catalog": [
+        "pds_catalog_get_dataset_tool",
+        "pds_catalog_list_missions_tool",
+        "pds_catalog_list_targets_tool",
+        "pds_catalog_search_tool",
+        "pds_catalog_stats_tool",
+    ],
+    "pds4": [
+        "pds4crawl_context_product_tool",
+        "pds4get_product_tool",
+        "pds4search_bundles_tool",
+        "pds4search_collections_tool",
+        "pds4search_instrument_hosts_tool",
+        "pds4search_instruments_tool",
+        "pds4search_investigations_tool",
+        "pds4search_products_tool",
+        "pds4search_targets_tool",
+    ],
+    "node_specific": [
+        # IMG node
+        "img_count_tool",
+        "img_get_facets_tool",
+        "img_get_product_tool",
+        "img_search_tool",
+        # ODE (GEO) node
+        "ode_count_products_tool",
+        "ode_get_feature_bounds_tool",
+        "ode_list_feature_classes_tool",
+        "ode_list_feature_names_tool",
+        "ode_list_instruments_tool",
+        "ode_search_products_tool",
+        # OPUS (RMS) node
+        "opus_count_tool",
+        "opus_get_files_tool",
+        "opus_get_metadata_tool",
+        "opus_search_tool",
+        # SBN node
+        "sbn_list_sources_tool",
+        "sbn_search_coordinates_tool",
+        "sbn_search_object_tool",
+    ],
+}
+
+ALL_TOOL_CATEGORIES: tuple[str, ...] = tuple(PDS_TOOL_CATEGORIES.keys())
+
+
+def resolve_tool_names(tool_categories: list[str] | tuple[str, ...] | None) -> list[str]:
+    """Flatten a list of category names into the underlying tool names.
+
+    ``None`` (the default) returns every tool across every category, preserving
+    the original ordering from ``PDS_TOOL_CATEGORIES``. Unknown category names
+    raise ``ValueError`` so typos fail fast instead of silently disabling tools.
+    """
+    if tool_categories is None:
+        categories: list[str] = list(ALL_TOOL_CATEGORIES)
+    else:
+        categories = list(tool_categories)
+
+    unknown = [c for c in categories if c not in PDS_TOOL_CATEGORIES]
+    if unknown:
+        raise ValueError(
+            f"Unknown tool categories: {unknown}. "
+            f"Valid options: {list(ALL_TOOL_CATEGORIES)}"
+        )
+
+    names: list[str] = []
+    for category in categories:
+        names.extend(PDS_TOOL_CATEGORIES[category])
+    return names
+
+
+def make_mcp_tool(tool_categories: list[str] | tuple[str, ...] | None = None) -> HostedMCPTool:
+    """Create the standard PDS MCP hosted tool.
+
+    ``tool_categories`` selects which subsets of the allowed tool list to expose.
+    Pass any combination of ``"pds_catalog"``, ``"pds4"``, and ``"node_specific"``.
+    ``None`` (default) enables every tool, matching prior behavior.
+    """
     return HostedMCPTool(tool_config={
         "type": "mcp",
         "server_label": "pds_mcp_server",
         "server_url": "https://natural-bronze-stingray.fastmcp.app/mcp",
         "authorization": os.getenv("FAST_MCP_AUTH"),
-        "allowed_tools": [
-            "img_count_tool",
-            "img_get_facets_tool",
-            "img_get_product_tool",
-            "img_search_tool",
-            "ode_count_products_tool",
-            "ode_get_feature_bounds_tool",
-            "ode_list_feature_classes_tool",
-            "ode_list_feature_names_tool",
-            "ode_list_instruments_tool",
-            "ode_search_products_tool",
-            "opus_count_tool",
-            "opus_get_files_tool",
-            "opus_get_metadata_tool",
-            "opus_search_tool",
-            "pds4crawl_context_product_tool",
-            "pds4get_product_tool",
-            "pds4search_bundles_tool",
-            "pds4search_collections_tool",
-            "pds4search_instrument_hosts_tool",
-            "pds4search_instruments_tool",
-            "pds4search_investigations_tool",
-            "pds4search_products_tool",
-            "pds4search_targets_tool",
-            "pds_catalog_get_dataset_tool",
-            "pds_catalog_list_missions_tool",
-            "pds_catalog_list_targets_tool",
-            "pds_catalog_search_tool",
-            "pds_catalog_stats_tool",
-            "sbn_list_sources_tool",
-            "sbn_search_coordinates_tool",
-            "sbn_search_object_tool",
-        ],
+        "allowed_tools": resolve_tool_names(tool_categories),
         "require_approval": "never",
     })
 

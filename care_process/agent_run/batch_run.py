@@ -78,9 +78,65 @@ CONFIGS: dict[str, AgentConfig] = {
         model="gpt-5.2",
         reasoning_effort="high",
     ),
+    # ---- Category-scoped CARE agent variants ----
+    # Single-category ablations
+    "care_agent_catalog_only": AgentConfig(
+        system_prompt=care_prompt,
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["pds_catalog"],
+    ),
+    "care_agent_pds4_only": AgentConfig(
+        system_prompt=care_prompt,
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["pds4"],
+    ),
+    "care_agent_node_only": AgentConfig(
+        system_prompt=care_prompt + "\n Note: PDS4_MCP and PDS_CATALOG_MCP are unavailable in this run; work with node-specific tools instead",
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["node_specific"],
+    ),
+    # Pairwise combinations
+    "care_agent_catalog_and_pds4": AgentConfig(
+        system_prompt=care_prompt + "\n Note: Node-specific tools are unavailable in this run; work with PDS_CATALOG_MCP and PDS4_MCP instead",
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["pds_catalog", "pds4"],
+    ),
+    "care_agent_catalog_and_node": AgentConfig(
+        system_prompt=care_prompt + "\n Note: PDS4_MCP is unavailable in this run; work with PDS4_CATALOG_MCP instead",
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["pds_catalog", "node_specific"],
+    ),
+    "care_agent_pds4_and_node": AgentConfig(
+        system_prompt=care_prompt + "\n Note: PDS_CATALOG_MCP is unavailable in this run; work with PDS4_MCP instead",
+        use_mcp_tools=True,
+        output_type=CareDatasetResults,
+        model="gpt-5.2",
+        reasoning_effort="high",
+        tool_categories=["pds4", "node_specific"],
+    ),
 }
 
-RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "finalv_multiple_runs"
+
+# one with only api, 
+# one with api + tools + catalog (scraped data) tool 
+# one with api + tools
+
+RESULTS_DIR = Path(__file__).resolve().parent / "batch_results" / "tool_comparision_benchmark"
 
 
 def _git_info() -> dict:
@@ -124,6 +180,7 @@ def save_run_config(
             "reasoning_effort": config.reasoning_effort,
             "use_mcp_tools": config.use_mcp_tools,
             "use_web_search": config.use_web_search,
+            "tool_categories": config.tool_categories,
             "timeout": config.timeout,
             "system_prompt": config.system_prompt,
         },
