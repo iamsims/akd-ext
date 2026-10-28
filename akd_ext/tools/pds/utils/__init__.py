@@ -4,7 +4,6 @@ from akd_ext.tools.pds.utils.img_client import IMGAtlasClient, IMGAtlasClientErr
 from akd_ext.tools.pds.utils.ode_client import ODEClient, ODEClientError, ODERateLimitError
 from akd_ext.tools.pds.utils.opus_client import OPUSClient, OPUSClientError, OPUSRateLimitError
 from akd_ext.tools.pds.utils.pds4_client import PDS4Client, PDS4ClientError, PDS4RateLimitError
-from akd_ext.tools.pds.utils.pds_catalog_client import PDSCatalogClient, PDSCatalogClientError
 from akd_ext.tools.pds.utils.sbn_client import (
     SBNCatchClient,
     SBNCatchClientError,
@@ -25,8 +24,6 @@ __all__ = [
     "PDS4Client",
     "PDS4ClientError",
     "PDS4RateLimitError",
-    "PDSCatalogClient",
-    "PDSCatalogClientError",
     "SBNCatchClient",
     "SBNCatchClientError",
     "SBNCatchJobError",

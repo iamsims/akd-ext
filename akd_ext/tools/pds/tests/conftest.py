@@ -72,8 +72,8 @@ for f in sorted((PDS_ROOT / "utils").glob("*.py")):
     if mod:
         setattr(utils, f.stem, mod)
 
-# ── Step 4: load sub-packages (opus, ode, img, sbn, pds4, pds_catalog) ──
-for pkg in ["opus", "ode", "img", "sbn", "pds4", "pds_catalog"]:
+# ── Step 4: load sub-packages (opus, ode, img, sbn, pds4) ──
+for pkg in ["opus", "ode", "img", "sbn", "pds4"]:
     pkg_dir = PDS_ROOT / pkg
     if not pkg_dir.is_dir():
         continue

@@ -5,7 +5,6 @@ This module contains all PDS-related tools for accessing various planetary data 
 - ODE: Orbital Data Explorer for planetary data access
 - OPUS: Outer Planets Unified Search
 - PDS4: NASA Planetary Data System Registry API
-- PDS Catalog: Pre-scraped PDS datasets
 - SBN: SBN CATCH for comet and asteroid observations
 """
 
@@ -38,32 +37,6 @@ from akd_ext.tools.pds.pds4 import (
     PDS4SearchTargetsInputSchema,
     PDS4SearchTargetsOutputSchema,
     PDS4SearchTargetsTool,
-)
-
-# PDS Catalog Tools
-from akd_ext.tools.pds.pds_catalog import (
-    PDSCatalogGetDatasetInputSchema,
-    PDSCatalogGetDatasetOutputSchema,
-    PDSCatalogGetDatasetTool,
-    PDSCatalogGetDatasetToolConfig,
-    PDSCatalogListMissionsInputSchema,
-    PDSCatalogListMissionsOutputSchema,
-    PDSCatalogListMissionsTool,
-    PDSCatalogListMissionsToolConfig,
-    PDSCatalogListTargetsInputSchema,
-    PDSCatalogListTargetsOutputSchema,
-    PDSCatalogListTargetsTool,
-    PDSCatalogListTargetsToolConfig,
-    PDSCatalogMissionItem,
-    PDSCatalogSearchInputSchema,
-    PDSCatalogSearchOutputSchema,
-    PDSCatalogSearchTool,
-    PDSCatalogSearchToolConfig,
-    PDSCatalogStatsInputSchema,
-    PDSCatalogStatsOutputSchema,
-    PDSCatalogStatsTool,
-    PDSCatalogStatsToolConfig,
-    PDSCatalogTargetItem,
 )
 
 # ODE Tools
@@ -185,29 +158,6 @@ __all__ = [
     "PDS4GetProductTool",
     "PDS4GetProductInputSchema",
     "PDS4GetProductOutputSchema",
-    # PDS Catalog Tools
-    "PDSCatalogSearchTool",
-    "PDSCatalogSearchInputSchema",
-    "PDSCatalogSearchOutputSchema",
-    "PDSCatalogSearchToolConfig",
-    "PDSCatalogGetDatasetTool",
-    "PDSCatalogGetDatasetInputSchema",
-    "PDSCatalogGetDatasetOutputSchema",
-    "PDSCatalogGetDatasetToolConfig",
-    "PDSCatalogListMissionsTool",
-    "PDSCatalogListMissionsInputSchema",
-    "PDSCatalogListMissionsOutputSchema",
-    "PDSCatalogListMissionsToolConfig",
-    "PDSCatalogMissionItem",
-    "PDSCatalogListTargetsTool",
-    "PDSCatalogListTargetsInputSchema",
-    "PDSCatalogListTargetsOutputSchema",
-    "PDSCatalogListTargetsToolConfig",
-    "PDSCatalogTargetItem",
-    "PDSCatalogStatsTool",
-    "PDSCatalogStatsInputSchema",
-    "PDSCatalogStatsOutputSchema",
-    "PDSCatalogStatsToolConfig",
     # ODE Tools
     "ODECountProductsTool",
     "ODECountProductsInputSchema",
